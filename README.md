@@ -1,4 +1,4 @@
-# TRACKSTAR
+# CPSC 471
 
 ## System Requirements
 > 1 </br>
