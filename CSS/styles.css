@@ -1,3 +1,8 @@
+body
+{
+    margin: 0;
+}
+
 .user-text
 {
     resize: none;
@@ -7,10 +12,76 @@
     margin-top: 15px;
     width:  40%;
     rows: 1;
-   
-    
-    
 }
+
+.header
+{
+    width: 100%;
+    text-align: center; 
+    height:44px;  
+    background-color: #3c454f;
+    overflow: hidden;
+}
+
+.header-info
+{
+    font-size: 17px;
+    float: right;
+    padding: 10px 15px 9px 15px !important;
+   
+    font-family: 'Source Sans Pro', sans-serif;
+    font-weight: bold;
+    
+   
+}
+
+.header-img
+{
+    width: 44px;
+    margin-left: 20px;
+    float: left;
+    filter: invert();
+}
+
+
+.header-link-1
+{
+    text-decoration: none;
+    padding: 25px;
+    color: rgb(255, 255, 255);
+    background-color: rgba(0, 136, 107, 0.768);
+    cursor: pointer;
+}
+
+.header-link-2
+{
+    text-decoration: none;
+    color: rgb(255, 255, 255);
+ 
+    padding: 20px;
+    cursor: pointer;
+   
+}
+
+.header-link-3
+{
+    color: rgb(255, 255, 255);
+    
+    text-decoration: none;
+    padding: 20px;
+    cursor: pointer;
+}
+
+.header-link-2:hover, .header-link-3:hover
+{
+    background-color: rgb(53, 48, 48);
+}
+
+.header-img:hover
+{
+    filter: invert(0.5);
+}
+
 
 .login-button
 {
