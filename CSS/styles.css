@@ -24,6 +24,22 @@ body
     
 }
 
+table
+{
+    margin: 40px;
+    border: 1px black solid;
+    empty-cells: show;
+    font-size: 15px;
+    overflow: scroll;
+}
+
+th
+{
+    height: 20px;
+    width: 60px;
+    border: 1px black solid;
+}
+
 .header-info
 {
     font-size: 17px;
@@ -135,7 +151,7 @@ body
     height: 400px;
     margin: 50px;
     margin-left: 10%;
-    background-color: grey;
+    
     display: inline-block;
     border: 2px black solid;
     border-radius: 5%;
@@ -174,7 +190,7 @@ body
 {
     width: 300px;
     height: 400px;
-    background-color: grey;
+  
     margin: 50px;
     display: inline-block;
     border: 2px black solid;
