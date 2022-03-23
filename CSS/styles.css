@@ -17,11 +17,12 @@ body
 .header
 {
     width: 100%;
+    position: fixed;
     text-align: center; 
     height:44px;  
     background-color: #3c454f;
     overflow: hidden;
-    
+   
 }
 
 table
