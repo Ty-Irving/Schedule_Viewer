@@ -27,7 +27,7 @@ body
 
 table
 {
-    margin: 40px;
+
     border: 1px black solid;
     empty-cells: show;
     font-size: 15px;
@@ -53,6 +53,56 @@ th
    
 }
 
+.request-img
+{
+    width: 65px;
+    height: 65px;
+    bottom: 0;
+    right: 0;
+    margin: 10px;
+    position: fixed;
+}
+
+.txtbox-request
+{
+    margin-left: 15px;
+    margin-top: 10px;
+    resize: none;
+    width: 80%;
+   
+}
+
+
+.request-box
+{
+    bottom: 0;
+    right: 0;
+    position: fixed;
+    margin-right: 50px;
+    margin-bottom: 15px;
+    height: 250px;
+    width: 200px;
+    background-color: #3c454f;
+    color: white;
+    font-weight: bold;
+}
+
+.request-img:hover
+{
+    cursor: pointer;
+}
+
+.builder-startup
+{
+    padding-top: 20%;
+    padding-left: 40%;
+}
+
+.builder-content
+{
+    padding-left: 30.75%;
+
+}
 .header-img
 {
     width: 44px;
@@ -127,6 +177,8 @@ th
 {
     height: 100%;
 }
+
+
 
 .bg 
 {
