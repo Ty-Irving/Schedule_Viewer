@@ -63,28 +63,67 @@ th
     position: fixed;
 }
 
-.txtbox-request
+.request-box textarea
 {
     margin-left: 15px;
     margin-top: 10px;
     resize: none;
-    width: 80%;
+    width: 88%;
+    min-height: 200px;
+    margin-bottom: 10px;
    
 }
 
+.request-box-header
+{
+    margin-left: 15px;
+    font-size: 25px;
+    margin-bottom: 5px;
+    margin-top: 10px;
+}
+
+.request-box input
+{
+    width: 87%;
+    margin-left: 15px;
+}
 
 .request-box
 {
+    border: black 1px;
     bottom: 0;
     right: 0;
     position: fixed;
-    margin-right: 50px;
+    margin-right: 15px;
     margin-bottom: 15px;
-    height: 250px;
-    width: 200px;
+    height: 400px;
+    max-width: 300px;
     background-color: #3c454f;
     color: white;
     font-weight: bold;
+}
+
+.request-box .btn 
+{
+    background-color: #04AA6D;
+    color: white;
+    padding: 10px 20px;
+    margin-left: 15px;
+    border: none;
+    cursor: pointer;
+    width: 90%;
+    margin-bottom: 10px;
+    opacity: 0.8;
+}
+
+.request-box .btn:hover
+{
+    opacity: 1;
+}
+
+.request-box .cancel
+{
+    background-color: red;
 }
 
 .request-img:hover
@@ -94,13 +133,70 @@ th
 
 .builder-startup
 {
-    padding-top: 20%;
-    padding-left: 40%;
+    padding-top: 15%;
+    
 }
+
+.builder-startup-content input
+{
+    width: 88%;
+    margin: 15px;
+    margin-top: 5px;
+}
+
+.builder-startup-content
+{
+    margin-right: auto;
+    margin-left: auto;
+    width: 300px;
+    min-width: 300px;
+    height: 400px;
+    background-color: #3c454f;
+    border: black 1px solid;
+}
+
+.builder-startup-content p 
+{
+    margin-top: 50px;
+    color: white;
+    margin-left: 25%;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.builder-startup-content img
+{
+    width: 60px;
+    height: 60px;
+    margin-top: 30px;
+    margin-left: 40%;
+}
+
+.builder-startup-content button
+{
+    width: 90%;
+    margin-left: 15px;
+    padding: 10px;
+    opacity: 0.8;
+    background-color: #04AA6D;
+    border: none;
+    color: white;
+    font-weight: bold;
+    margin-top: 15px;
+    
+}
+
+.builder-startup-content button:hover
+{
+    opacity: 1;
+    cursor: pointer;
+}
+
 
 .builder-content
 {
     padding-left: 30.75%;
+    visibility: hidden;
 
 }
 .header-img
