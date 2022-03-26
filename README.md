@@ -19,7 +19,10 @@
 </br>
 
 
-## Contributors
+## Contributors and Credit
 Richard Gingrich </br>
 Ty Irving </br>
 Roberto Zaghini </br>
+
+</br>
+index.html photo credit: http://121clicks.com/wp-content/uploads/2012/08/beautiful_landscape_best_08.jpg </br>
