@@ -4,15 +4,15 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel = "stylesheet" href = "/CSS/styles.css"/>
+    <link rel = "stylesheet" href = "../CSS/styles.css"/>
     <title>Schedule Viewer</title>
 </head>
 <body>
     <div class = "header">
-        <a href = "/HTML/schedule_view.html"><img class = "header-img" src = "https://cdn.iconscout.com/icon/free/png-256/timer-83-470366.png"></a>
+        <a href = "../HTML/schedule_view.html"><img class = "header-img" src = "https://cdn.iconscout.com/icon/free/png-256/timer-83-470366.png"></a>
         <div class = "header-info">
-            <a class = "header-link-1" style = "background-color: rgba(0, 136, 107, 0.768)" href = "/HTML/schedule_view.html">SCHEDULE VIEW
-            </a><a class = "header-link-3" href = "/HTML/index.html">LOGOUT</a>
+            <a class = "header-link-1" style = "background-color: rgba(0, 136, 107, 0.768)" href = "../HTML/schedule_view.html">SCHEDULE VIEW
+            </a><a class = "header-link-3" href = "../HTML/index.html">LOGOUT</a>
         </div>
     </div>
     <div class = "content-box">
@@ -98,3 +98,118 @@
     </div>
 </body>
 </html>
+
+
+
+<style type="text/css">
+    
+    .request-img {
+        width: 65px;
+        height: 65px;
+        bottom: 0;
+        right: 0;
+        margin: 10px;
+        position: fixed;
+    }
+
+    .request-img:hover {
+        cursor: pointer;
+    }
+
+    .request-box textarea {
+        margin-left: 15px;
+        margin-top: 10px;
+        resize: none;
+        width: 88%;
+        min-height: 200px;
+        margin-bottom: 10px;
+       
+    }
+    
+    .request-box-header {
+        margin-left: 15px;
+        font-size: 25px;
+        margin-bottom: 5px;
+        margin-top: 10px;
+    }
+    
+    .request-box input {
+        width: 87%;
+        margin-left: 15px;
+    }
+    
+    .request-box {
+        border: black 1px;
+        bottom: 0;
+        right: 0;
+        position: fixed;
+        margin-right: 15px;
+        margin-bottom: 15px;
+        height: 400px;
+        max-width: 300px;
+        background-color: #3c454f;
+        color: white;
+        font-weight: bold;
+    }
+    
+    .request-box .btn {
+        background-color: #04AA6D;
+        color: white;
+        padding: 10px 20px;
+        margin-left: 15px;
+        border: none;
+        cursor: pointer;
+        width: 90%;
+        margin-bottom: 10px;
+        opacity: 0.8;
+    }
+    
+    .request-box .btn:hover {
+        opacity: 1;
+    }
+    
+    .request-box .cancel {
+        background-color: red;
+    }
+
+    .invoice-view {
+        width: 300px;
+        height: 400px;
+        margin: 50px;
+        display: inline-block;
+        border: 2px black solid;
+        border-radius: 5%;
+    }
+
+    .schedule-view {
+        width: 600px;
+        height: 400px;
+        margin: 50px;
+        margin-left: 10%;
+        display: inline-block;
+        border: 2px black solid;
+        border-radius: 5%;
+    }
+
+
+    .invoice-list {   
+        margin-top: 30px;
+        list-style: none;
+        list-style-type: none;
+        padding: 0;
+    }
+
+    .expected-pay {
+        font-size: 20px;
+        margin-left: auto;
+        margin-right: auto;
+        text-align: center;
+        margin-top: 20%;
+        font-weight: bold;
+    }
+
+
+
+
+
+</style>
