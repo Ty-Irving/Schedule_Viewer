@@ -22,7 +22,7 @@
             <p class = "request-box-header">Make Request</p>
             <input type="text" placeholder = "Type employee ID...">
             <textarea id="" cols="20" rows="8" placeholder="Type request..."></textarea>
-            <button class = "btn"></script>SUBMIT</button>
+            <button class = "btn" onclick="hideRequestPrompt()"></script>SUBMIT</button>
             <button class = "btn cancel" onclick="hideRequestPrompt()">CLOSE</button>
         </div>
 
@@ -105,24 +105,25 @@
 
     function hideRequestPrompt()
     {
-        REQUEST_PROMPT.style.visibility='hidden';
+        REQUEST_PROMPT.style.display='none';
         showRequestImg();
     }
 
     function showRequestPrompt()
     {
-        REQUEST_PROMPT.style.visibility="visible";
+        REQUEST_PROMPT.style.display="inline";
         hideRequestImg();
     }
 
     function hideRequestImg()
     {
-        REQUEST_IMG.style.visibility="hidden";
+        REQUEST_IMG.style.display="none";
     }
 
     function showRequestImg()
     {
-        REQUEST_IMG.style.visibility="visible";
+        REQUEST_IMG.style.display="inline";
+        
     }
 </script>
 
@@ -175,7 +176,7 @@
         background-color: #3c454f;
         color: white;
         font-weight: bold;
-        visibility: hidden;
+        display: none;
     }
     
     .request-box .btn {
