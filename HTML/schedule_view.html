@@ -4,78 +4,78 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel = "stylesheet" href = "/CSS/styles.css"/>
+    <link rel = "stylesheet" href = "../CSS/styles.css"/>
     <title>Schedule Viewer</title>
 </head>
 <body>
     <div class = "header">
-        <a href = "/HTML/schedule_view.html"><img class = "header-img" src = "https://cdn.iconscout.com/icon/free/png-256/timer-83-470366.png"></a>
+        <a href = "../HTML/schedule_view.html"><img class = "header-img" src = "https://cdn.iconscout.com/icon/free/png-256/timer-83-470366.png"></a>
         <div class = "header-info">
-            <a class = "header-link-1" style = "background-color: rgba(0, 136, 107, 0.768)" href = "/HTML/schedule_view.html">SCHEDULE VIEW
-            </a><a class = "header-link-3" href = "/HTML/index.html">LOGOUT</a>
+            <a class = "header-link-1" style = "background-color: rgba(0, 136, 107, 0.768)" href = "../HTML/schedule_view.html">SCHEDULE VIEW
+            </a><a class = "header-link-3" href = "../HTML/index.html">LOGOUT</a>
         </div>
     </div>
     <div class = "content-box">
-        <img src = "https://www.kindpng.com/picc/m/111-1110791_ironicmeme-ironic-png-sunglasses-emoji-smileyface-ironic-meme.png" class = "request-img">
+        <img src = "https://www.kindpng.com/picc/m/111-1110791_ironicmeme-ironic-png-sunglasses-emoji-smileyface-ironic-meme.png" class = "request-img" onclick="showRequestPrompt()" id="request_img">
         
-        <div class = "request-box">
+        <div class = "request-box" id="request_box">
             <p class = "request-box-header">Make Request</p>
             <input type="text" placeholder = "Type employee ID...">
             <textarea id="" cols="20" rows="8" placeholder="Type request..."></textarea>
             <button class = "btn"></script>SUBMIT</button>
-            <button class = "btn cancel">CLOSE</button>
+            <button class = "btn cancel" onclick="hideRequestPrompt()">CLOSE</button>
         </div>
 
         <div class = "schedule-view">
-            
-            <table class = "hours">
-                <tr>
-                    <th></th>
-                    <th>S</th>
-                    <th>M</th>
-                    <th>T</th>
-                    <th>W</th>
-                    <th>T</th>
-                    <th>F</th>
-                    <th>S</th>
-                </tr>
-                <tr>
-                    <th>8:00AM</th><th></th><th></th><th></th><th></th><th></th><th></th><th></th>
-                </tr>
-                <tr>
-                    <th>9:00AM</th><th></th><th></th><th></th><th></th><th></th><th></th><th></th>
-                </tr>
-                <tr>
-                    <th>10:00AM</th><th></th><th></th><th></th><th></th><th></th><th></th><th></th>
-                </tr>
-                <tr>
-                    <th>11:00AM</th><th></th><th></th><th></th><th></th><th></th><th></th><th></th>
-                </tr>
-                <tr>
-                    <th>12:00AM</th><th></th><th></th><th></th><th></th><th></th><th></th><th></th>
-                </tr>
-                <tr>
-                    <th>1:00PM</th><th></th><th></th><th></th><th></th><th></th><th></th><th></th>
-                </tr>
-                <tr>
-                    <th>2:00PM</th><th></th><th></th><th></th><th></th><th></th><th></th><th></th>
-                </tr>
-                <tr>
-                    <th>3:00PM</th><th></th><th></th><th></th><th></th><th></th><th></th><th></th>
-                </tr>
-                <tr>
-                    <th>4:00PM</th><th></th><th></th><th></th><th></th><th></th><th></th><th></th>
-                </tr>
-                <tr>
-                    <th>5:00PM</th><th></th><th></th><th></th><th></th><th></th><th></th><th></th>
-                </tr>
-                <tr>
-                    <th>6:00PM</th><th></th><th></th><th></th><th></th><th></th><th></th><th></th>
-                </tr>
-                
-                
-            </table>
-
+            <div>
+                <table class = "hours">
+                    <tr>
+                        <th></th>
+                        <th>S</th>
+                        <th>M</th>
+                        <th>T</th>
+                        <th>W</th>
+                        <th>T</th>
+                        <th>F</th>
+                        <th>S</th>
+                    </tr>
+                    <tr>
+                        <th>8:00AM</th><th></th><th></th><th></th><th></th><th></th><th></th><th></th>
+                    </tr>
+                    <tr>
+                        <th>9:00AM</th><th></th><th></th><th></th><th></th><th></th><th></th><th></th>
+                    </tr>
+                    <tr>
+                        <th>10:00AM</th><th></th><th></th><th></th><th></th><th></th><th></th><th></th>
+                    </tr>
+                    <tr>
+                        <th>11:00AM</th><th></th><th></th><th></th><th></th><th></th><th></th><th></th>
+                    </tr>
+                    <tr>
+                        <th>12:00AM</th><th></th><th></th><th></th><th></th><th></th><th></th><th></th>
+                    </tr>
+                    <tr>
+                        <th>1:00PM</th><th></th><th></th><th></th><th></th><th></th><th></th><th></th>
+                    </tr>
+                    <tr>
+                        <th>2:00PM</th><th></th><th></th><th></th><th></th><th></th><th></th><th></th>
+                    </tr>
+                    <tr>
+                        <th>3:00PM</th><th></th><th></th><th></th><th></th><th></th><th></th><th></th>
+                    </tr>
+                    <tr>
+                        <th>4:00PM</th><th></th><th></th><th></th><th></th><th></th><th></th><th></th>
+                    </tr>
+                    <tr>
+                        <th>5:00PM</th><th></th><th></th><th></th><th></th><th></th><th></th><th></th>
+                    </tr>
+                    <tr>
+                        <th>6:00PM</th><th></th><th></th><th></th><th></th><th></th><th></th><th></th>
+                    </tr>
+                    
+                    
+                </table>
+            </div>
         </div>
         <div class = "invoice-view">
             <div class = "invoice-content">
@@ -98,3 +98,153 @@
     </div>
 </body>
 </html>
+
+<script type="text/javascript">
+    const REQUEST_PROMPT = document.getElementById("request_box");
+    const REQUEST_IMG = document.getElementById("request_img");
+
+    function hideRequestPrompt()
+    {
+        REQUEST_PROMPT.style.display='none';
+        showRequestImg();
+    }
+
+    function showRequestPrompt()
+    {
+        REQUEST_PROMPT.style.display="inline";
+        hideRequestImg();
+    }
+
+    function hideRequestImg()
+    {
+        REQUEST_IMG.style.display="none";
+    }
+
+    function showRequestImg()
+    {
+        REQUEST_IMG.style.display="inline";
+    }
+</script>
+
+<style type="text/css">
+    
+    .request-img {
+        width: 65px;
+        height: 65px;
+        bottom: 0;
+        right: 0;
+        margin: 10px;
+        position: fixed;
+    }
+
+    .request-img:hover {
+        cursor: pointer;
+    }
+
+    .request-box textarea {
+        margin-left: 15px;
+        margin-top: 10px;
+        resize: none;
+        width: 88%;
+        min-height: 200px;
+        margin-bottom: 10px;
+       
+    }
+    
+    .request-box-header {
+        margin-left: 15px;
+        font-size: 25px;
+        margin-bottom: 5px;
+        margin-top: 10px;
+    }
+    
+    .request-box input {
+        width: 87%;
+        margin-left: 15px;
+    }
+    
+    .request-box {
+        border: black 1px;
+        bottom: 0;
+        right: 0;
+        position: fixed;
+        margin-right: 15px;
+        margin-bottom: 15px;
+        height: 400px;
+        max-width: 300px;
+        background-color: #3c454f;
+        color: white;
+        font-weight: bold;
+    }
+    
+    .request-box .btn {
+        background-color: #04AA6D;
+        color: white;
+        padding: 10px 20px;
+        margin-left: 15px;
+        border: none;
+        cursor: pointer;
+        width: 90%;
+        margin-bottom: 10px;
+        opacity: 0.8;
+    }
+    
+    .request-box .btn:hover {
+        opacity: 1;
+    }
+    
+    .request-box .cancel {
+        background-color: red;
+    }
+
+    .invoice-view {
+        width: 300px;
+        height: 400px;
+        margin: 50px;
+        display: inline-block;
+        border: 2px black solid;
+        border-radius: 5%;
+    }
+
+    .schedule-view {
+        width: 600px;
+        height: 400px;
+        margin: 50px;
+        /*margin-left: 10%;*/
+        display: inline-block;
+        border: 2px black solid;
+        border-radius: 5%;
+        grid-column: 2;
+        
+    }
+
+
+    .invoice-list {   
+        margin-top: 30px;
+        list-style: none;
+        list-style-type: none;
+        padding: 0;
+    }
+
+    .expected-pay {
+        font-size: 20px;
+        margin-left: auto;
+        margin-right: auto;
+        text-align: center;
+        margin-top: 20%;
+        font-weight: bold;
+    }
+
+    .hours {
+        margin: 2.5rem auto;
+    }
+
+    .content-box {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        padding-top: 5rem;
+    }
+
+
+
+</style>

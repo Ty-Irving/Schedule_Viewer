@@ -1,21 +1,34 @@
-body
-{
+/* Global Styling */
+
+body {
     margin: 0;
 }
 
-.user-text
-{
-    resize: none;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 15px;
-    width:  40%;
-    rows: 1;
+
+button:hover {
+    background-color: rgba(0, 136, 107, 0.768); 
 }
 
-.header
-{
+
+table {
+
+    border: 1px black solid;
+    empty-cells: show;
+    font-size: 15px;
+    overflow: scroll;
+}
+
+
+th {
+    height: 20px;
+    width: 60px;
+    border: 1px black solid;
+}
+
+
+
+
+.header {
     width: 100%;
     position: fixed;
     text-align: center; 
@@ -25,182 +38,18 @@ body
    
 }
 
-table
-{
 
-    border: 1px black solid;
-    empty-cells: show;
-    font-size: 15px;
-    overflow: scroll;
-}
-
-th
-{
-    height: 20px;
-    width: 60px;
-    border: 1px black solid;
-}
-
-.header-info
-{
+.header-info {
     font-size: 17px;
     float: right;
     padding: 10px 15px 9px 15px !important;
    
     font-family: 'Source Sans Pro', sans-serif;
-    font-weight: bold;
-    
-   
-}
-
-.request-img
-{
-    width: 65px;
-    height: 65px;
-    bottom: 0;
-    right: 0;
-    margin: 10px;
-    position: fixed;
-}
-
-.request-box textarea
-{
-    margin-left: 15px;
-    margin-top: 10px;
-    resize: none;
-    width: 88%;
-    min-height: 200px;
-    margin-bottom: 10px;
-   
-}
-
-.request-box-header
-{
-    margin-left: 15px;
-    font-size: 25px;
-    margin-bottom: 5px;
-    margin-top: 10px;
-}
-
-.request-box input
-{
-    width: 87%;
-    margin-left: 15px;
-}
-
-.request-box
-{
-    border: black 1px;
-    bottom: 0;
-    right: 0;
-    position: fixed;
-    margin-right: 15px;
-    margin-bottom: 15px;
-    height: 400px;
-    max-width: 300px;
-    background-color: #3c454f;
-    color: white;
-    font-weight: bold;
-}
-
-.request-box .btn 
-{
-    background-color: #04AA6D;
-    color: white;
-    padding: 10px 20px;
-    margin-left: 15px;
-    border: none;
-    cursor: pointer;
-    width: 90%;
-    margin-bottom: 10px;
-    opacity: 0.8;
-}
-
-.request-box .btn:hover
-{
-    opacity: 1;
-}
-
-.request-box .cancel
-{
-    background-color: red;
-}
-
-.request-img:hover
-{
-    cursor: pointer;
-}
-
-.builder-startup
-{
-    padding-top: 15%;
-    
-}
-
-.builder-startup-content input
-{
-    width: 88%;
-    margin: 15px;
-    margin-top: 5px;
-}
-
-.builder-startup-content
-{
-    margin-right: auto;
-    margin-left: auto;
-    width: 300px;
-    min-width: 300px;
-    height: 400px;
-    background-color: #3c454f;
-    border: black 1px solid;
-}
-
-.builder-startup-content p 
-{
-    margin-top: 50px;
-    color: white;
-    margin-left: 25%;
-    font-size: 20px;
-    font-weight: bold;
-}
-
-.builder-startup-content img
-{
-    width: 60px;
-    height: 60px;
-    margin-top: 30px;
-    margin-left: 40%;
-}
-
-.builder-startup-content button
-{
-    width: 90%;
-    margin-left: 15px;
-    padding: 10px;
-    opacity: 0.8;
-    background-color: #04AA6D;
-    border: none;
-    color: white;
-    font-weight: bold;
-    margin-top: 15px;
-    
-}
-
-.builder-startup-content button:hover
-{
-    opacity: 1;
-    cursor: pointer;
+    font-weight: bold;  
 }
 
 
-.builder-content
-{
-    padding-left: 30.75%;
-    visibility: hidden;
-
-}
-.header-img
-{
+.header-img {
     width: 44px;
     margin-left: 20px;
     float: left;
@@ -208,16 +57,14 @@ th
 }
 
 
-.header-link-1
-{
+.header-link-1 {
     text-decoration: none;
     padding: 25px;
     color: rgb(255, 255, 255);
     cursor: pointer;
 }
 
-.header-link-2
-{
+.header-link-2 {
     text-decoration: none;
     color: rgb(255, 255, 255);
     padding: 20px;
@@ -225,8 +72,7 @@ th
    
 }
 
-.header-link-3
-{
+.header-link-3 {
     color: rgb(255, 255, 255);
     
     text-decoration: none;
@@ -234,89 +80,31 @@ th
     cursor: pointer;
 }
 
-.header-link-1:hover, .header-link-2:hover, .header-link-3:hover
-{
+.header-link-1:hover, .header-link-2:hover, .header-link-3:hover {
     background-color: rgb(53, 48, 48);
 }
 
-.header-img:hover
-{
+.header-img:hover {
     filter: invert(0.5);
 }
 
 
-.login-button
-{
-    margin-left: auto;
-    margin-right: auto;
-    display: block;
-    width: 40%;
-    margin-top: 5%;
-    height: 40px;
-    border-radius: 8px;
-    border-style: double;
-    
-}
-
-.login-panel
-{
-    width: 700px;
-    height: 60ex;
-    background-color: rgb(80, 80, 80);
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 15%;
-    
-}
-
-.html, body
-{
+.html, body {
     height: 100%;
 }
 
 
-
-.bg 
-{
-    background-image: url("https://i.stack.imgur.com/H9kT6.jpg");
-    background-position: center;
-    background-size: cover;
-
-}
-
-.user-icon
-{
+.user-icon {
     height: 100px;
     margin-left: auto;
     margin-right: auto;
     display: block;
     padding-top: 50px;
-    filter: invert();
-}
-
-.schedule-view
-{
-    width: 600px;
-    height: 400px;
-    margin: 50px;
-    margin-left: 10%;
     
-    display: inline-block;
-    border: 2px black solid;
-    border-radius: 5%;
 }
 
-.invoice-list
-{   
-    margin-top: 30px;
-    list-style: none;
-    list-style-type: none;
-    padding: 0;
 
-}
-
-.user-header
-{
+.user-header {
     font-size: 25px;
     margin-left: 10%;
     margin-right: 10%;
@@ -325,29 +113,8 @@ th
     font-weight: bold;
 }
 
-.expected-pay
-{
-    font-size: 20px;
-    margin-left: auto;
-    margin-right: auto;
-    text-align: center;
-    margin-top: 20%;
-    font-weight: bold;
-}
 
-.invoice-view
-{
-    width: 300px;
-    height: 400px;
-  
-    margin: 50px;
-    display: inline-block;
-    border: 2px black solid;
-    border-radius: 5%;
-}
-
-.content-box
-{
+.content-box {
     display: block;
     width: 100%;
 }
