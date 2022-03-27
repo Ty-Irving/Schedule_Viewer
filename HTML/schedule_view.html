@@ -105,24 +105,24 @@
 
     function hideRequestPrompt()
     {
-        REQUEST_PROMPT.style.display='none';
+        REQUEST_PROMPT.style.visibility='hidden';
         showRequestImg();
     }
 
     function showRequestPrompt()
     {
-        REQUEST_PROMPT.style.display="inline";
+        REQUEST_PROMPT.style.visibility="visible";
         hideRequestImg();
     }
 
     function hideRequestImg()
     {
-        REQUEST_IMG.style.display="none";
+        REQUEST_IMG.style.visibility="hidden";
     }
 
     function showRequestImg()
     {
-        REQUEST_IMG.style.display="inline";
+        REQUEST_IMG.style.visibility="visible";
     }
 </script>
 
@@ -175,6 +175,7 @@
         background-color: #3c454f;
         color: white;
         font-weight: bold;
+        visibility: hidden;
     }
     
     .request-box .btn {
