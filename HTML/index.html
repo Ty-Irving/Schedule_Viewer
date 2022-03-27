@@ -11,9 +11,20 @@
 <body class="bg">
 
     <div class = "login-panel">
-        <img class = "user-icon" src = "https://cdn3.iconfinder.com/data/icons/general-icons-set-1/100/13_profile-512.png">
-        <textarea class = "user-text" maxlength = "30" placeholder = "Username"></textarea>
-        <textarea class = "user-text" maxlength = "30" placeholder = "Password"></textarea>
+        <div class = "login-header">
+            Login
+        </div>
+        <div class = "input-box">
+            <img src = "https://o.remove.bg/downloads/ba01140c-6744-499f-80e0-5791da38dbb2/150-1503941_user-windows-10-user-icon-png-transparent-png-removebg-preview.png" class = "box-img">
+            <input type = "text" class = "user-text" maxlength = "30" placeholder = "Username"></input>
+        </div>
+        <div class = "input-box">
+            <img src = "https://o.remove.bg/downloads/4b44d9bf-a9c5-4dca-a441-826877a448d6/130-1303682_security-password-2-icon-password-icon-in-png-removebg-preview.png" class = "box-img">
+            <input type = "text" class = "user-text" maxlength = "30" placeholder = "Password"></input>
+        </div>
+        <div class = "create-acc">
+            <a href = "">Create Account</a>
+        </div>
         <button class = "login-button">LOGIN</button>
     </div>
 
@@ -33,9 +44,52 @@
         display: block;
         margin-left: auto;
         margin-right: auto;
-        margin-top: 15px;
-        width:  40%;
+        width:  230px;
+        height: 30px;
         rows: 1;
+        float: right;
+        border: none;
+        outline: none;
+    }
+
+    .create-acc
+    {
+        width: 40%;
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: 10px;
+        margin-top: 5px;
+        text-align: right;
+        font-size: 14px;
+        color: grey;
+        text-decoration: none;
+    }
+
+    .login-header
+    {
+        width: 40%;
+        margin-left: auto;
+        margin-right: auto;
+        font-size: 24px;
+        color: #007bff;
+        font-weight: bold;
+        padding-top: 90px;
+    }
+
+    .box-img
+    {
+        width: 25px;
+        padding-left: 10px;
+        padding-top: 3px;
+    }
+    .input-box
+    {
+        margin-top: 15px;
+        width: 40%;
+        margin-left: auto;
+        margin-right: auto;
+        border: black 1px solid;
+        height: 35px;
     }
 
     .login-button {
@@ -47,14 +101,16 @@
         height: 40px;
         border-radius: 8px;
         border-style: double;
+        background-color: #007bff;
+        color: white;
         
     }
     
     .login-panel {
-        opacity: 90%;
+        opacity: 100%;
         width: 700px;
         height: 60ex;
-        background-color: rgb(80, 80, 80);
+        background-color: white;
         margin-left: auto;
         margin-right: auto;
         margin-top: 15%;

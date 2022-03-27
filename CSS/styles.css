@@ -26,9 +26,6 @@ th {
 }
 
 
-textarea {
-    text-align: center;
-}
 
 
 .header {
@@ -103,7 +100,7 @@ textarea {
     margin-right: auto;
     display: block;
     padding-top: 50px;
-    filter: invert();
+    
 }
 
 
