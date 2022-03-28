@@ -22,14 +22,14 @@
             <p class = "request-box-header">Make Request</p>
             <input type="text" placeholder = "Type employee ID...">
             <textarea id="" cols="20" rows="8" placeholder="Type request..."></textarea>
-            <button class = "btn" onclick="hideRequestPrompt()"></script>SUBMIT</button>
+            <button class = "btn"></script>SUBMIT</button>
             <button class = "btn cancel" onclick="hideRequestPrompt()">CLOSE</button>
         </div>
 
         <div class = "schedule-view">
             <div>
                 <table class = "hours">
-                    <tr>
+                    <tr style="background-color: rgba(0, 136, 107, 0.768); color: white;" >
                         <th></th>
                         <th>S</th>
                         <th>M</th>
@@ -39,37 +39,37 @@
                         <th>F</th>
                         <th>S</th>
                     </tr>
-                    <tr>
+                    <tr class="light-table-row">
                         <th>8:00AM</th><th></th><th></th><th></th><th></th><th></th><th></th><th></th>
                     </tr>
-                    <tr>
+                    <tr class="dark-table-row">
                         <th>9:00AM</th><th></th><th></th><th></th><th></th><th></th><th></th><th></th>
                     </tr>
-                    <tr>
+                    <tr class="light-table-row">
                         <th>10:00AM</th><th></th><th></th><th></th><th></th><th></th><th></th><th></th>
                     </tr>
-                    <tr>
+                    <tr class="dark-table-row">
                         <th>11:00AM</th><th></th><th></th><th></th><th></th><th></th><th></th><th></th>
                     </tr>
-                    <tr>
+                    <tr class="light-table-row">
                         <th>12:00AM</th><th></th><th></th><th></th><th></th><th></th><th></th><th></th>
                     </tr>
-                    <tr>
+                    <tr class="dark-table-row">
                         <th>1:00PM</th><th></th><th></th><th></th><th></th><th></th><th></th><th></th>
                     </tr>
-                    <tr>
+                    <tr class="light-table-row"> 
                         <th>2:00PM</th><th></th><th></th><th></th><th></th><th></th><th></th><th></th>
                     </tr>
-                    <tr>
+                    <tr class="dark-table-row">
                         <th>3:00PM</th><th></th><th></th><th></th><th></th><th></th><th></th><th></th>
                     </tr>
-                    <tr>
+                    <tr class="light-table-row">
                         <th>4:00PM</th><th></th><th></th><th></th><th></th><th></th><th></th><th></th>
                     </tr>
-                    <tr>
+                    <tr class="dark-table-row">
                         <th>5:00PM</th><th></th><th></th><th></th><th></th><th></th><th></th><th></th>
                     </tr>
-                    <tr>
+                    <tr class="light-table-row">
                         <th>6:00PM</th><th></th><th></th><th></th><th></th><th></th><th></th><th></th>
                     </tr>
                     
@@ -123,7 +123,6 @@
     function showRequestImg()
     {
         REQUEST_IMG.style.display="inline";
-        
     }
 </script>
 
@@ -149,7 +148,7 @@
         width: 88%;
         min-height: 200px;
         margin-bottom: 10px;
-       
+
     }
     
     .request-box-header {
@@ -176,7 +175,6 @@
         background-color: #3c454f;
         color: white;
         font-weight: bold;
-        display: none;
     }
     
     .request-box .btn {
@@ -215,8 +213,9 @@
         /*margin-left: 10%;*/
         display: inline-block;
         border: 2px black solid;
-        border-radius: 5%;
+        /*border-radius: 5%;*/
         grid-column: 2;
+
         
     }
 
@@ -239,12 +238,21 @@
 
     .hours {
         margin: 2.5rem auto;
+        background-color: #3c454f;
     }
 
     .content-box {
         display: grid;
         grid-template-columns: repeat(4, 1fr);
         padding-top: 5rem;
+    }
+
+    .light-table-row {
+        background-color: #829CBC;
+    }
+
+    .dark-table-row {
+        background-color: #73879F;
     }
 
 
