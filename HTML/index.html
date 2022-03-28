@@ -15,11 +15,11 @@
             Login
         </div>
         <div class = "input-box">
-            <img src = "https://o.remove.bg/downloads/ba01140c-6744-499f-80e0-5791da38dbb2/150-1503941_user-windows-10-user-icon-png-transparent-png-removebg-preview.png" class = "box-img">
+            <img src = "../HTML/user-img.png" class = "box-img">
             <input type = "text" class = "user-text" maxlength = "30" placeholder = "Username"></input>
         </div>
         <div class = "input-box">
-            <img src = "https://o.remove.bg/downloads/4b44d9bf-a9c5-4dca-a441-826877a448d6/130-1303682_security-password-2-icon-password-icon-in-png-removebg-preview.png" class = "box-img">
+            <img src = "../HTML/password-img.png" class = "box-img">
             <input type = "password" class = "user-text" maxlength = "30" placeholder = "Password"></input>
         </div>
         <div class = "create-acc">
@@ -61,9 +61,14 @@
         margin-top: 5px;
         text-align: right;
         font-size: 14px;
-        color: grey;
-        text-decoration: none;
+        
     }
+
+    a
+    {
+        color: #04AA6D;
+    }
+
 
     .login-header
     {
@@ -71,7 +76,7 @@
         margin-left: auto;
         margin-right: auto;
         font-size: 24px;
-        color: #007bff;
+        color: #04AA6D;
         font-weight: bold;
         padding-top: 90px;
     }
@@ -89,8 +94,8 @@
         width: 40%;
         margin-left: auto;
         margin-right: auto;
-        border: black 1px solid;
-        height: 35px;
+        border: rgb(49, 46, 46) 1px solid;
+        height: 32px;
     }
 
     .login-button {
@@ -102,7 +107,7 @@
         height: 40px;
         border-radius: 8px;
         border-style: double;
-        background-color: #007bff;
+        background-color: #04AA6D;
         color: white;
         
     }
@@ -111,7 +116,7 @@
         opacity: 88%;
         width: 700px;
         height: 60ex;
-        background-color: whitesmoke;
+        background-color: #3c454f;
         margin-left: auto;
         margin-right: auto;
         margin-top: 15%;
@@ -125,6 +130,11 @@
         background-position: center;
         background-attachment: fixed;
         background-size: cover;
+    }
+
+    img
+    {
+        filter: invert(1);
     }
 
 
