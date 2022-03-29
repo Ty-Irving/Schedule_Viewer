@@ -2,7 +2,7 @@
 
 body {
     margin: 0;
-    background-color: #1e2731;
+    background-color: #19222e;
 }
 
 
@@ -36,6 +36,7 @@ th {
     height:44px;  
     background-color: #3c454f;
     overflow: hidden;
+    top: 0;
    
 }
 

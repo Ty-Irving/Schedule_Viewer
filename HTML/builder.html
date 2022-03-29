@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel = "stylesheet" href = "../CSS/styles.css"/>
-    <title>Document</title>
+    <title>Schedule Builder</title>
 </head>
 <body>
 
@@ -18,9 +18,9 @@
         </div>
     </div>
 
-    <div class = "builder-startup">
+    <div class = "builder-startup" id = "startup">
         <div class = builder-startup-content>
-            <img src = "../HTML/user-img.png">
+            <img src = "../HTML/user-img.png" class = "startup-img">
             <p>Select User ID</p>
             <input list = "user" class = "user-list">
             <datalist id = "user">
@@ -29,28 +29,109 @@
                 <option>user345</option>
                 <option>user643</option>
             </datalist>
-            <button>SETUP SCHEDULE</button>
+            <button onclick="hideStartup()">SETUP SCHEDULE</button>
         </div>
         
     </div>
     
-    <div class = "builder-content">
+    <div class = "builder-content" id = "builder">
+        <img class = "schedule-img" src="../HTML/calender.png">
         <input type = "date" min = "2022-01-01" max = "2023-12-31">
-        Start Time<input type = "text">
-        End Time<input type = "text">
+        <input list = "time" placeholder="Start Time...">
+        
+        <input list = "time" placeholder="End Time...">
+        <datalist id = "time">
+            <option>7:00AM</option>
+            <option>7:30AM</option>
+            <option>8:00AM</option>
+            <option>8:30AM</option>
+            <option>9:00AM</option>
+            <option>9:30AM</option>
+            <option>10:00AM</option>
+            <option>11:30AM</option>
+            <option>12:00PM</option>
+            <option>12:30PM</option>
+            <option>1:00PM</option>
+            <option>1:30PM</option>
+            <option>2:00PM</option>
+            <option>2:30PM</option>
+            <option>3:00PM</option>
+            <option>3:30PM</option>
+            <option>4:00PM</option>
+            <option>4:30PM</option>
+            <option>5:00PM</option>
+            <option>5:30PM</option>
+            <option>6:00PM</option>
+            <option>6:30PM</option>
+            <option>7:00PM</option>
+            <option>7:30PM</option>
+        </datalist>
+
+        <button onclick="showStartup()">SCHEDULE</button>
     </div>
 
 
 </body>
 </html>
 
+<script type="text/javascript">
+    const STARTUP = document.getElementById("startup");
+    const BUILDER = document.getElementById("builder");
+
+    function hideStartup()
+    {
+        STARTUP.style.display='none';
+        showBuilder();
+    }
+
+    function showStartup()
+    {
+        STARTUP.style.display="block";
+        hideBuilder();
+    }
+
+    function hideBuilder()
+    {
+        BUILDER.style.display="none";
+    }
+
+    function showBuilder()
+    {
+        BUILDER.style.display="block";
+    }
+
+</script>
 
 <style type="text/css">
     
-    .builder-startup {
-        padding-top: 15%;
+    .startup-img
+    {
+        filter: invert();
+    }
+
+    .schedule-img
+    {
+        width: 100px;
+        margin-bottom: 40px;
+        margin-top: 25px;
+        margin-left: 38%;
+        filter: invert();
+    }
+    .builder-startup 
+    {
+        padding-top: 10%;
     }
     
+    input
+    {
+        width: 250px;
+        height: 30px;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 20px;
+        display: block;
+    }
+
     .builder-startup-content input {
         width: 88%;
         margin: 15px;
@@ -65,6 +146,7 @@
         height: 400px;
         background-color: #3c454f;
         border: black 1px solid;
+    
     }
     
     .builder-startup-content p {
@@ -100,8 +182,36 @@
     }
 
     .builder-content {
-        padding-left: 30.75%;
-        visibility: hidden;
+        width: 400px;
+        height: 500px;
+        margin-top: 10%;
+        background-color: #3c454f;
+        margin-left: auto;
+        margin-right: auto;
+        color: white;
+        border: black 1px solid;
+        display: none;
+
+    }
+    
+    .builder-content button
+    {
+        margin-top: 80px;
+        width: 95%;
+        margin-left: 10px;
+        height: 40px;
+        font-size: 20px;
+        background-color: #04AA6D;
+        border: none;
+        font-weight: bold;
+        color: white;
+        opacity: 0.8;
+    }
+    
+    .builder-content button:hover
+    {
+        opacity: 1;
+        cursor: pointer;
     }
 
 </style>

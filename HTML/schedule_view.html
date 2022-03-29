@@ -11,12 +11,13 @@
     <div class = "header">
         <a href = "../HTML/schedule_view.html"><img class = "header-img" src = "https://cdn.iconscout.com/icon/free/png-256/timer-83-470366.png"></a>
         <div class = "header-info">
-            <a class = "header-link-1" style = "background-color: rgba(0, 136, 107, 0.768)" href = "../HTML/schedule_view.html">SCHEDULE VIEW
+            <a class = "header-link-1" href="../HTML/update.html"> UPDATE INFO
+            </a><a class = "header-link-1" style = "background-color: rgba(0, 136, 107, 0.768)" href = "../HTML/schedule_view.html">SCHEDULE VIEW
             </a><a class = "header-link-3" href = "../HTML/index.html">LOGOUT</a>
         </div>
     </div>
     <div class = "content-box">
-        <img src = "https://www.kindpng.com/picc/m/111-1110791_ironicmeme-ironic-png-sunglasses-emoji-smileyface-ironic-meme.png" class = "request-img" onclick="showRequestPrompt()" id="request_img">
+        <img src = "../HTML/request.png" class = "request-img" onclick="showRequestPrompt()" id="request_img">
         
         <div class = "request-box" id="request_box">
             <p class = "request-box-header">Make Request</p>
@@ -135,6 +136,7 @@
         right: 0;
         margin: 10px;
         position: fixed;
+        filter: invert();
     }
 
     .request-img:hover {
@@ -198,16 +200,17 @@
     }
 
     .invoice-view {
+        background-color: #3c454f;
         width: 300px;
         height: 400px;
         margin: 50px;
         display: inline-block;
         border: 2px black solid;
-        border-radius: 5%;
         color: white;
     }
 
     .schedule-view {
+        background-color: #3c454f;
         width: 600px;
         height: 400px;
         margin: 50px;
@@ -222,6 +225,7 @@
 
 
     .invoice-list {   
+        
         margin-top: 30px;
         list-style: none;
         list-style-type: none;
