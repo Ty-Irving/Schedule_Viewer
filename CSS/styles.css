@@ -7,7 +7,7 @@ body {
 
 
 button:hover {
-    background-color: rgba(0, 136, 107, 0.768); 
+    background-color: rgba(231, 107, 5, 0.768); 
 }
 
 
@@ -58,31 +58,14 @@ th {
     filter: invert();
 }
 
-
-.header-link-1 {
-    text-decoration: none;
-    padding: 25px;
+.header-link {
     color: rgb(255, 255, 255);
-    cursor: pointer;
-}
-
-.header-link-2 {
-    text-decoration: none;
-    color: rgb(255, 255, 255);
-    padding: 20px;
-    cursor: pointer;
-   
-}
-
-.header-link-3 {
-    color: rgb(255, 255, 255);
-    
     text-decoration: none;
     padding: 20px;
     cursor: pointer;
 }
 
-.header-link-1:hover, .header-link-2:hover, .header-link-3:hover {
+.header-link:hover {
     background-color: rgb(53, 48, 48);
 }
 
