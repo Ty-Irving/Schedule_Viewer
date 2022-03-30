@@ -12,33 +12,26 @@
 
 
 <body class = "background">
-
-    <div class = "deco">    
-        <div class = "c-deco"></div>
-        <div class = "c-deco"></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-    </div>
     
     <div class = "info-panel">
         <a href = "index.html"><button class = "cancel">X</button></a>
-        <h1 class = "hdr">Create Account</h1>
-        <p>Username:</p>
-        <input class = "user"></input>
-        <p>Password:</p>
-        <input class = "pwd" type = 'password'></input>
-        <p>Confirm Password:</p>
-        <input class = "pwd-confirm" type = 'password'></input>
-        <h3 class = "hdr">Contact Information</h3>
-        <p>First Name:</p>
-        <input class = "fname"></input>
-        <p>Last Name:</p>
-        <input class = "lname"></input>
-        <p>Address:</p>
+        <h1 class = "hdr">CREATE ACCOUNT</h1>
+        <h3 class = "hdr-2">Personal Information</h3>
+        <p>Name</p>
+        <div class = "name-div">
+            <input class = "name" placeholder = "First"></input>
+            <input class = "name" placeholder = "Last"></input>
+        </div>
+        <p>Address</p>
         <input class = "location"></input>
-        <button>Create Account</button>
+        <h3 class = "hdr-2">Login Information</h3>
+        <p>Username</p>
+        <input class = "user"></input>
+        <p>Password</p>
+        <input class = "pwd" type = 'password'></input>
+        <p>Confirm Password</p>
+        <input class = "pwd-confirm" type = 'password'></input>
+        <button class = "create">Create Account</button>
     </div>
 
 </body>
@@ -64,17 +57,14 @@
         margin-left: auto;
         margin-right: auto;
         margin-top: 5%;
+        text-align: center;
     }
 
     input {
         width: 40%;
         height: 3%;
-        margin-left: 100px;
-        margin-right: auto;
-    }
-
-    p {
-        font-size: 100%;
+        /* margin-left: 100px;
+        margin-right: auto; */
     }
 
     .cancel {
@@ -89,9 +79,32 @@
         background-color: red;
     }
 
+    .name-div {
+        height: 3%;
+    }
+
+    .name {
+        width: 20%;
+        text-align: center;
+        height: 100%
+    }
+
+    .create {
+        margin-left: auto;
+        margin-right: auto;
+        display: block;
+        width: 40%;
+        margin-top: 5%;
+        height: 40px;
+        border-radius: 8px;
+        border-style: double;
+        background-color: #04AA6D;
+        color: white; 
+    }
+
+
     .hdr {
-        margin-left: 35%;
-        width: 50%;
+        color: #04AA6D;
     }
 
     
