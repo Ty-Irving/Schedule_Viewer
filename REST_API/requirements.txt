@@ -1,4 +1,0 @@
-# to install all api dependencies run: python3 -m pip install -r requirements.txt
-
-django==4.0.3
-djangorestframework==3.13.1
