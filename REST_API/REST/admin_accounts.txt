@@ -1,0 +1,6 @@
+if you wish to add superusers, please add the info in this file
+
+Superuser 1:
+––––––––––––
+username: APISuperuser
+password: nCc1UfVO9MxGihZW
