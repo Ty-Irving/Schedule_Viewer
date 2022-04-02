@@ -13,26 +13,26 @@
 
 <body class = "background">
     
-    <div class = "info-panel">
+    <form class = "info-panel" action="./add_user.php" method="POST">
         <a href = "index.php"><button class = "cancel">X</button></a>
         <h1 class = "hdr">REGISTER</h1>
         <h3 class = "hdr-2">Personal Information</h3>
         <p>Name</p>
         <div class = "name-div">
-            <input class = "name" placeholder = "First"></input>
-            <input class = "name" placeholder = "Last"></input>
+            <input class = "name" placeholder = "First" name="fname"></input>
+            <input class = "name" placeholder = "Last" name="lname"></input>
         </div>
         <p>Address</p>
-        <input id = "location"></input>
+        <input id = "location" name="location"></input>
         <h3 class = "hdr-2">Login Information</h3>
         <p>Username</p>
-        <input id = "user"></input>
+        <input id = "user" name="uname"></input>
         <p>Password</p>
         <input id = "pwd" type = 'password'></input>
         <p>Confirm Password</p>
         <input id = "pwd-confirm" type = 'password'></input>
         <button class = "create">Create Account</button>
-    </div>
+</form>
 
 </body>
 
