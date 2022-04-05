@@ -1,4 +1,5 @@
 from curses.ascii import NUL
+from xml.etree.ElementTree import tostring
 from django.db import models
 from pymysql import NULL
 
@@ -17,20 +18,6 @@ class DEPARTMENT (models.Model):
     def __str__(self):
         return self.DepartmentName
 
-class User (models.Model):
-    UserId = models.AutoField(primary_key=True)
-    FName = models.CharField(max_length=35)
-    LName = models.CharField(max_length=35)
-    Location = models.CharField(max_length=255)
-    DNo = models.ForeignKey(DEPARTMENT, on_delete=models.CASCADE, null=True, default=NULL)
-    UserUsername = models.CharField(max_length=255)
-
-    class Meta:
-        app_label='API'
-
-    def __str__(self):
-        return self.UserUsername
-
 class LOGIN (models.Model):
     UserUsername = models.CharField(primary_key=True, max_length=255)
     Password = models.CharField(unique=True, max_length=255)
@@ -41,3 +28,25 @@ class LOGIN (models.Model):
     def __str__(self):
         return self.UserUsername
 
+class USER (models.Model):
+    UserId = models.AutoField(primary_key=True)
+    FName = models.CharField(max_length=35)
+    LName = models.CharField(max_length=35)
+    Location = models.CharField(max_length=255)
+    DNo = models.ForeignKey(DEPARTMENT, on_delete=models.CASCADE, null=True, default=NULL)
+    UserUsername = models.ForeignKey(LOGIN, on_delete=models.CASCADE)
+
+    class Meta:
+        app_label='API'
+
+    def __str__(self):
+        return self.UserUsername
+
+class MANAGER (models.Model):
+    ManagerID = models.ForeignKey(USER, on_delete=models.CASCADE)
+
+    class Meta:
+        app_label='API'
+
+    def __str__(self):
+        return tostring(self.ManagerId)
