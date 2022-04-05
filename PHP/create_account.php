@@ -12,7 +12,6 @@
 
 
 <body class = "background">
-    
     <form class = "info-panel" action="./add_user.php" method="POST">
         <a href = "index.php"><button class = "cancel">X</button></a>
         <h1 class = "hdr">REGISTER</h1>
@@ -32,8 +31,7 @@
         <p>Confirm Password</p>
         <input id = "pwd-confirm" type = 'password'></input>
         <button class = "create">Create Account</button>
-</form>
-
+    </form>
 </body>
 
 
