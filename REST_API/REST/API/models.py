@@ -2,6 +2,7 @@ from curses.ascii import NUL
 from xml.etree.ElementTree import tostring
 from django.db import models
 from pymysql import NULL
+from django.db.models import UniqueConstraint
 
 
 # Create your models here.
@@ -71,3 +72,16 @@ class SCHEDULE (models.Model):
 
     def __str__(self):
         return ((self.CreatorID.ManagerID.FName) + " created schedule. ScheduleID: " + str(self.ScheduleID))
+
+class SCHEDULE_SHIFTS (models.Model):
+    ScheduleID = models.ForeignKey('API.SCHEDULE', on_delete=models.CASCADE, null=False)
+    Date = models.DateField(null=False)
+    Time = models.TimeField(null=False)
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(fields=['ScheduleID', 'Date'], name="SchedulePK")
+        ]
+
+    def __str__(self):
+        return str(self.pk)
