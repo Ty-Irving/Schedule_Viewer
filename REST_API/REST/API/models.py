@@ -1,4 +1,5 @@
 from curses.ascii import NUL
+from queue import Empty
 from xml.etree.ElementTree import tostring
 from django.db import models
 from pymysql import NULL
@@ -54,7 +55,7 @@ class MANAGER (models.Model):
         return self.ManagerID.FName
 
 class EMPLOYEE (models.Model):
-    EmpID = models.ForeignKey('API.USER', on_delete=models.CASCADE)
+    EmpID = models.OneToOneField('API.USER', on_delete=models.CASCADE, primary_key=True)
     EmpScheduleID = models.ForeignKey('API.SCHEDULE', on_delete=models.CASCADE)
 
     class Meta:
@@ -83,5 +84,25 @@ class SCHEDULE_SHIFTS (models.Model):
             models.UniqueConstraint(fields=['ScheduleID', 'Date'], name="SchedulePK")
         ]
 
+        app_label='API'
+
     def __str__(self):
         return str(self.pk)
+
+class REQUEST (models.Model):
+    EmpID = models.ForeignKey('API.EMPLOYEE', on_delete=models.CASCADE, null=False)
+    Date = models.DateField(null=False)
+    Time = models.TimeField(null=False)
+    RequestedChange = models.CharField(max_length=255, blank=True, null=True)
+    ScheduleID = models.ForeignKey('API.SCHEDULE', on_delete=models.CASCADE, null=False)
+    ResolvingMgrID = models.ForeignKey('API.MANAGER', on_delete=models.CASCADE, null=False)
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(fields=['EmpID', 'Date', 'Time'], name="RequestPK")
+        ]
+
+        app_label='API'
+
+    def __str__(self):
+        return "Emp: " + self.EmpID.EmpID.FName + " " + self.EmpID.EmpID.LName + " Date: " + str(self.Date) + " Time: " + str(self.Time)
