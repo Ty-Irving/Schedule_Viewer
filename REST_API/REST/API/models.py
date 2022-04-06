@@ -106,3 +106,19 @@ class REQUEST (models.Model):
 
     def __str__(self):
         return "Emp: " + self.EmpID.EmpID.FName + " " + self.EmpID.EmpID.LName + " Date: " + str(self.Date) + " Time: " + str(self.Time)
+
+class TIME_LOG (models.Model):
+    EmpID = models.ForeignKey('API.EMPLOYEE', on_delete=models.CASCADE, null=False)
+    StartTime = models.TimeField(null=False)
+    EndTime = models.TimeField(null=False)
+    Date = models.DateField(null=False)
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(fields=['EmpID', 'StartTime'], name="Time_log_pk")
+        ]
+
+        app_label = 'API'
+    
+    def __str__(self):
+        return "Time Log: Employee " + self.EmpID.EmpID.FName + " " + self.EmpID.EmpID.LName + " StartTime: " + str(self.StartTime)
