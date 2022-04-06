@@ -13,9 +13,10 @@
 
 ## Version History
 *v1.0* <br/>
- </br>
+A basic website, with minimal functionality. No API implementation at this point.</br>
 </br>
 *v2.0* </br>
+</br>
 </br>
 
 
