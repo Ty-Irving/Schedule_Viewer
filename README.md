@@ -9,14 +9,14 @@
 1b. 
 
 ## Usage
-\[All\]
+\[All\] </br>
 1. 
 1b.
 
-\[Employee\]
+\[Employee\] </br>
 1.
 
-\[Manager\]
+\[Manager\] </br>
 1.
 
 ## Version History
