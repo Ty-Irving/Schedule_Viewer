@@ -52,3 +52,22 @@ class MANAGER (models.Model):
     def __str__(self):
         return self.ManagerID.FName
 
+class EMPLOYEE (models.Model):
+    EmpID = models.ForeignKey('API.USER', on_delete=models.CASCADE)
+    EmpScheduleID = models.ForeignKey('API.SCHEDULE', on_delete=models.CASCADE)
+
+    class Meta:
+        app_label='API'
+
+    def __str__(self):
+        return self.EmpID.FName
+
+class SCHEDULE (models.Model):
+    ScheduleID = models.AutoField(primary_key=True)
+    CreatorID = models.ForeignKey('API.MANAGER', on_delete=models.CASCADE)
+
+    class Meta:
+        app_label='API'
+
+    def __str__(self):
+        return ((self.CreatorID.ManagerID.FName) + " created schedule. ScheduleID: " + str(self.ScheduleID))
