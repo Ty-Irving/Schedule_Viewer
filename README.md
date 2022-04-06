@@ -35,6 +35,3 @@ Full integration of the API and database.</br>
 Richard Gingrich </br>
 Ty Irving </br>
 Roberto Zaghini </br>
-
-</br>
-index.html background: http://121clicks.com/wp-content/uploads/2012/08/beautiful_landscape_best_08.jpg </br>
