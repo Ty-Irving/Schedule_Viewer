@@ -43,7 +43,7 @@ class USER (models.Model):
         app_label='API'
 
     def __str__(self):
-        return self.FName
+        return self.FName + ", UserID: " + str(self.UserId)
 
 class MANAGER (models.Model):
     ManagerID = models.ForeignKey(USER, on_delete=models.CASCADE)
