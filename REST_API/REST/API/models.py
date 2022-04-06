@@ -1,8 +1,8 @@
 from curses.ascii import NUL
 from queue import Empty
 from xml.etree.ElementTree import tostring
+from django import db
 from django.db import models
-from pymysql import NULL
 from django.db.models import UniqueConstraint
 
 
@@ -108,17 +108,29 @@ class REQUEST (models.Model):
         return "Emp: " + self.EmpID.EmpID.FName + " " + self.EmpID.EmpID.LName + " Date: " + str(self.Date) + " Time: " + str(self.Time)
 
 class TIME_LOG (models.Model):
-    EmpID = models.ForeignKey('API.EMPLOYEE', on_delete=models.CASCADE, null=False)
+    EmpID = models.ForeignKey('API.EMPLOYEE', on_delete=models.CASCADE)
     StartTime = models.TimeField(null=False)
     EndTime = models.TimeField(null=False)
     Date = models.DateField(null=False)
 
     class Meta:
         constraints = [
-            models.UniqueConstraint(fields=['EmpID', 'StartTime'], name="Time_log_pk")
+            models.UniqueConstraint(fields=['EmpID', 'StartTime'], name="TimeLogPK")
         ]
 
         app_label = 'API'
     
     def __str__(self):
         return "Time Log: Employee " + self.EmpID.EmpID.FName + " " + self.EmpID.EmpID.LName + " StartTime: " + str(self.StartTime)
+
+class INVOICE (models.Model):
+    InvoiceID = models.AutoField(primary_key=True)
+    Amount = models.IntegerField(null=False)
+    InvoiceEmpID = models.ForeignKey('API.EMPLOYEE', on_delete=models.CASCADE, null=False)
+    InvoiceDate = models.ForeignKey('API.TIME_LOG', on_delete=models.CASCADE, null=False)
+
+    class Meta:
+        app_label = 'API'
+
+    def __str__(self):
+        return self.InvoiceEmpID.EmpID.FName + " " + self.InvoiceEmpID.EmpID.LName + "'s Invoice on: " + str(self.InvoiceDate.Date)
