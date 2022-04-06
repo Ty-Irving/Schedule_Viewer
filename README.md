@@ -13,10 +13,13 @@
 
 ## Version History
 *v1.0* <br/>
-A basic website, with minimal functionality. No API implementation at this point.</br>
+A basic website with minimal functionality. Front-end setup. No API implementation at this point, purely a visual representation.</br>
+</br>
+*v1.1* </br>
+Improved CSS styling and polishing of the front-end. Initial setup of the API, but no integration yet.</br>
 </br>
 *v2.0* </br>
-</br>
+Full integration of the API and database.</br>
 </br>
 
 
