@@ -9,7 +9,15 @@
 1b. 
 
 ## Usage
+\[All\]
 1. 
+1b.
+
+\[Employee\]
+1.
+
+\[Manager\]
+1.
 
 ## Version History
 *v1.0* <br/>
