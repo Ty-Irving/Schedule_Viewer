@@ -134,3 +134,28 @@ class INVOICE (models.Model):
 
     def __str__(self):
         return self.InvoiceEmpID.EmpID.FName + " " + self.InvoiceEmpID.EmpID.LName + "'s Invoice on: " + str(self.InvoiceDate.Date)
+
+class PROJECT (models.Model):
+    ProjectId = models.AutoField(primary_key=True)
+    ProjectName = models.CharField(max_length=255, unique=True, blank=False, null=False)
+    ContrllingDepartmentNo = models.ForeignKey('API.DEPARTMENT', on_delete=models.CASCADE, null=False)
+
+    class Meta:
+        app_label = 'API'
+
+    def __str__(self):
+        return self.ProjectName
+
+class WORKS_ON (models.Model):
+    EmpID = models.ForeignKey('API.EMPLOYEE', on_delete=models.CASCADE, null=False)
+    ProjectID = models.ForeignKey('API.PROJECT', on_delete=models.CASCADE, null=False)
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(fields=['EmpID', 'ProjectID'], name="WorksOnPK")
+        ]
+
+        app_label = 'API'
+    
+    def __str__(self):
+        return self.EmpID.EmpID.FName + " " + self.EmpID.EmpID.LName + " Works On: " +self.ProjectID.ProjectName
