@@ -3,6 +3,7 @@ from xml.etree.ElementTree import tostring
 from django.db import models
 from pymysql import NULL
 
+
 # Create your models here.
 
 # TODO: *** ADD FOREIGN KEYS ***
@@ -10,7 +11,7 @@ from pymysql import NULL
 class DEPARTMENT (models.Model):
     DepartmentNo = models.AutoField(primary_key=True)
     DepartmentName = models.CharField(max_length=255)
-    ManagerID = models.IntegerField()
+    ManagerID = models.ForeignKey('API.MANAGER', on_delete=models.CASCADE)
 
     class Meta:
         app_label='API'
@@ -33,14 +34,14 @@ class USER (models.Model):
     FName = models.CharField(max_length=35)
     LName = models.CharField(max_length=35)
     Location = models.CharField(max_length=255)
-    DNo = models.ForeignKey(DEPARTMENT, on_delete=models.CASCADE, null=True, default=NULL)
+    DNo = models.ForeignKey(DEPARTMENT, on_delete=models.CASCADE, default=None, null=True, blank=True)
     UserUsername = models.ForeignKey(LOGIN, on_delete=models.CASCADE)
 
     class Meta:
         app_label='API'
 
     def __str__(self):
-        return self.UserUsername
+        return self.FName
 
 class MANAGER (models.Model):
     ManagerID = models.ForeignKey(USER, on_delete=models.CASCADE)
@@ -49,4 +50,5 @@ class MANAGER (models.Model):
         app_label='API'
 
     def __str__(self):
-        return tostring(self.ManagerId)
+        return self.ManagerID.FName
+
