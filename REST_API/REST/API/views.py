@@ -22,6 +22,16 @@ class UserDetails (APIView):
         serializer = serializers.UserSerialized (user)
         return Response(serializer.data)
     
+    def put(self, request, pk, format=None):
+        user = models.USER.objects.get(pk=pk)
+        print(user) # These are here for error checking
+        serializer = serializers.UserSerialized(user, data=request.data)
+        if serializer.is_valid():
+            print(request.data) # These are here for error checking
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
 class Requests (APIView):
     def get(self, request, format=None):
         request = models.REQUEST.objects.all()
