@@ -47,7 +47,7 @@ class USER (models.Model):
 
 class MANAGER (models.Model):
     ManagerID = models.ForeignKey(USER, on_delete=models.CASCADE)
-
+    # Figure out how to make ManagerID a foreign key
     class Meta:
         app_label='API'
 

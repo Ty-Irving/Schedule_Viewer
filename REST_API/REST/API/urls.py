@@ -7,5 +7,6 @@ urlpatterns = [
     path("users/<int:pk>", views.UserDetails.as_view()),
     path("requests/", views.Requests.as_view()),
     path("requests/<int:pk>", views.RequestDetails.as_view()),
-    path("schedules/", views.Shifts.as_view())
+    path("schedules/", views.Shifts.as_view()),
+    path("departments/", views.Departments.as_view())
 ]

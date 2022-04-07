@@ -56,3 +56,11 @@ class Shifts (APIView):
         shift = models.SCHEDULE_SHIFTS.objects.all()
         serializer = serializers.ShiftSerializer(shift, many=True)
         return Response(serializer.data)
+
+class Departments (APIView):
+    def post(self, request, format=None):
+        serializer = serializers.DepartmentSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(request.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
