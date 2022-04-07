@@ -50,3 +50,9 @@ class RequestDetails (APIView):
         userRequest = models.REQUEST.objects.filter(pk=pk)
         userRequest.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+class Shifts (APIView):
+    def get(self, request, format=None):
+        shift = models.SCHEDULE_SHIFTS.objects.all()
+        serializer = serializers.ShiftSerializer(shift, many=True)
+        return Response(serializer.data)
