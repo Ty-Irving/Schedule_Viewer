@@ -19,7 +19,7 @@ class DEPARTMENT (models.Model):
         app_label='API'
     
     def __str__(self):
-        return self.DepartmentName
+        return self.DepartmentName + " DepartmentNo: " + str(self.DepartmentNo)
 
 class LOGIN (models.Model):
     UserUsername = models.CharField(primary_key=True, max_length=255)

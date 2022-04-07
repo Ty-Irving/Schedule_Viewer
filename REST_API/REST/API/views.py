@@ -64,3 +64,12 @@ class Departments (APIView):
             serializer.save()
             return Response(request.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class DepartmentDetails (APIView):
+    def put(self, request, pk, format=None):
+        department = models.DEPARTMENT.objects.get(pk=pk)
+        serializer = serializers.DepartmentSerializer(department, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
