@@ -52,7 +52,7 @@ class MANAGER (models.Model):
         app_label='API'
 
     def __str__(self):
-        return self.ManagerID.FName
+        return self.ManagerID.FName + ". ManagerID: " + str(self.pk)
 
 class EMPLOYEE (models.Model):
     EmpID = models.OneToOneField('API.USER', on_delete=models.CASCADE, primary_key=True)
@@ -62,7 +62,7 @@ class EMPLOYEE (models.Model):
         app_label='API'
 
     def __str__(self):
-        return self.EmpID.FName
+        return self.EmpID.FName + ". EmpID: " + str(self.EmpID)
 
 class SCHEDULE (models.Model):
     ScheduleID = models.AutoField(primary_key=True)
@@ -105,7 +105,7 @@ class REQUEST (models.Model):
         app_label='API'
 
     def __str__(self):
-        return "Emp: " + self.EmpID.EmpID.FName + " " + self.EmpID.EmpID.LName + " Date: " + str(self.Date) + " Time: " + str(self.Time)
+        return "Emp: " + self.EmpID.EmpID.FName + " " + self.EmpID.EmpID.LName + " Date: " + str(self.Date) + " Time: " + str(self.Time) + ". RequestID: " + str(self.pk)
 
 class TIME_LOG (models.Model):
     EmpID = models.ForeignKey('API.EMPLOYEE', on_delete=models.CASCADE)

@@ -37,4 +37,16 @@ class Requests (APIView):
         request = models.REQUEST.objects.all()
         serializer = serializers.RequestSerializer(request, many=True)
         return Response(serializer.data)
+    
+    def post(self, request, format=None):
+        serializer = serializers.RequestSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         
+class RequestDetails (APIView):
+    def delete(self, request, pk, format=None):
+        userRequest = models.REQUEST.objects.filter(pk=pk)
+        userRequest.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
