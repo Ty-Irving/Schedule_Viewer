@@ -2,12 +2,13 @@
 
 
 <html>
-<head>
-	<meta charset="UTF-8">
+<head>	
+    <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel = "stylesheet" href = "../CSS/styles.css"/>
     <title>Create Account</title>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
 </head>
 
 
@@ -19,8 +20,8 @@
         <h3 class = "hdr-2">Personal Information</h3>
         <p>Name</p>
         <div class = "name-div">
-            <input class = "name" placeholder = "First"></input>
-            <input class = "name" placeholder = "Last"></input>
+            <input class = "name" placeholder = "First" id = "fname"></input>
+            <input class = "name" placeholder = "Last" id = "lname"></input>
         </div>
         <p>Address</p>
         <input id = "location"></input>
@@ -31,7 +32,7 @@
         <input id = "pwd" type = 'password'></input>
         <p>Confirm Password</p>
         <input id = "pwd-confirm" type = 'password'></input>
-        <button class = "create">Create Account</button>
+        <button class = "create" id = "createacc" onclick = "create_account()">Create Account</button>
     </div>
 
 </body>
@@ -39,6 +40,34 @@
 
 </html>
 
+<script type = "text/javascript">
+
+    function create_account()
+    {
+        var data = {};
+        data.fname = $("#fname").val;
+        data.lname = $("#lname").val;
+        data.location = $("#location").val;
+        data.username = $("#user").val;
+
+        $.ajax({
+            type:"POST",
+            url: "http://127.0.0.1:8000/API/v1/users/",
+            data: data,
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            beforeSend: function (xhr, settings)
+            {
+                xhr.setRequestHeader("X-CSRFToken", '{{ csrf_token }}');
+            },
+            success: function (arg) 
+            {
+                location.reload()
+            }
+
+        })
+    }
+</script>
 
 <style type="text/css">
 
