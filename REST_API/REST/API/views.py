@@ -11,6 +11,9 @@ from . import serializers
 class Users (APIView):
     def post(self, request, format=None):
         serializer = serializers.UserSerialized (data=request.data)
+        login_serializer = serializers.LoginSerializer (data=request.data)
+        if login_serializer.is_valid():
+            login_serializer.save()
         if serializer.is_valid():
             serializer.save()
             return Response (data=serializer.data, status=status.HTTP_201_CREATED)

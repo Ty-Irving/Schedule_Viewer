@@ -20,3 +20,8 @@ class DepartmentSerializer (serializers.ModelSerializer):
     class Meta:
         model = models.DEPARTMENT
         fields = '__all__'
+
+class LoginSerializer (serializers.ModelSerializer):
+    class Meta:
+        model = models.LOGIN
+        fields = '__all__'
