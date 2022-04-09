@@ -63,6 +63,11 @@ class Shifts (APIView):
         return Response(serializer.data)
 
 class Departments (APIView):
+    def get(self, request, format=None):
+        request = models.DEPARTMENT.objects.all()
+        serializer = serializers.DepartmentSerializer(request, many=True)
+        return Response(serializer.data)
+
     def post(self, request, format=None):
         serializer = serializers.DepartmentSerializer(data=request.data)
         if serializer.is_valid():

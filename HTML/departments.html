@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Departments</title>
     <link rel="stylesheet" href="../CSS/styles.css">
+    <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
 </head>
 <body>
     <div class = "header">
@@ -20,9 +21,9 @@
 
     <div class="content" style="padding: 1.5rem;">
         
-        <button>add department</button>
+        <button onclick="departments()">add department</button>
         <br/>
-        <div style="margin:1.5rem">
+        <div style="margin:1.5rem" id = "department-content">
             <div class="department-element">
                 <p>Name: Research</p>
                 <p>ManagerID: 21</p>
@@ -41,10 +42,48 @@
 </body>
 </html>
 
+<script type = "text/javascript">
+
+    function getrequest()
+    {
+        var settings = 
+        {
+        "url": "http://127.0.0.1:8000/API/v1/departments/",
+        "method": "GET",
+        "timeout": 0,
+        };
+
+        return $.ajax(settings).done(function (response) {
+            console.log(response);
+        }).responseJSON;
+
+    }
+    function departments()
+    {
+    
+       data = getrequest();
+       let content = document.getElementById("department-content");
+      
+        for(let i = 0; i < data.length; i++)
+        {
+            let div = document.createElement("div");
+            div.innerHTML = "<p>Name: " + data[i].DepartmentName + "</p> <p>ManagerID: " + data[i].ManagerID + "</p> <a href=''./deparment-view.html'>VIEW</a> <a href=''./department-builder.html'>EDIT</a><a href='departments.html'>DELETE</a>";
+            content.appendChild(div);
+        }
+    }
+    
+</script>
+
+
 <style type="text/css">
     .content {
         background-color: #3c454f;
         margin-top: 15%;
+        width: 800px;
+        height: 500px;
+
+        margin-left: auto;
+        margin-right: auto;
     }
 
     .department-element {
