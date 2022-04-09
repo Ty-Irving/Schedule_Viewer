@@ -55,23 +55,26 @@
 
         return $.ajax(settings).done(function (response) {
             console.log(response);
-        }).responseJSON;
+        });
+        
 
     }
     function departments()
     {
     
        var data = getrequest();
-       var test = [{DepartmentName: "Shoo",ManagerID: 2}, {DepartmentName: "shame", ManagerID: 5}];
+       
+      // var test = [{DepartmentName: "Shoo",ManagerID: 2}, {DepartmentName: "shame", ManagerID: 5}];
        let content = document.getElementById("department-content");
       
+ 
         console.log(data);
-        console.log(test);
-        for(var i = 0; i < test.length; i++)
+        for(var i = 0; i < data.length; i++)
         {
             let div = document.createElement("div");
+            div.id = data[i].DepartmentName;
             div.className = "department-element";
-            div.innerHTML = "<p>Name: " + test[i].DepartmentName + "</p> <p>ManagerID: " + test[i].ManagerID + "</p> <a href=''./deparment-view.html'>VIEW</a> <a href=''./department-builder.html'>EDIT</a><a href='departments.html'>DELETE</a>";
+            div.innerHTML = "<p>Name: " + data[i].DepartmentName + "</p> <p>ManagerID: " + data[i].ManagerID + "</p> <a href=''./deparment-view.html'>VIEW</a> <a href=''./department-builder.html'>EDIT</a><a href='departments.html'>DELETE</a>";
             content.appendChild(div);
         }
     }
