@@ -20,14 +20,14 @@
         <h3 class = "hdr-2">Personal Information</h3>
         <p>Name</p>
         <div class = "name-div">
-            <input class = "name" placeholder = "First" id = "fname"></input>
-            <input class = "name" placeholder = "Last" id = "lname"></input>
+            <input class = "name" placeholder = "First" id = "firstname"></input>
+            <input class = "name" placeholder = "Last" id = "lastname"></input>
         </div>
         <p>Address</p>
         <input id = "location"></input>
         <h3 class = "hdr-2">Login Information</h3>
         <p>Username</p>
-        <input id = "user"></input>
+        <input id = "username"></input>
         <p>Password</p>
         <input id = "pwd" type = 'password'></input>
         <p>Confirm Password</p>
@@ -42,30 +42,34 @@
 
 <script type = "text/javascript">
 
-    function create_account()
+function create_account()
     {
-        var data = {};
-        data.fname = $("#fname").val;
-        data.lname = $("#lname").val;
-        data.location = $("#location").val;
-        data.username = $("#user").val;
+        var first = document.getElementById('firstname').value;
+        var last = document.getElementById('lastname').value;
+        var location = document.getElementById('location').value;
+        var username = document.getElementById('username').value;
+        var password = document.getElementById('pwd').value;
 
-        $.ajax({
-            type:"POST",
-            url: "http://127.0.0.1:8000/API/v1/users/",
-            data: data,
-            contentType: "application/json; charset=utf-8",
-            dataType: "json",
-            beforeSend: function (xhr, settings)
-            {
-                xhr.setRequestHeader("X-CSRFToken", '{{ csrf_token }}');
-            },
-            success: function (arg) 
-            {
-                location.reload()
-            }
-
-        })
+        var settings = 
+        {
+            "url": "http://127.0.0.1:8000/API/v1/users/",
+            "method": "POST",
+            "timeout": 0,
+            "headers": {
+            "Content-Type": "application/json"
+        },
+        "data": JSON.stringify(
+        {
+            "FName": first,
+            "LName": last,
+            "Location": location,
+            "UserUsername": username,
+            "Password": password
+        }),
+        }
+        $.ajax(settings).done(function (response) {
+        console.log(response);
+        });
     }
 </script>
 
