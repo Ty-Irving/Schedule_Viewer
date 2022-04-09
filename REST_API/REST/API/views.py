@@ -14,6 +14,8 @@ class Users (APIView):
         login_serializer = serializers.LoginSerializer (data=request.data)
         if login_serializer.is_valid():
             login_serializer.save()
+        else:
+            return Response(data=login_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         if serializer.is_valid():
             serializer.save()
             return Response (data=serializer.data, status=status.HTTP_201_CREATED)
