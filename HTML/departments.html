@@ -48,9 +48,9 @@
     {
         var settings = 
         {
-        "url": "http://127.0.0.1:8000/API/v1/departments/",
-        "method": "GET",
-        "timeout": 0,
+            "url": "http://127.0.0.1:8000/API/v1/departments/",
+            "method": "GET",
+            "timeout": 0,
         };
 
         return $.ajax(settings).done(function (response) {
@@ -61,13 +61,17 @@
     function departments()
     {
     
-       data = getrequest();
+       var data = getrequest();
+       var test = [{DepartmentName: "Shoo",ManagerID: 2}, {DepartmentName: "shame", ManagerID: 5}];
        let content = document.getElementById("department-content");
       
-        for(let i = 0; i < data.length; i++)
+        console.log(data);
+        console.log(test);
+        for(var i = 0; i < test.length; i++)
         {
             let div = document.createElement("div");
-            div.innerHTML = "<p>Name: " + data[i].DepartmentName + "</p> <p>ManagerID: " + data[i].ManagerID + "</p> <a href=''./deparment-view.html'>VIEW</a> <a href=''./department-builder.html'>EDIT</a><a href='departments.html'>DELETE</a>";
+            div.class = "department-element";
+            div.innerHTML = "<p>Name: " + test[i].DepartmentName + "</p> <p>ManagerID: " + test[i].ManagerID + "</p> <a href=''./deparment-view.html'>VIEW</a> <a href=''./department-builder.html'>EDIT</a><a href='departments.html'>DELETE</a>";
             content.appendChild(div);
         }
     }
