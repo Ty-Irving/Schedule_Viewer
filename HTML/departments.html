@@ -31,9 +31,9 @@
     <div class = "content-2" style="padding: 1.5rem;" id = "newDepartment">
         <div class ="input-content">
             <p>Department Name:</p> 
-            <input type = "text" id = "department-name" class = "input-dep">
+            <input type = "text" id = "department-name" class = "input-dep" placeholder = "Enter Department Name...">
             <p>Manager ID:</p>
-            <input type = "text" id = "manager-id" class = "input-dep">
+            <select id = "manager-id" class = "users"></select>
         </div>
         <button class = "create-dep" onclick="showDepartmentPrompt()">NEW DEPARTMENT</button>
     </div>
@@ -50,13 +50,14 @@
     {
         REQUEST_PROMPT.style.display='none';
         showNewDepartmentPrompt();
+        getDataList();
     }
 
     function showDepartmentPrompt()
     {
         REQUEST_PROMPT.style.display="block";
-        createDepartment();
         hideNewDepartmentPrompt();
+        createDepartment();
     }
 
     function hideNewDepartmentPrompt()
@@ -69,9 +70,37 @@
         REQUEST_IMG.style.display="block";
     }
 
+    function getDataList()
+    {
+        $("#manager-id").empty();
+        var obj;
+        var settings = 
+        {
+            "async": true,
+            "crossDomain": true,
+            "url": "http://127.0.0.1:8000/API/v1/managers/",
+            "method": "GET",
+        };
+         $.ajax(settings).done(function (response){
+            console.log(response); 
+            localStorage.setItem('Managers', JSON.stringify(response));
+        });
+
+        const DATALIST = document.getElementById("manager-id");
+        obj = JSON.parse(localStorage.getItem('Managers'));
+        console.log(obj);
+        var options =[], opt;
+        for(var i = 0; i < obj.length; i++)
+        {
+            opt = document.createElement('option');
+            opt.text = opt.text = obj[i].ManagerID;
+            DATALIST.appendChild(opt);
+        }
+        console.log(options);
+    }
+
     function getrequest()
     {
-        var obj;
         var settings = 
         {
             "async": true,
@@ -199,6 +228,12 @@
         margin-top: 100px;
         width: 300px;
         height: 40px;
+    }
+
+    .users
+    {
+        width: 180px;
+        height: 25px;
     }
   
 </style>
