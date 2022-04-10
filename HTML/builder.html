@@ -8,7 +8,7 @@
     <title>Schedule Builder</title>
     <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
 </head>
-<body onload = "getDataList()">
+<body>
 
     <div class = "header">
         <a href = "../HTML/builder.html"><img class = "header-img" src = "https://cdn.iconscout.com/icon/free/png-256/timer-83-470366.png"></a>
@@ -75,6 +75,11 @@
     const STARTUP = document.getElementById("startup");
     const BUILDER = document.getElementById("builder");
 
+    $(document).ready(function()
+    {
+        getDataList();
+    });
+
     function hideStartup()
     {
         STARTUP.style.display='none';
@@ -101,6 +106,7 @@
     {
         $("#user").empty();
         var obj;
+        const DATALIST = document.getElementById("user");
         var settings = 
         {
             "async": true,
@@ -112,7 +118,7 @@
             localStorage.setItem('Managers', JSON.stringify(response));
         });
 
-        const DATALIST = document.getElementById("user");
+        
         obj = JSON.parse(localStorage.getItem('Managers'));
         var options =[], opt;
         for(var i = 0; i < obj.length; i++)

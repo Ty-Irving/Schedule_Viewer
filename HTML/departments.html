@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="../CSS/styles.css">
     <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
 </head>
-<body onload ="departments()">
+<body>
     <div class = "header">
         <a href = "../HTML/builder.html"><img class = "header-img" src = "https://cdn.iconscout.com/icon/free/png-256/timer-83-470366.png"></a>
         <div class = "header-info">
@@ -46,11 +46,16 @@
     const REQUEST_PROMPT = document.getElementById("department");
     const REQUEST_IMG = document.getElementById("newDepartment");
 
+    $(document).ready(function()
+    {
+        getDataList();
+        departments();
+    });
+
     function hideDepartmentPrompt()
     {
         REQUEST_PROMPT.style.display='none';
         showNewDepartmentPrompt();
-        getDataList();
     }
 
     function showDepartmentPrompt()
@@ -58,6 +63,7 @@
         REQUEST_PROMPT.style.display="block";
         hideNewDepartmentPrompt();
         createDepartment();
+        departments();
     }
 
     function hideNewDepartmentPrompt()
@@ -117,11 +123,10 @@
     }
     function departments()
     {
-        
         var data = getrequest();
         // var test = [{DepartmentName: "Shoo",ManagerID: 2}, {DepartmentName: "shame", ManagerID: 5}];
         let content = document.getElementById("department-content");
-        
+        content.innerHTML = "";
  
         for(var i = 0; i < data.length; i++)
         {
