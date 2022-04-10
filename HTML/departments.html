@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="../CSS/styles.css">
     <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
 </head>
-<body  onload ="departments()">
+<body onload ="departments()">
     <div class = "header">
         <a href = "../HTML/builder.html"><img class = "header-img" src = "https://cdn.iconscout.com/icon/free/png-256/timer-83-470366.png"></a>
         <div class = "header-info">
@@ -82,21 +82,19 @@
             "method": "GET",
         };
          $.ajax(settings).done(function (response){
-            console.log(response); 
             localStorage.setItem('Managers', JSON.stringify(response));
         });
 
         const DATALIST = document.getElementById("manager-id");
         obj = JSON.parse(localStorage.getItem('Managers'));
-        console.log(obj);
         var options =[], opt;
         for(var i = 0; i < obj.length; i++)
         {
             opt = document.createElement('option');
-            opt.text = opt.text = obj[i].ManagerID;
+            opt.text = opt.text = obj[i].pk;
             DATALIST.appendChild(opt);
         }
-        console.log(options);
+
     }
 
     function getrequest()
@@ -109,7 +107,6 @@
             "method": "GET",
         };
          $.ajax(settings).done(function (response){
-            console.log(response); 
             localStorage.setItem('Departments', JSON.stringify(response));
         });
 
@@ -125,8 +122,6 @@
         // var test = [{DepartmentName: "Shoo",ManagerID: 2}, {DepartmentName: "shame", ManagerID: 5}];
         let content = document.getElementById("department-content");
         
- 
-        console.log(data);
  
         for(var i = 0; i < data.length; i++)
         {

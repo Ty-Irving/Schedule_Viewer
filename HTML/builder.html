@@ -6,8 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel = "stylesheet" href = "../CSS/styles.css"/>
     <title>Schedule Builder</title>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
 </head>
-<body>
+<body onload = "getDataList()">
 
     <div class = "header">
         <a href = "../HTML/builder.html"><img class = "header-img" src = "https://cdn.iconscout.com/icon/free/png-256/timer-83-470366.png"></a>
@@ -24,12 +25,7 @@
             <img src = "../HTML/user-img.png" class = "startup-img">
             <p>Select User ID</p>
             <input list = "user" class = "user-list">
-            <datalist id = "user">
-                <option>user123</option>
-                <option>user432</option>
-                <option>user345</option>
-                <option>user643</option>
-            </datalist>
+            <datalist id = "user"></datalist>
             <button onclick="hideStartup()">SETUP SCHEDULE</button>
         </div>
         
@@ -99,6 +95,33 @@
     function showBuilder()
     {
         BUILDER.style.display="block";
+    }
+
+    function getDataList()
+    {
+        $("#user").empty();
+        var obj;
+        var settings = 
+        {
+            "async": true,
+            "crossDomain": true,
+            "url": "http://127.0.0.1:8000/API/v1/users/",
+            "method": "GET",
+        };
+         $.ajax(settings).done(function (response){
+            localStorage.setItem('Managers', JSON.stringify(response));
+        });
+
+        const DATALIST = document.getElementById("user");
+        obj = JSON.parse(localStorage.getItem('Managers'));
+        var options =[], opt;
+        for(var i = 0; i < obj.length; i++)
+        {
+            opt = document.createElement('option');
+            opt.text = opt.text = +  obj[i].UserId + " - " + obj[i].FName + " " + obj[i].LName;
+            DATALIST.appendChild(opt);
+        }
+    
     }
 
 </script>
