@@ -67,6 +67,12 @@ class Shifts (APIView):
         serializer = serializers.ShiftSerializer(shift, many=True)
         return Response(serializer.data)
 
+class ShiftDetail (APIView):
+    def get(self, request, pk, format=None):
+        shift = models.SCHEDULE_SHIFTS.objects.get(ScheduleID=pk)
+        serializer = serializers.ShiftSerializer(shift)
+        return Response(serializer.data)
+
 class Departments (APIView):
     def get(self, request, format=None):
         request = models.DEPARTMENT.objects.all()
