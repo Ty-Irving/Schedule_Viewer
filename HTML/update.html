@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel = "stylesheet" href = "../CSS/styles.css"/>
     <title>Update Info</title>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
 </head>
 <body>
     <div class = "header">
@@ -21,8 +22,8 @@
         <div class = "builder-startup-content">
             <img src = "../HTML/user-img.png" class = "startup-img">
             <p>Type Login </p>
-            <input type = "text" placeholder = "Username...">
-            <input type = "password" placeholder ="Password...">
+            <input type = "text" placeholder = "Username..." id = "user">
+            <input type = "password" placeholder ="Password..." id = pass>
 
             <button onclick="hideStartup()">LOGIN</button>
         </div>    
@@ -31,11 +32,11 @@
     <div class = "update" id = "update">
         <div class = "update-content">
             <h1>Type New Info</h1>
-            <input type = "text" placeholder = "First Name...">
-            <input type = "text" placeholder = "Last Name...">
-            <input type = "text" placeholder = "Address...">
-            <input type = "text" placeholder = "Username...">
-            <input type = "password" placeholder = "New Password...">
+            <input type = "text" placeholder = "First Name..." id = "newfirst">
+            <input type = "text" placeholder = "Last Name..." id = "newlast">
+            <input type = "text" placeholder = "Address..." id = "newaddress">
+            <input type = "text" placeholder = "Username..." id = "newuser">
+            <input type = "password" placeholder = "New Password..." id = "newpass">
             <input type = "password" placeholder = "Confirm Password...">
             <button onclick = "showStartup()">UPDATE INFO</button>
         </div>
@@ -60,6 +61,7 @@
     {
         STARTUP.style.display="block";
         hideUpdate();
+        update_account();
     }
 
     function hideUpdate()
@@ -71,6 +73,40 @@
     {
         UPDATE.style.display="block";
     }
+
+    function update_account()
+    {
+        var username = document.getElementById('user').value;
+        var password = document.getElementById('pass').value;
+        var newusername = document.getElementById('newuser').value;
+        var newpassword = document.getElementById('newpass').value;
+        var first = document.getElementById('newfirst').value;
+        var last = document.getElementById('newlast').value;
+        var location = document.getElementById('newlocation').value;
+        
+
+        var settings = 
+        {
+            "url": "http://127.0.0.1:8000/API/v1/users/",
+            "method": "PUT",
+            "timeout": 0,
+            "headers": {
+            "Content-Type": "application/json"
+        },
+        "data": JSON.stringify(
+        {
+            "FName": newfirst,
+            "LName": newlast,
+            "Location": newlocation,
+            "UserUsername": newusername,
+            "Password": newpassword
+        }),
+        }
+        $.ajax(settings).done(function (response) {
+        console.log(response);
+        });
+    }
+
 
 </script>
 

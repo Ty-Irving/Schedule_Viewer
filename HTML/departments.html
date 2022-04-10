@@ -19,9 +19,10 @@
         </div>
     </div>
 
-    <div class="content" style="padding: 1.5rem;">
+    <div class="content" style="padding: 1.5rem;" id = "department">
         
         <button onclick="departments()">add department</button>
+        <button onclick="hideDepartmentPrompt()">Add New Department</button>
         <br/>
         <div style="margin:1.5rem" id = "department-content">
             <div class="department-element">
@@ -39,10 +40,47 @@
             </div>
         </div>
     </div>
+
+    <div class = "content-2" style="padding: 1.5rem;" id = "newDepartment">
+        <div class ="input-content">
+            <p>Department Name:</p> 
+            <input type = "text" id = "department-name" class = "input-dep">
+            <p>Manager ID:</p>
+            <input type = "text" id = "manager-id" class = "input-dep">
+        </div>
+        <button class = "create-dep" onclick="showDepartmentPrompt()">NEW DEPARTMENT</button>
+    </div>
+    
 </body>
 </html>
 
 <script type = "text/javascript">
+
+    const REQUEST_PROMPT = document.getElementById("department");
+    const REQUEST_IMG = document.getElementById("newDepartment");
+
+    function hideDepartmentPrompt()
+    {
+        REQUEST_PROMPT.style.display='none';
+        showNewDepartmentPrompt();
+    }
+
+    function showDepartmentPrompt()
+    {
+        REQUEST_PROMPT.style.display="block";
+        createDepartment();
+        hideNewDepartmentPrompt();
+    }
+
+    function hideNewDepartmentPrompt()
+    {
+        REQUEST_IMG.style.display="none";
+    }
+
+    function showNewDepartmentPrompt()
+    {
+        REQUEST_IMG.style.display="block";
+    }
 
     function getrequest()
     {
@@ -56,19 +94,21 @@
         return $.ajax(settings).done(function (response) {
             console.log(response);
         });
-        
+
 
     }
     function departments()
     {
     
        var data = getrequest();
+      
        
       // var test = [{DepartmentName: "Shoo",ManagerID: 2}, {DepartmentName: "shame", ManagerID: 5}];
        let content = document.getElementById("department-content");
       
  
         console.log(data);
+        console.log(test);
         for(var i = 0; i < data.length; i++)
         {
             let div = document.createElement("div");
@@ -77,6 +117,30 @@
             div.innerHTML = "<p>Name: " + data[i].DepartmentName + "</p> <p>ManagerID: " + data[i].ManagerID + "</p> <a href=''./deparment-view.html'>VIEW</a> <a href=''./department-builder.html'>EDIT</a><a href='departments.html'>DELETE</a>";
             content.appendChild(div);
         }
+    }
+
+    function createDepartment()
+    {
+        var manager = document.getElementById('manager-id').value;
+        var department = document.getElementById('department-name').value;
+
+        var settings = 
+        {
+            "url": "http://127.0.0.1:8000/API/v1/departments/",
+            "method": "POST",
+            "timeout": 0,
+            "headers": {
+            "Content-Type": "application/json"
+        },
+        "data": JSON.stringify(
+        {
+            "DepartmentName": department,
+            "ManagerID": manager,
+        }),
+        }
+        $.ajax(settings).done(function (response) {
+        console.log(response);
+        });
     }
     
 </script>
@@ -111,4 +175,40 @@
         color: white;
         margin-top: 10%;
     }
+
+    .content-2 {
+        background-color: #3c454f;
+        margin-top: 15%;
+        width: 400px;
+        height: 500px;
+
+        max-height: 400px;
+        margin-left: auto;
+        margin-right: auto;
+        display: none;
+    }
+    
+    .input-content
+    {
+        margin-left: auto;
+        margin-right: auto;
+        color: white;
+        text-align: center;
+        width: 50%;
+        margin-top: 50px;
+    }
+
+    .input-content input
+    {
+        margin-top: 10px;
+    }
+
+    .create-dep
+    {
+        margin-left: 45px;
+        margin-top: 100px;
+        width: 300px;
+        height: 40px;
+    }
+  
 </style>
