@@ -84,6 +84,7 @@
 
     function getrequest()
     {
+        var obj;
         var settings = 
         {
             "async": true,
@@ -91,25 +92,24 @@
             "url": "http://127.0.0.1:8000/API/v1/departments/",
             "method": "GET",
         };
-
-        return $.ajax(settings).done(function (response){
+         $.ajax(settings).done(function (response){
             console.log(response); 
-            console.log(response[0]);
+            localStorage.setItem('f', JSON.stringify(response));
+            
         });
-     
+
+        return JSON.parse(localStorage.getItem('f'));
        
        
 
     }
     function departments()
     {
-    
-       var data = getrequest();
-       var newcontent = data.readyState;
-       console.log(newcontent);
-      // var test = [{DepartmentName: "Shoo",ManagerID: 2}, {DepartmentName: "shame", ManagerID: 5}];
-       let content = document.getElementById("department-content");
-      
+        
+        var data = getrequest();
+        // var test = [{DepartmentName: "Shoo",ManagerID: 2}, {DepartmentName: "shame", ManagerID: 5}];
+        let content = document.getElementById("department-content");
+        
  
         console.log(data);
  
