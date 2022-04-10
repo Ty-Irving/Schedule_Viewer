@@ -86,29 +86,33 @@
     {
         var settings = 
         {
+            "async": true,
+            "crossDomain": true,
             "url": "http://127.0.0.1:8000/API/v1/departments/",
             "method": "GET",
-            "timeout": 0,
         };
 
-        return $.ajax(settings).done(function (response) {
-            console.log(response);
+        return $.ajax(settings).done(function (response){
+            console.log(response); 
+            console.log(response[0]);
         });
-
+     
+       
+       
 
     }
     function departments()
     {
     
        var data = getrequest();
-      
-       
+       var newcontent = data.readyState;
+       console.log(newcontent);
       // var test = [{DepartmentName: "Shoo",ManagerID: 2}, {DepartmentName: "shame", ManagerID: 5}];
        let content = document.getElementById("department-content");
       
  
         console.log(data);
-        console.log(test);
+ 
         for(var i = 0; i < data.length; i++)
         {
             let div = document.createElement("div");
