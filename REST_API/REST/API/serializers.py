@@ -25,3 +25,8 @@ class LoginSerializer (serializers.ModelSerializer):
     class Meta:
         model = models.LOGIN
         fields = '__all__'
+
+class ManagerSerializer (serializers.ModelSerializer):
+    class Meta:
+        model = models.MANAGER
+        fields=['ManagerID']

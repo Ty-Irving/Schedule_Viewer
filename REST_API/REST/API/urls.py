@@ -9,5 +9,6 @@ urlpatterns = [
     path("requests/<int:pk>", views.RequestDetails.as_view()),
     path("schedules/", views.Shifts.as_view()),
     path("departments/", views.Departments.as_view()),
-    path("departments/<int:pk>", views.DepartmentDetails.as_view())
+    path("departments/<int:pk>", views.DepartmentDetails.as_view()),
+    path("managers/", views.Managers.as_view())
 ]

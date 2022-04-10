@@ -20,6 +20,11 @@ class Users (APIView):
             serializer.save()
             return Response (data=serializer.data, status=status.HTTP_201_CREATED)
         return Response(data=serializer._errors, status=status.HTTP_400_BAD_REQUEST)
+    
+    def get(self, request, format=None):
+        users = models.USER.objects.all()
+        serializer = serializers.UserSerialized(users, many=True)
+        return Response(serializer.data)
 
 class UserDetails (APIView):
     def get(self, request, pk, format=None):
@@ -93,3 +98,9 @@ class DepartmentDetails (APIView):
         department = models.DEPARTMENT.objects.filter(pk=pk)
         department.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+class Managers (APIView):
+    def get(self, request, format=None):
+        manager = models.MANAGER.objects.all()
+        serializer = serializers.ManagerSerializer(manager, many=True)
+        return Response(serializer.data)
