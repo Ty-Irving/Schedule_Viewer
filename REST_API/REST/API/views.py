@@ -1,3 +1,4 @@
+from ast import Return
 from re import L
 from django.shortcuts import render
 from rest_framework.views import APIView
@@ -76,6 +77,15 @@ class ShiftDetail (APIView):
 
         serializer = serializers.ShiftSerializer(shift)
         return Response(serializer.data)
+    
+    def put(self, request, scheduleId, date, format=None):
+        shift = models.SCHEDULE_SHIFTS.objects.filter(ScheduleID=scheduleId).get(Date=date) # this query gets us the specific shift that we want to update
+        serializer = serializers.ShiftSerializer(shift, request.data)
+        if serializer.is_valid():
+            print(request.data)
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
 class ShiftRangeDetails (APIView):
     def get(self, request, scheduleId, startRangeDate, endRangeDate, format=None):

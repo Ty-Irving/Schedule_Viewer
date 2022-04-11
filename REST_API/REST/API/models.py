@@ -87,7 +87,7 @@ class SCHEDULE_SHIFTS (models.Model):
         app_label='API'
 
     def __str__(self):
-        return str(self.pk)
+        return "ScheduleID: " + str(self.ScheduleID) + ", Date: " + str(self.Date) + ", Time: " + str(self.Time)
 
 class REQUEST (models.Model):
     EmpID = models.ForeignKey('API.EMPLOYEE', on_delete=models.CASCADE, null=False)
