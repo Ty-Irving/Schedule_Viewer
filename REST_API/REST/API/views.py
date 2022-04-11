@@ -110,3 +110,9 @@ class Managers (APIView):
         manager = models.MANAGER.objects.all()
         serializer = serializers.ManagerSerializer(manager, many=True)
         return Response(serializer.data)
+
+class Logins(APIView):
+    def get(self, request, pk, format=None):
+        login = models.LOGIN.objects.get(pk=pk)
+        serializer = serializers.LoginSerializer(login)
+        return Response(serializer.data, status = status.HTTP_400_BAD_REQUEST)
