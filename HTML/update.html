@@ -25,7 +25,7 @@
             <input type = "text" placeholder = "Username..." id = "user">
             <input type = "password" placeholder ="Password..." id = pass>
 
-            <button onclick="hideStartup()">LOGIN</button>
+            <button onclick="update_account()">LOGIN</button>
         </div>    
     </div>
 
@@ -34,11 +34,11 @@
             <h1>Type New Info</h1>
             <input type = "text" placeholder = "First Name..." id = "newfirst">
             <input type = "text" placeholder = "Last Name..." id = "newlast">
-            <input type = "text" placeholder = "Address..." id = "newaddress">
+            <input type = "text" placeholder = "Address..." id = "newlocation">
             <input type = "text" placeholder = "Username..." id = "newuser">
             <input type = "password" placeholder = "New Password..." id = "newpass">
             <input type = "password" placeholder = "Confirm Password...">
-            <button onclick = "showStartup()">UPDATE INFO</button>
+            <button onclick = "post_account()">UPDATE INFO</button>
         </div>
     </div>
     
@@ -50,6 +50,7 @@
 <script type="text/javascript">
     const STARTUP = document.getElementById("startup");
     const UPDATE = document.getElementById("update");
+    var userID;
 
     function hideStartup()
     {
@@ -76,8 +77,57 @@
 
     function update_account()
     {
-        var username = document.getElementById('user').value;
-        var password = document.getElementById('pass').value;
+        const USER = document.getElementById("user");
+        const PASS = document.getElementById("pass");
+
+        var settings = 
+        {
+            "async": true,
+            "crossDomain": true,
+            "url": "http://127.0.0.1:8000/API/v1/login/" + USER.value,
+            "method": "GET",
+        };
+        $.ajax(settings).done(function (response){
+            localStorage.setItem('user', JSON.stringify(response));
+        });
+        var userinfo = JSON.parse(localStorage.getItem('user'))
+        
+        if(PASS.value == userinfo.Password)
+        {
+            settings = 
+            {
+                "async": true,
+                "crossDomain": true,
+                "url": "http://127.0.0.1:8000/API/v1/users/",
+                "method": "GET",
+            };
+            $.ajax(settings).done(function (response){
+                localStorage.setItem('users', JSON.stringify(response));
+            });
+            var users = JSON.parse(localStorage.getItem('users'))
+
+            for(var i = 0; i < users.length; i++)
+            {
+                if(USER.value == users[i].UserUsername)
+                {
+                    userID = users[i].UserId;
+                }
+            }
+
+            hideStartup();
+        }
+        else
+        {
+            console.log("here");
+        }
+
+       
+
+        
+    }
+
+    function post_account()
+    {
         var newusername = document.getElementById('newuser').value;
         var newpassword = document.getElementById('newpass').value;
         var first = document.getElementById('newfirst').value;
@@ -85,9 +135,9 @@
         var location = document.getElementById('newlocation').value;
         
 
-        var settings = 
+        settings = 
         {
-            "url": "http://127.0.0.1:8000/API/v1/users/",
+            "url": "http://127.0.0.1:8000/API/v1/users/" + userID,
             "method": "PUT",
             "timeout": 0,
             "headers": {
@@ -105,6 +155,7 @@
         $.ajax(settings).done(function (response) {
         console.log(response);
         });
+        showStartup();
     }
 
 
