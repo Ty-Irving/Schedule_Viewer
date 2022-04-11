@@ -72,6 +72,12 @@ class ShiftDetail (APIView):
         shift = models.SCHEDULE_SHIFTS.objects.filter(ScheduleID=scheduleId).get(Date=date)
         serializer = serializers.ShiftSerializer(shift)
         return Response(serializer.data)
+    
+class ShiftRangeDetails (APIView):
+    def get(self, request, scheduleId, startRangeDate, endRangeDate, format=None):
+        shifts = models.SCHEDULE_SHIFTS.objects.filter(ScheduleID=scheduleId).filter(Date__gte=startRangeDate).filter(Date__lte=endRangeDate).all()
+        serializer = serializers.ShiftSerializer(shifts, many=True)
+        return Response(serializer.data)
 
 class Departments (APIView):
     def get(self, request, format=None):
