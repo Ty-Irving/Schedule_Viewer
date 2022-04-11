@@ -63,6 +63,13 @@ class RequestDetails (APIView):
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 class Shifts (APIView):
+    def post(self, request, format=None):
+        serializer = serializers.ShiftSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(request.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
     def get(self, request, format=None):
         shift = models.SCHEDULE_SHIFTS.objects.all()
         serializer = serializers.ShiftSerializer(shift, many=True)
@@ -86,6 +93,11 @@ class ShiftDetail (APIView):
             serializer.save()
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+    def delete(self, request, scheduleId, date, format=None):
+        shift = models.SCHEDULE_SHIFTS.objects.filter(ScheduleID=scheduleId).filter(Date=date)
+        shift.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
     
 class ShiftRangeDetails (APIView):
     def get(self, request, scheduleId, startRangeDate, endRangeDate, format=None):
