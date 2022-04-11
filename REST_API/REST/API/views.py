@@ -39,6 +39,15 @@ class Employee(APIView):
         serializer = serializers.EmployeeSerializer(emp)
         return Response(serializer.data)
 
+
+class Employees (APIView):
+        def post(self, request, format=None):
+            employeeSerializer = serializers.EmployeeSerializer(data=request.data)
+            if employeeSerializer.is_valid():
+                employeeSerializer.save()
+                return Response(serializers.data, status=status.HTTP_201_CREATED)
+            return Response(employeeSerializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
 class UserDetails (APIView):
     def get(self, request, pk, format=None):
         user = models.USER.objects.get(pk=pk)
@@ -164,3 +173,12 @@ class Logins(APIView):
         login = models.LOGIN.objects.get(pk=pk)
         serializer = serializers.LoginSerializer(login)
         return Response(serializer.data)
+
+class Schedules (APIView):
+    def post(self, request, format=None):
+        serializer = serializers.ScheduleSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            print(serializer.data)
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

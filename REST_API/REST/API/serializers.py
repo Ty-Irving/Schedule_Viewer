@@ -35,3 +35,8 @@ class EmployeeSerializer (serializers.ModelSerializer):
     class Meta:
         model = models.EMPLOYEE
         fields = '__all__'
+
+class ScheduleSerializer (serializers.ModelSerializer):
+    class Meta:
+        model = models.SCHEDULE
+        fields = '__all__'

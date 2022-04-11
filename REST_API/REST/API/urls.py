@@ -15,4 +15,7 @@ urlpatterns = [
     path("schedules/<int:scheduleId>/<str:date>", views.ShiftDetail.as_view()),
     path("schedules/<int:scheduleId>/<str:startRangeDate>/<str:endRangeDate>", views.ShiftRangeDetails.as_view()),
     path("employee/<int:pk>", views.Employee.as_view()),
+    path("employee/", views.Employees.as_view()),
+    path("scheduleinfo/", views.Schedules.as_view())
+
 ]
