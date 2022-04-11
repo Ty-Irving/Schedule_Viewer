@@ -38,16 +38,16 @@
         
         <input list = "time" placeholder="End Time..." id = "end">
         <datalist id = "time">
-            <option>8:00AM</option>
-            <option>9:00AM</option>
-            <option>10:00AM</option>
-            <option>12:00PM</option>
-            <option>1:00PM</option>
-            <option>2:00PM</option>
-            <option>3:00PM</option>
-            <option>4:00PM</option>
-            <option>5:00PM</option>
-            <option>6:00PM</option>
+            <option>8:00:00</option>
+            <option>9:00:00</option>
+            <option>10:00:00</option>
+            <option>12:00:00</option>
+            <option>13:00:00</option>
+            <option>14:00:00</option>
+            <option>15:00:00</option>
+            <option>16:00:00</option>
+            <option>17:00:00</option>
+            <option>18:00:00</option>
         </datalist>
 
         <button onclick="postSchedule()">SCHEDULE</button>
@@ -124,11 +124,26 @@
         const END = document.getElementById("end");
 
         var ID = USER.value.split(" ", 1);
-        console.log(ID);
-
         var settings = 
         {
-            "url": "http://127.0.0.1:8000/API/v1/users/",
+            "async": true,
+            "crossDomain": true,
+            "url": "http://127.0.0.1:8000/API/v1/employee/"+ID,
+            "method": "GET",
+        };
+         $.ajax(settings).done(function (response){
+            localStorage.setItem('usersched', JSON.stringify(response));
+        });
+
+        var sched = JSON.parse(localStorage.getItem('usersched'));
+        var scheduleDate = DAY.value;
+        var startTime = START.value;
+        var endTime = END.value;
+        
+        
+        settings = 
+        {
+            "url": "http://127.0.0.1:8000/API/v1/schedules/",
             "method": "POST",
             "timeout": 0,
             "headers": {
@@ -136,11 +151,11 @@
         },
         "data": JSON.stringify(
         {
-            "FName": first,
-            "LName": last,
-            "Location": location,
-            "UserUsername": username,
-            "Password": password
+            "Date": scheduleDate,
+            "StartTime": startTime,
+            "EndTime": endTime,
+            "ScheduleID": sched.EmpScheduleID
+
         }),
         }
         $.ajax(settings).done(function (response) {

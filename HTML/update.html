@@ -35,7 +35,6 @@
             <input type = "text" placeholder = "First Name..." id = "newfirst">
             <input type = "text" placeholder = "Last Name..." id = "newlast">
             <input type = "text" placeholder = "Address..." id = "newlocation">
-            <input type = "text" placeholder = "Username..." id = "newuser">
             <input type = "password" placeholder = "New Password..." id = "newpass">
             <input type = "password" placeholder = "Confirm Password...">
             <button onclick = "post_account()">UPDATE INFO</button>
@@ -128,7 +127,7 @@
 
     function post_account()
     {
-        var newusername = document.getElementById('newuser').value;
+        var username = document.getElementById('user').value;
         var newpassword = document.getElementById('newpass').value;
         var first = document.getElementById('newfirst').value;
         var last = document.getElementById('newlast').value;
@@ -148,7 +147,7 @@
             "FName": newfirst,
             "LName": newlast,
             "Location": newlocation,
-            "UserUsername": newusername,
+            "UserUsername": username,
             "Password": newpassword
         }),
         }
