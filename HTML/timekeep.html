@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../CSS/styles.css">
+    <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
     <title>Time Keeping</title>
 </head>
 <body>
@@ -16,11 +18,80 @@
         <p>Start Time</p>
         <p>End Time</p>
         <br/>
-        <input type="text"/>
-        <input type="text"/>
+        <input type="time" id="start-time"/>
+        <input type="time"/>
         <br/>
-        <button>Start</button>
+        <button onclick="createTimeLog()">Start</button>
         <button disabled>Stop</button>
     </div>
 </body>
 </html>
+
+<script type="text/javascript">
+        $(document).ready(function()
+        {
+            getProjects();
+        });
+
+    function sessionVar()
+    {
+        console.log(localStorage.getItem("UserID"));
+        console.log(document.getElementById("start-time").value)
+    }
+
+    function getProjects()
+    {
+        $("#project").empty();
+        var obj;
+        const DATALIST = document.getElementById("project");
+        var settings = 
+        {
+            "async": true,
+            "crossDomain": true,
+            "url": "http://127.0.0.1:8000/API/v1/projects/",
+            "method": "GET",
+        };
+         $.ajax(settings).done(function (response){
+            localStorage.setItem('Projects', JSON.stringify(response));
+        });
+
+        obj = JSON.parse(localStorage.getItem('Projects'));
+        var options =[], opt;
+        for(var i = 0; i < obj.length; i++)
+        {
+            opt = document.createElement('option');
+            opt.text = opt.text + obj[i].ProjectId + " - " + obj[i].ProjectName;
+            DATALIST.appendChild(opt);
+        }
+    }
+
+    function createTimeLog()
+    {
+        var uid = localStorage.getItem("UserID");
+        var dateObj = new Date();
+        var date = "" + dateObj.getFullYear() + "-" + dateObj.getMonth() + "-" + dateObj.getDate();
+        var startTime = "" + dateObj.getHours() + ":" + dateObj.getMinutes() + ":" + dateObj.getSeconds();
+        console.log(date + ", " + startTime);
+
+        var settings = 
+        {
+            "url": "http://127.0.0.1:8000/API/v1/time/",
+            "method": "POST",
+            "timeout": 0,
+            "headers": {
+            "Content-Type": "application/json"
+        },
+        "data": JSON.stringify(
+        {
+            "StartTime": startTime,
+            "Date": date,
+            "EmpID": uid,
+        }),
+        }
+        $.ajax(settings).done(function (response) {
+        console.log(response);
+        location.reload(); // I keep having to reload twice for things to update, I don't know why. Fix that (from me. to me.)
+        window.location.reload();
+        });
+    }
+</script>
