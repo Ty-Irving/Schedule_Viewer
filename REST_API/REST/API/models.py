@@ -77,7 +77,8 @@ class SCHEDULE (models.Model):
 class SCHEDULE_SHIFTS (models.Model):
     ScheduleID = models.ForeignKey('API.SCHEDULE', on_delete=models.CASCADE, null=False)
     Date = models.DateField(null=False)
-    Time = models.TimeField(null=False)
+    StartTime = models.TimeField(null=False, default="22:00:00")
+    EndTime = models.TimeField(null=False, default="23:00:00")
 
     class Meta:
         constraints = [
@@ -87,7 +88,7 @@ class SCHEDULE_SHIFTS (models.Model):
         app_label='API'
 
     def __str__(self):
-        return "ScheduleID: " + str(self.ScheduleID) + ", Date: " + str(self.Date) + ", Time: " + str(self.Time)
+        return "ScheduleID: " + str(self.ScheduleID) + ", Date: " + str(self.Date) + ", StartTime: " + str(self.StartTime)
 
 class REQUEST (models.Model):
     EmpID = models.ForeignKey('API.EMPLOYEE', on_delete=models.CASCADE, null=False)
