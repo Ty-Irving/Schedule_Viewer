@@ -25,7 +25,7 @@
             <p class = "request-box-header">Make Request</p>
             <textarea id="request-content" cols="20" rows="8" placeholder="Type request..."></textarea>
             <button class = "btn"></script>SUBMIT</button>
-            <button class = "btn cancel" onclick="hideRequestPrompt()">CLOSE</button>
+            <button class = "btn cancel" onclick="makeRequest()">CLOSE</button>
         </div>
 
         <div class = "schedule-view">
@@ -74,8 +74,6 @@
                     <tr class="light-table-row">
                         <th>6:00PM</th><th id="c1r11"></th><th id="c2r11"></th><th id="c3r11"></th><th id="c4r11"></th><th id="c5r11"></th><th id="c6r11"></th><th id="c7r11"></th>
                     </tr>
-                    
-                    
                 </table>
             </div>
         </div>
@@ -142,6 +140,62 @@
         var time = now.getHours() + ":" + now.getMinutes() + ":" + now.getSeconds();
         var CONTENT = document.getElementById("request-content");
         console.log(date + "   " + time);
+        var sched = JSON.parse(localStorage.getItem('usersched'));
+        var userID = localStorage.getItem('userID');
+        
+
+
+        var settings = 
+        {
+            "async": true,
+            "crossDomain": true,
+            "url": "http://127.0.0.1:8000/API/v1/user/"+ userID,
+            "method": "GET",
+        };
+         $.ajax(settings).done(function (response){
+            localStorage.setItem('userinfo', JSON.stringify(response));
+        });
+        var userInfo = JSON.parse(localStorage.getItem('userinfo'));
+
+
+        var settings = 
+        {
+            "async": true,
+            "crossDomain": true,
+            "url": "http://127.0.0.1:8000/API/v1/departments/"+ userInfo.DNo,
+            "method": "GET",
+        };
+         $.ajax(settings).done(function (response){
+            localStorage.setItem('department', JSON.stringify(response));
+        });
+        var department = JSON.parse(localStorage.getItem('department'));
+
+        
+
+        settings = 
+        {
+            "url": "http://127.0.0.1:8000/API/v1/requests/",
+            "method": "POST",
+            "timeout": 0,
+            "headers": {
+            "Content-Type": "application/json"
+        },
+        "data": JSON.stringify(
+        {
+            "Date": date,
+            "Time": time,
+            "RequestedChange": CONTENT.value,
+            "EmpID": userID,
+            "ScheduleID": sched.EmpScheduleID,
+            "ResolvingMgrID": department.ManagerID
+        }),
+        }
+
+        $.ajax(settings).done(function (response) {
+        console.log(response);
+        });
+
+        hideRequestPrompt();
     }
 
     function getTable()
@@ -151,12 +205,12 @@
         var today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
         var lastSunday = new Date(today.setDate(today.getDate()-today.getDay())).toISOString().slice(0, 10);
         var nextSaturday = new Date(today.setDate(today.getDate() +6)).toISOString().slice(0, 10);
-        var storage = localStorage.getItem('userID');
+        var userID = localStorage.getItem('userID');
         var settings = 
         {
             "async": true,
             "crossDomain": true,
-            "url": "http://127.0.0.1:8000/API/v1/employee/"+ storage,
+            "url": "http://127.0.0.1:8000/API/v1/employee/"+ userID,
             "method": "GET",
         };
          $.ajax(settings).done(function (response){
