@@ -11,6 +11,7 @@ urlpatterns = [
     path("departments/", views.Departments.as_view()),
     path("departments/<int:pk>", views.DepartmentDetails.as_view()),
     path("managers/", views.Managers.as_view()),
+    path("login/<str:pk>", views.Logins.as_view()),
     path("schedules/<int:scheduleId>/<str:date>", views.ShiftDetail.as_view()),
     path("schedules/<int:scheduleId>/<str:startRangeDate>/<str:endRangeDate>", views.ShiftRangeDetails.as_view()),
 ]

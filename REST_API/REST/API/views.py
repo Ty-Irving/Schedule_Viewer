@@ -9,6 +9,12 @@ from . import models
 from . import serializers
 
 # Create your views here.
+class Logins(APIView):
+    def get(self, request, pk, format=None):
+        login = models.LOGIN.objects.get(pk=pk)
+        serializer = serializers.LoginSerializer(login)
+        return Response(serializer.data, status = status.HTTP_400_BAD_REQUEST)
+
 class Users (APIView):
     def post(self, request, format=None):
         serializer = serializers.UserSerialized (data=request.data)
@@ -30,7 +36,7 @@ class Users (APIView):
 class UserDetails (APIView):
     def get(self, request, pk, format=None):
         user = models.USER.objects.get(pk=pk)
-        serializer = serializers.UserSerialized (user)
+        serializer = serializers.UserSerialized(user)
         return Response(serializer.data)
     
     def put(self, request, pk, format=None):
@@ -151,4 +157,4 @@ class Logins(APIView):
     def get(self, request, pk, format=None):
         login = models.LOGIN.objects.get(pk=pk)
         serializer = serializers.LoginSerializer(login)
-        return Response(serializer.data, status = status.HTTP_400_BAD_REQUEST)
+        return Response(serializer.data)

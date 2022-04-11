@@ -17,23 +17,101 @@
         </div>
         <div class = "input-box">
             <img src = "../HTML/user-img.png" class = "box-img">
-            <input type = "text" class = "user-text" maxlength = "30" placeholder = "Username"></input>
+            <input type = "text" class = "user-text" maxlength = "30" placeholder = "Username" id = "user"></input>
         </div>
         <div class = "input-box">
             <img src = "../HTML/password-img.png" class = "box-img">
-            <input type = "password" class = "user-text" maxlength = "30" placeholder = "Password"></input>
+            <input type = "password" class = "user-text" maxlength = "30" placeholder = "Password" id = "pass"></input>
         </div>
         <div class = "create-acc">
             <a href = "create_account.html">Create Account</a>
         </div>
-        <button class = "login-button">LOGIN</button>
+        <button class = "login-button" onclick = "checkLogin()">LOGIN</button>
         <a href = "builder.html">Admin part</a>
         <a href = "schedule_view.html">User content</a>
     </div>
 </body>
 </html>
 
+<script type = "text/javascript">
 
+function checkLogin()
+    {
+        const USER = document.getElementById("user");
+        const PASS = document.getElementById("pass");
+        var userID;
+        var settings = 
+        {
+            "async": true,
+            "crossDomain": true,
+            "url": "http://127.0.0.1:8000/API/v1/login/" + USER.value,
+            "method": "GET",
+        };
+        $.ajax(settings).done(function (response){
+            localStorage.setItem('user', JSON.stringify(response));
+        });
+        var userinfo = JSON.parse(localStorage.getItem('user'))
+
+        if(userinfo.Password == PASS.value)
+        {
+            settings = 
+            {
+                "async": true,
+                "crossDomain": true,
+                "url": "http://127.0.0.1:8000/API/v1/users/",
+                "method": "GET",
+            };
+            $.ajax(settings).done(function (response){
+                localStorage.setItem('users', JSON.stringify(response));
+            });
+            var users = JSON.parse(localStorage.getItem('users'))
+
+            for(var i = 0; i < users.length; i++)
+            {
+                if(USER.value == users[i].UserUsername)
+                {
+                    userID = users[i].UserId;
+                }
+            }
+
+            settings = 
+            {
+                "async": true,
+                "crossDomain": true,
+                "url": "http://127.0.0.1:8000/API/v1/managers/",
+                "method": "GET",
+            };
+            $.ajax(settings).done(function (response){
+                localStorage.setItem('managers', JSON.stringify(response));
+            });
+            var managers = JSON.parse(localStorage.getItem('managers'))
+
+            for(var i = 0; i < users.managers; i++)
+            {
+                if(userID == managers[i].pk)
+                {
+                    userID = users[i].UserId;
+                }
+            }
+            console.log(userID);
+            if(userID != undefined)
+            {
+                $(location).prop('href', 'builder.html')
+            }
+            else
+            {
+                $(location).prop('href', 'schedule_view.html')
+            }
+
+
+
+        }
+        else
+        {
+            console.log("what?")
+        }
+    } 
+</script>
 
 
 
