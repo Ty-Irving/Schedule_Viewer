@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel = "stylesheet" href = "../CSS/styles.css"/>
     <title>Requests</title>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
 </head>
 <body>
     <div class = "header">
@@ -23,22 +24,102 @@
             <div class = "request-content">
                 <div class="table-header"><p>Message #</p></div>
                 <div class="table-header grid-row-3"><p>User</p></div>
-                <div class="table-header" style="grid-column: span 2"><p>Content</p></div>
+                <div class="table-header" style="grid-column: span 2"><p">Content</p></div>
             
         
-                <div class="table-cell"><p>1</p></div>
-                <div class="table-cell" style="grid-row: 4;"><p>Bobby bob</p></div>
-                <div class="table-cell" style="grid-row: span 3; grid-column: span 2;"><p>I cant work on Sundays</p></div>
+                <div class="table-cell"><p id = "request-no">1</p></div>
+                <div class="table-cell" style="grid-row: 4;"><p id = "request-user">Bobby bob</p></div>
+                <div class="table-cell" style="grid-row: span 3; grid-column: span 2;"><p id = "request-content">I cant work on Sundays</p></div>
             
             </div>
 
-            <button class="request-button">Request Denied</button>
-            <button class="request-button">Schedule Changed</button>
-            <button class="request-button">Next Request</button>
+            <button class="request-button" onclick = "deleteRequest()">Request Denied</button>
+            <button class="request-button" onclick = "deleteRequest()">Schedule Changed</button>
+            <button class="request-button" onclick = "changeRequest()" id = button-request>Next Request</button>
         </div> 
     </div>
 </body>
 </html>
+
+<script type = "text/javascript">
+    var count = 0;
+    var requests;
+
+    $(document).ready(function()
+    {
+        getRequest();
+
+    });
+
+
+    function deleteRequest()
+    {
+        const REQUESTID = document.getElementById("request-no");
+        newurl = "http://127.0.0.1:8000/API/v1/requests/"+ REQUESTID.innerHTML;
+        var settings = {
+        "url": newurl,
+        "method": "DELETE",
+        "timeout": 0,
+        };
+
+        $.ajax(settings).done(function (response) {
+        console.log(response);
+        });
+        
+        changeRequest();
+    }
+
+    function getRequest()
+    {
+        var settings = 
+        {
+            "async": true,
+            "crossDomain": true,
+            "url": "http://127.0.0.1:8000/API/v1/requests/",
+            "method": "GET",
+        };
+         $.ajax(settings).done(function (response){
+            localStorage.setItem('Managers', JSON.stringify(response));
+        });
+        requests = JSON.parse(localStorage.getItem('Managers'))
+        changeRequest();
+    }
+
+    function changeRequest()
+    {
+        if(count < requests.length)
+        {
+            
+            const REQUESTMESSAGE = document.getElementById("request-no");
+            const REQUESTUSER = document.getElementById("request-user");
+            const REQUESTCONTENT = document.getElementById("request-content");
+            
+            REQUESTMESSAGE.innerHTML = requests[count].id;
+            var settings = 
+            {
+                "async": true,
+                "crossDomain": true,
+                "url": "http://127.0.0.1:8000/API/v1/users/" + requests[count].EmpID,
+                "method": "GET",
+            };
+            $.ajax(settings).done(function (response){
+                localStorage.setItem('user', JSON.stringify(response));
+            });
+            var userinfo = JSON.parse(localStorage.getItem('user'))
+            REQUESTUSER.innerHTML = userinfo.FName + " " + userinfo.LName;
+            REQUESTCONTENT.innerHTML = requests[count].RequestedChange;
+            count++;
+        }
+        else
+        {
+            const REQUESTMESSAGE = document.getElementById("button-request");
+            REQUESTMESSAGE.style.cursor = "default";
+            REQUESTMESSAGE.style.opacity = 0;
+            
+        }
+    }
+
+</script>
 
 <style type="text/css">
     .request-item {
@@ -59,6 +140,8 @@
         text-align: center;
 
     }
+    
+
 
     .grid-row-2 {
         grid-row: 2;

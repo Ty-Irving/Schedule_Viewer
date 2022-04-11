@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="../CSS/styles.css">
     <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
 </head>
-<body  onload ="departments()">
+<body>
     <div class = "header">
         <a href = "../HTML/builder.html"><img class = "header-img" src = "https://cdn.iconscout.com/icon/free/png-256/timer-83-470366.png"></a>
         <div class = "header-info">
@@ -46,11 +46,16 @@
     const REQUEST_PROMPT = document.getElementById("department");
     const REQUEST_IMG = document.getElementById("newDepartment");
 
+    $(document).ready(function()
+    {
+        getDataList();
+        departments();
+    });
+
     function hideDepartmentPrompt()
     {
         REQUEST_PROMPT.style.display='none';
         showNewDepartmentPrompt();
-        getDataList();
     }
 
     function showDepartmentPrompt()
@@ -58,6 +63,7 @@
         REQUEST_PROMPT.style.display="block";
         hideNewDepartmentPrompt();
         createDepartment();
+        departments();
     }
 
     function hideNewDepartmentPrompt()
@@ -82,21 +88,19 @@
             "method": "GET",
         };
          $.ajax(settings).done(function (response){
-            console.log(response); 
             localStorage.setItem('Managers', JSON.stringify(response));
         });
 
         const DATALIST = document.getElementById("manager-id");
         obj = JSON.parse(localStorage.getItem('Managers'));
-        console.log(obj);
         var options =[], opt;
         for(var i = 0; i < obj.length; i++)
         {
             opt = document.createElement('option');
-            opt.text = opt.text = obj[i].ManagerID;
+            opt.text = opt.text = obj[i].pk;
             DATALIST.appendChild(opt);
         }
-        console.log(options);
+
     }
 
     function getrequest()
@@ -109,7 +113,6 @@
             "method": "GET",
         };
          $.ajax(settings).done(function (response){
-            console.log(response); 
             localStorage.setItem('Departments', JSON.stringify(response));
         });
 
@@ -120,20 +123,17 @@
     }
     function departments()
     {
-        
         var data = getrequest();
         // var test = [{DepartmentName: "Shoo",ManagerID: 2}, {DepartmentName: "shame", ManagerID: 5}];
         let content = document.getElementById("department-content");
-        
- 
-        console.log(data);
+        content.innerHTML = "";
  
         for(var i = 0; i < data.length; i++)
         {
             let div = document.createElement("div");
-            div.id = data[i].DepartmentName;
+            div.id = data[i].DepartmentNo;
             div.className = "department-element";
-            div.innerHTML = "<p>Name: " + data[i].DepartmentName + "</p> <p>ManagerID: " + data[i].ManagerID + "</p> <a href=''./deparment-view.html'>VIEW</a> <a href=''./department-builder.html'>EDIT</a><a href='departments.html'>DELETE</a>";
+            div.innerHTML = "<p>Name: " + data[i].DepartmentName + "</p> <p>ManagerID: " + data[i].ManagerID + "</p> <a href=''./deparment-view.html'>VIEW</a> <a href=''./department-builder.html'>EDIT</a><a href = '#' onclick='deleteDepartment("+data[i].DepartmentNo +")'>DELETE</a>";
             content.appendChild(div);
         }
     }
@@ -162,6 +162,23 @@
         });
     }
     
+    function deleteDepartment(depID)
+    {
+        newurl = "http://127.0.0.1:8000/API/v1/departments/"+ depID;
+        var settings = {
+        "url": newurl,
+        "method": "DELETE",
+        "timeout": 0,
+        };
+
+        $.ajax(settings).done(function (response) {
+        console.log(response);
+        });
+        
+        const element = document.getElementById(depID);
+        element.remove();
+
+    }
 </script>
 
 
