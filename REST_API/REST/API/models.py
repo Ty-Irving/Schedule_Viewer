@@ -3,7 +3,7 @@ from queue import Empty
 from xml.etree.ElementTree import tostring
 from django import db
 from django.db import models
-from django.db.models import UniqueConstraint
+from django.db.models import UniqueConstraint, CheckConstraint, Q
 
 
 # Create your models here.
@@ -57,8 +57,13 @@ class MANAGER (models.Model):
 class EMPLOYEE (models.Model):
     EmpID = models.OneToOneField('API.USER', on_delete=models.CASCADE, primary_key=True)
     EmpScheduleID = models.ForeignKey('API.SCHEDULE', on_delete=models.CASCADE)
+    Salary = models.FloatField(null=False, default=15.0)
 
     class Meta:
+        constraints = [
+            models.CheckConstraint(check=Q(Salary__gte=0.0) & Q(Salary__lte=100000000.0), name="my_float_constraint")
+        ]
+
         app_label='API'
 
     def __str__(self):
