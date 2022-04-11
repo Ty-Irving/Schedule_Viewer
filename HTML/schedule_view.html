@@ -43,37 +43,37 @@
                         <th>S</th>
                     </tr>
                     <tr class="light-table-row">
-                        <th>8:00AM</th><th></th><th></th><th></th><th></th><th></th><th></th><th></th>
+                        <th>8:00AM</th><th id="c1r1"></th><th id="c2r1"></th><th id="c3r1"></th><th id="c4r1"></th><th id="c5r1"></th><th id="c6r1"></th><th id="c7r1"></th>
                     </tr>
                     <tr class="dark-table-row">
-                        <th>9:00AM</th><th></th><th></th><th></th><th></th><th></th><th></th><th></th>
+                        <th>9:00AM</th><th id="c1r2"></th><th id="c2r2"></th><th id="c3r2"></th><th id="c4r2"></th><th id="c5r2"></th><th id="c6r2"></th><th id="c7r2"></th>
                     </tr>
                     <tr class="light-table-row">
-                        <th>10:00AM</th><th></th><th></th><th></th><th></th><th></th><th></th><th></th>
+                        <th>10:00AM</th><th id="c1r3"></th><th id="c2r3"></th><th id="c3r3"></th><th id="c4r3"></th><th id="c5r3"></th><th id="c6r3"></th><th id="c7r3"></th>
                     </tr>
                     <tr class="dark-table-row">
-                        <th>11:00AM</th><th></th><th></th><th></th><th></th><th></th><th></th><th></th>
+                        <th>11:00AM</th><th id="c1r4"></th><th id="c2r4"></th><th id="c3r4"></th><th id="c4r4"></th><th id="c5r4"></th><th id="c6r4"></th><th id="c7r4"></th>
                     </tr>
                     <tr class="light-table-row">
-                        <th>12:00AM</th><th></th><th></th><th></th><th></th><th></th><th></th><th></th>
+                        <th>12:00AM</th><th id="c1r5"></th><th id="c2r5"></th><th id="c3r5"></th><th id="c4r5"></th><th id="c5r5"></th><th id="c6r5"></th><th id="c7r5"></th>
                     </tr>
                     <tr class="dark-table-row">
-                        <th>1:00PM</th><th></th><th></th><th></th><th></th><th></th><th></th><th></th>
+                        <th>1:00PM</th><th id="c1r6"></th><th id="c2r6"></th><th id="c3r6"></th><th id="c4r6"></th><th id="c5r6"></th><th id="c6r6"></th><th id="c7r6"></th>
                     </tr>
                     <tr class="light-table-row"> 
-                        <th>2:00PM</th><th></th><th></th><th></th><th></th><th></th><th></th><th></th>
+                        <th>2:00PM</th><th id="c1r7"></th><th id="c2r7"></th><th id="c3r7"></th><th id="c4r7"></th><th id="c5r7"></th><th id="c6r7"></th><th id="c7r7"></th>
                     </tr>
                     <tr class="dark-table-row">
-                        <th>3:00PM</th><th></th><th></th><th></th><th></th><th></th><th></th><th></th>
+                        <th>3:00PM</th><th id="c1r8"></th><th id="c2r8"></th><th id="c3r8"></th><th id="c4r8"></th><th id="c5r8"></th><th id="c6r8"></th><th id="c7r8"></th>
                     </tr>
                     <tr class="light-table-row">
-                        <th>4:00PM</th><th></th><th></th><th></th><th></th><th></th><th></th><th></th>
+                        <th>4:00PM</th><th id="c1r9"></th><th id="c2r9"></th><th id="c3r9"></th><th id="c4r9"></th><th id="c5r9"></th><th id="c6r9"></th><th id="c7r9"></th>
                     </tr>
                     <tr class="dark-table-row">
-                        <th>5:00PM</th><th></th><th></th><th></th><th></th><th></th><th></th><th></th>
+                        <th>5:00PM</th><th id="c1r10"></th><th id="c2r10"></th><th id="c3r10"></th><th id="c4r10"></th><th id="c5r10"></th><th id="c6r10"></th><th id="c7r10"></th>
                     </tr>
                     <tr class="light-table-row">
-                        <th>6:00PM</th><th></th><th></th><th></th><th></th><th></th><th></th><th></th>
+                        <th>6:00PM</th><th id="c1r11"></th><th id="c2r11"></th><th id="c3r11"></th><th id="c4r11"></th><th id="c5r11"></th><th id="c6r11"></th><th id="c7r11"></th>
                     </tr>
                     
                     
@@ -106,6 +106,11 @@
     const REQUEST_PROMPT = document.getElementById("request_box");
     const REQUEST_IMG = document.getElementById("request_img");
 
+    $(document).ready(function()
+    {
+        getTable();
+    });
+
     function hideRequestPrompt()
     {
         REQUEST_PROMPT.style.display='none';
@@ -132,6 +137,59 @@
     {
         
     }
+
+    function getTable()
+    {
+        var id, startTime, endTime;
+        var now = new Date();
+        var today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+        var lastSunday = new Date(today.setDate(today.getDate()-today.getDay())).toISOString().slice(0, 10);
+        var nextSaturday = new Date(today.setDate(today.getDate() +6)).toISOString().slice(0, 10);
+        
+        var settings = 
+        {
+            "async": true,
+            "crossDomain": true,
+            "url": "http://127.0.0.1:8000/API/v1/schedules/1/" + lastSunday + "/" + nextSaturday,
+            "method": "GET",
+        };
+         $.ajax(settings).done(function (response){
+            localStorage.setItem('shifts', JSON.stringify(response));
+        });
+
+        var shifts = JSON.parse(localStorage.getItem('shifts'));
+
+        for(var i = 0; i < shifts.length; i++)
+        {
+            var day;
+            var result = new Date(shifts[i].Date).getDay(); 
+            startTime = parseInt(shifts[i].StartTime.split(":", 1));
+            endTime = parseInt(shifts[i].EndTime.split(":", 1));
+            if(result != 6)
+            {
+                day = result + 2;
+            }
+            var count = startTime - 7;
+            while(startTime != endTime)
+            {
+                if(result == 6)
+                {
+                    id = "c1r" + count;  
+                }
+                else
+                {
+                    id = "c" + day + "r" + count;
+                }
+                var CELL = document.getElementById(id);
+                CELL.style.backgroundColor = "#006400";
+                startTime +=1;
+                count +=1;
+            }
+            
+        }
+
+    }
+
 </script>
 
 <style type="text/css">
@@ -145,6 +203,8 @@
         position: fixed;
         filter: invert();
     }
+
+
 
     .request-img:hover {
         cursor: pointer;
