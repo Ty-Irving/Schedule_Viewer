@@ -111,7 +111,7 @@ class REQUEST (models.Model):
 class TIME_LOG (models.Model):
     EmpID = models.ForeignKey('API.EMPLOYEE', on_delete=models.CASCADE)
     StartTime = models.TimeField(null=False)
-    EndTime = models.TimeField(null=True, default=None)
+    EndTime = models.TimeField(null=True, default=None, blank=True)
     Date = models.DateField(null=False)
 
     class Meta:

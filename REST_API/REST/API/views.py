@@ -41,7 +41,7 @@ class Employee(APIView):
 
 class UserDetails (APIView):
     def get(self, request, pk, format=None):
-        user = models.USER.objects.filter(pk=pk)
+        user = models.USER.objects.get(pk=pk)
         serializer = serializers.UserSerialized(user)
         return Response(serializer.data)
     
@@ -192,4 +192,19 @@ class TimeLogs (APIView):
             print(request.data)
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+class TimeLogDetails (APIView):
+    def get(self, request, pk, format=None):
+        timeLogs = models.TIME_LOG.objects.filter(EndTime__isnull=True).filter(EmpID=pk).all()
+        serializer = serializers.TimeLogSerializer(timeLogs, many=True)
+        return Response(serializer.data)
+
+    def put(self, request, pk, format=None):
+        timeLog = models.TIME_LOG.objects.filter(EndTime__isnull=True).get(EmpID=pk)
+        serializer = serializers.TimeLogSerializer(timeLog, data=request.data)
+        if serializer.is_valid():
+            print(request.data)
+            serializer.save()
+            return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
