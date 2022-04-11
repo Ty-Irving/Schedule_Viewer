@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../CSS/styles.css">
+    <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <title>Create Project</title>
+</head>
+<body>
+    <div>
+        <input list="departments" placeholder="Controlling Department" id="department-list">
+        <datalist id="departments">
+        </datalist>
+        <br/>
+        <input type="text" placeholder="Project Name" id="project-name"/>
+        <br/>
+        <button onclick="createProject()">Create</button>
+    </div>
+    <br/>
+    <div>
+        <input list="del-projects" placeholder="Project to Delete" id="del-project-list">
+
+        <datalist id="del-projects">
+            <option>Hello</option>
+        </datalist>
+        <br/>
+        <button onclick="deleteProject()">Delete</button>
+    </div>
+</body>
+</html>
+
+<script type="text/javascript">
+
+    $(document).ready(function()
+        {
+            getDataList();
+            getProjectDataList();
+        });
+
+    function getDataList()
+    {
+        $("#departments").empty();
+        var obj;
+        const DATALIST = document.getElementById("departments");
+        var settings = 
+        {
+            "async": true,
+            "crossDomain": true,
+            "url": "http://127.0.0.1:8000/API/v1/departments/",
+            "method": "GET",
+        };
+         $.ajax(settings).done(function (response){
+            localStorage.setItem('Departments', JSON.stringify(response));
+        });
+
+        obj = JSON.parse(localStorage.getItem('Departments'));
+        var options =[], opt;
+        for(var i = 0; i < obj.length; i++)
+        {
+            opt = document.createElement('option');
+            opt.text = opt.text + obj[i].DepartmentNo + " - " + obj[i].DepartmentName;
+            DATALIST.appendChild(opt);
+        }
+    }
+
+    function getProjectDataList()
+    {
+        $("#del-projects").empty();
+        var obj;
+        const DATALIST = document.getElementById("del-projects");
+        var settings = 
+        {
+            "async": true,
+            "crossDomain": true,
+            "url": "http://127.0.0.1:8000/API/v1/projects/",
+            "method": "GET",
+        };
+         $.ajax(settings).done(function (response){
+            localStorage.setItem('Projects', JSON.stringify(response));
+        });
+
+        obj = JSON.parse(localStorage.getItem('Projects'));
+        var options =[], opt;
+        for(var i = 0; i < obj.length; i++)
+        {
+            opt = document.createElement('option');
+            opt.text = opt.text + obj[i].ProjectId + " - " + obj[i].ProjectName;
+            DATALIST.appendChild(opt);
+        }
+    }
+
+    function createProject()
+    {
+
+        var departmentList = document.getElementById("department-list");
+        var departmentNumber = parseInt(departmentList.value); // change this to a loop that gets the proper number
+        var projectName = document.getElementById("project-name").value;
+        
+        var settings = 
+        {
+            "url": "http://127.0.0.1:8000/API/v1/projects/",
+            "method": "POST",
+            "timeout": 0,
+            "headers": {
+            "Content-Type": "application/json"
+        },
+        "data": JSON.stringify(
+        {
+            "ProjectName": projectName,
+            "ContrllingDepartmentNo": departmentNumber,
+        }),
+        }
+        $.ajax(settings).done(function (response) {
+        console.log(response);
+        location.reload(); // I keep having to reload twice for things to update, I don't know why. Fix that (from me. to me.)
+        window.location.reload();
+        });
+
+    }
+
+    function deleteProject()
+    {
+        var projectList = document.getElementById("del-project-list");
+        var projectID = parseInt(projectList.value);
+
+        newurl = "http://127.0.0.1:8000/API/v1/projects/"+ projectID;
+        var settings = {
+        "url": newurl,
+        "method": "DELETE",
+        "timeout": 0,
+        };
+
+        $.ajax(settings).done(function (response) {
+        console.log(response);
+        location.reload(); // I keep having to reload twice for things to update, I don't know why. Fix that (from me. to me.)
+        window.location.reload();
+        });
+    }
+
+    /*
+
+    function getDataList()
+    {
+        $("#user").empty();
+        var obj;
+        const DATALIST = document.getElementById("user");
+        var settings = 
+        {
+            "async": true,
+            "crossDomain": true,
+            "url": "http://127.0.0.1:8000/API/v1/users/",
+            "method": "GET",
+        };
+         $.ajax(settings).done(function (response){
+            localStorage.setItem('Managers', JSON.stringify(response));
+        });
+
+        
+        obj = JSON.parse(localStorage.getItem('Managers'));
+        var options =[], opt;
+        for(var i = 0; i < obj.length; i++)
+        {
+            opt = document.createElement('option');
+            opt.text = opt.text = +  obj[i].UserId + " - " + obj[i].FName + " " + obj[i].LName;
+            DATALIST.appendChild(opt);
+        }
+
+    
+        function createDepartment()
+    {
+        var manager = document.getElementById('manager-id').value;
+        var department = document.getElementById('department-name').value;
+
+        var settings = 
+        {
+            "url": "http://127.0.0.1:8000/API/v1/departments/",
+            "method": "POST",
+            "timeout": 0,
+            "headers": {
+            "Content-Type": "application/json"
+        },
+        "data": JSON.stringify(
+        {
+            "DepartmentName": department,
+            "ManagerID": manager,
+        }),
+        }
+        $.ajax(settings).done(function (response) {
+        console.log(response);
+        });
+
+            function deleteDepartment(depID)
+    {
+        newurl = "http://127.0.0.1:8000/API/v1/departments/"+ depID;
+        var settings = {
+        "url": newurl,
+        "method": "DELETE",
+        "timeout": 0,
+        };
+
+        $.ajax(settings).done(function (response) {
+        console.log(response);
+        });
+        
+        const element = document.getElementById(depID);
+        element.remove();
+
+    }
+    }
+    */
+</script>
