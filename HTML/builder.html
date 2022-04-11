@@ -24,7 +24,7 @@
         <div class = builder-startup-content>
             <img src = "../HTML/user-img.png" class = "startup-img">
             <p>Select User ID</p>
-            <input list = "user" class = "user-list">
+            <input list = "user" class = "user-list" id = "username"> 
             <datalist id = "user"></datalist>
             <button onclick="hideStartup()">SETUP SCHEDULE</button>
         </div>
@@ -33,38 +33,24 @@
     
     <div class = "builder-content" id = "builder">
         <img class = "schedule-img" src="../HTML/calender.png">
-        <input type = "date" min = "2022-01-01" max = "2023-12-31">
-        <input list = "time" placeholder="Start Time...">
+        <input type = "date" min = "2022-01-01" max = "2023-12-31" id = "day">
+        <input list = "time" placeholder="Start Time..." id = "start">
         
-        <input list = "time" placeholder="End Time...">
+        <input list = "time" placeholder="End Time..." id = "end">
         <datalist id = "time">
-            <option>7:00AM</option>
-            <option>7:30AM</option>
             <option>8:00AM</option>
-            <option>8:30AM</option>
             <option>9:00AM</option>
-            <option>9:30AM</option>
             <option>10:00AM</option>
-            <option>11:30AM</option>
             <option>12:00PM</option>
-            <option>12:30PM</option>
             <option>1:00PM</option>
-            <option>1:30PM</option>
             <option>2:00PM</option>
-            <option>2:30PM</option>
             <option>3:00PM</option>
-            <option>3:30PM</option>
             <option>4:00PM</option>
-            <option>4:30PM</option>
             <option>5:00PM</option>
-            <option>5:30PM</option>
             <option>6:00PM</option>
-            <option>6:30PM</option>
-            <option>7:00PM</option>
-            <option>7:30PM</option>
         </datalist>
 
-        <button onclick="showStartup()">SCHEDULE</button>
+        <button onclick="postSchedule()">SCHEDULE</button>
     </div>
 
 
@@ -128,6 +114,40 @@
             DATALIST.appendChild(opt);
         }
     
+    }
+
+    function postSchedule()
+    {
+        const USER = document.getElementById("username");
+        const DAY = document.getElementById("day");
+        const START = document.getElementById("start");
+        const END = document.getElementById("end");
+
+        var ID = USER.value.split(" ", 1);
+        console.log(ID);
+
+        var settings = 
+        {
+            "url": "http://127.0.0.1:8000/API/v1/users/",
+            "method": "POST",
+            "timeout": 0,
+            "headers": {
+            "Content-Type": "application/json"
+        },
+        "data": JSON.stringify(
+        {
+            "FName": first,
+            "LName": last,
+            "Location": location,
+            "UserUsername": username,
+            "Password": password
+        }),
+        }
+        $.ajax(settings).done(function (response) {
+        console.log(response);
+        });
+        
+        showStartup();
     }
 
 </script>

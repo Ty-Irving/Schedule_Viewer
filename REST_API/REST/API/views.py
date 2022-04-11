@@ -33,9 +33,15 @@ class Users (APIView):
         serializer = serializers.UserSerialized(users, many=True)
         return Response(serializer.data)
 
+class Employee(APIView):
+    def get(self, request, pk, format=None):
+        emp = models.EMPLOYEE.objects.get(pk=pk)
+        serializer = serializers.EmployeeSerializer(emp)
+        return Response(serializer.data)
+
 class UserDetails (APIView):
     def get(self, request, pk, format=None):
-        user = models.USER.objects.get(pk=pk)
+        user = models.USER.objects.filter(pk=pk)
         serializer = serializers.UserSerialized(user)
         return Response(serializer.data)
     

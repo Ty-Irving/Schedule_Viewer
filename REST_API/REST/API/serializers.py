@@ -30,3 +30,8 @@ class ManagerSerializer (serializers.ModelSerializer):
     class Meta:
         model = models.MANAGER
         fields=['pk']
+
+class EmployeeSerializer (serializers.ModelSerializer):
+    class Meta:
+        model = models.EMPLOYEE
+        fields = '__all__'
