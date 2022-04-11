@@ -70,12 +70,20 @@ class Shifts (APIView):
 class ShiftDetail (APIView):
     def get(self, request, scheduleId, date, format=None):
         shift = models.SCHEDULE_SHIFTS.objects.filter(ScheduleID=scheduleId).get(Date=date)
+
+        # I think I got it now: we can keep filtering as much as we want, and if we want to return the actual results we do that
+        # with .all or .get, and these will actually return the values
+
         serializer = serializers.ShiftSerializer(shift)
         return Response(serializer.data)
     
 class ShiftRangeDetails (APIView):
     def get(self, request, scheduleId, startRangeDate, endRangeDate, format=None):
         shifts = models.SCHEDULE_SHIFTS.objects.filter(ScheduleID=scheduleId).filter(Date__gte=startRangeDate).filter(Date__lte=endRangeDate).all()
+
+        # I think I got it now: we can keep filtering as much as we want, and if we want to return the actual results we do that
+        # with .all or .get, and these will actually return the values
+
         serializer = serializers.ShiftSerializer(shifts, many=True)
         return Response(serializer.data)
 
