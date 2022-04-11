@@ -45,6 +45,13 @@
     var count = 0;
     var requests;
 
+    window.onload = function() {
+    if(!window.location.hash) {
+        window.location = window.location + '#loaded';
+        window.location.reload();
+    }
+    }
+
     $(document).ready(function()
     {
         getRequest();
@@ -78,10 +85,10 @@
             "url": "http://127.0.0.1:8000/API/v1/requests/",
             "method": "GET",
         };
-         $.ajax(settings).done(function (response){
-            localStorage.setItem('Managers', JSON.stringify(response));
+        $.ajax(settings).done(function (response){
+            localStorage.setItem('requests', JSON.stringify(response));
         });
-        requests = JSON.parse(localStorage.getItem('Managers'))
+        requests = JSON.parse(localStorage.getItem('requests'))
         changeRequest();
     }
 
@@ -103,9 +110,9 @@
                 "method": "GET",
             };
             $.ajax(settings).done(function (response){
-                localStorage.setItem('user', JSON.stringify(response));
+                localStorage.setItem('request-user', JSON.stringify(response));
             });
-            var userinfo = JSON.parse(localStorage.getItem('user'))
+            var userinfo = JSON.parse(localStorage.getItem('request-user'))
             REQUESTUSER.innerHTML = userinfo.FName + " " + userinfo.LName;
             REQUESTCONTENT.innerHTML = requests[count].RequestedChange;
             count++;

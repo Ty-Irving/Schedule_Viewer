@@ -103,10 +103,18 @@
     const REQUEST_PROMPT = document.getElementById("request_box");
     const REQUEST_IMG = document.getElementById("request_img");
 
+    window.onload = function() {
+    if(!window.location.hash) {
+        window.location = window.location + '#loaded';
+        window.location.reload();
+    }
+    }
+
     $(document).ready(function()
     {
+        
         getTable();
-        makeRequest();
+        
     });
 
     
@@ -260,7 +268,6 @@
             }
             
         }
-
     }
 
 </script>

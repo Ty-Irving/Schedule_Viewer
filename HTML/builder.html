@@ -58,6 +58,14 @@
 </html>
 
 <script type="text/javascript">
+    
+    window.onload = function() {
+    if(!window.location.hash) {
+        window.location = window.location + '#loaded';
+        window.location.reload();
+    }
+    }
+
     const STARTUP = document.getElementById("startup");
     const BUILDER = document.getElementById("builder");
 
@@ -101,11 +109,11 @@
             "method": "GET",
         };
          $.ajax(settings).done(function (response){
-            localStorage.setItem('Managers', JSON.stringify(response));
+            localStorage.setItem('users-builder', JSON.stringify(response));
         });
 
         
-        obj = JSON.parse(localStorage.getItem('Managers'));
+        obj = JSON.parse(localStorage.getItem('users-builder'));
         var options =[], opt;
         for(var i = 0; i < obj.length; i++)
         {
