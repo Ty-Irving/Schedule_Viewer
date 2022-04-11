@@ -14,7 +14,7 @@
         <div class = "header-info">
             <a class = "header-link" href="../HTML/update.html"> UPDATE INFO</a>
             <a class = "header-link" style = "background-color: rgba(0, 136, 107, 0.768)" href = "../HTML/schedule_view.html">SCHEDULE VIEW</a>
-            <a class = "header-link" href = "../HTML/index.html">LOGOUT</a>
+            <a class = "header-link" href = "../HTML/index.html" onclick = "localStorage.clear()">LOGOUT</a>
         </div>
     </div>
 
@@ -23,8 +23,7 @@
         
         <div class = "request-box" id="request_box">
             <p class = "request-box-header">Make Request</p>
-            <input type="text" placeholder = "Type employee ID...">
-            <textarea id="" cols="20" rows="8" placeholder="Type request..."></textarea>
+            <textarea id="request-content" cols="20" rows="8" placeholder="Type request..."></textarea>
             <button class = "btn"></script>SUBMIT</button>
             <button class = "btn cancel" onclick="hideRequestPrompt()">CLOSE</button>
         </div>
@@ -109,7 +108,10 @@
     $(document).ready(function()
     {
         getTable();
+        makeRequest();
     });
+
+    
 
     function hideRequestPrompt()
     {
@@ -135,7 +137,11 @@
 
     function makeRequest()
     {
-        
+        var date = new Date().toISOString().slice(0, 10);
+        var now = new Date();
+        var time = now.getHours() + ":" + now.getMinutes() + ":" + now.getSeconds();
+        var CONTENT = document.getElementById("request-content");
+        console.log(date + "   " + time);
     }
 
     function getTable()
@@ -145,12 +151,25 @@
         var today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
         var lastSunday = new Date(today.setDate(today.getDate()-today.getDay())).toISOString().slice(0, 10);
         var nextSaturday = new Date(today.setDate(today.getDate() +6)).toISOString().slice(0, 10);
-        
+        var storage = localStorage.getItem('userID');
         var settings = 
         {
             "async": true,
             "crossDomain": true,
-            "url": "http://127.0.0.1:8000/API/v1/schedules/1/" + lastSunday + "/" + nextSaturday,
+            "url": "http://127.0.0.1:8000/API/v1/employee/"+ storage,
+            "method": "GET",
+        };
+         $.ajax(settings).done(function (response){
+            localStorage.setItem('usersched', JSON.stringify(response));
+        });
+
+        var sched = JSON.parse(localStorage.getItem('usersched'));
+
+        var settings = 
+        {
+            "async": true,
+            "crossDomain": true,
+            "url": "http://127.0.0.1:8000/API/v1/schedules/" + sched.EmpScheduleID + "/" + lastSunday + "/" + nextSaturday,
             "method": "GET",
         };
          $.ajax(settings).done(function (response){

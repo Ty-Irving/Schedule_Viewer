@@ -71,6 +71,7 @@ function checkLogin()
                 if(USER.value == users[i].UserUsername)
                 {
                     userID = users[i].UserId;
+                    localStorage.setItem('userID', users[i].UserId);
                 }
             }
 
