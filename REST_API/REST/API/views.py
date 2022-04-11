@@ -68,8 +68,8 @@ class Shifts (APIView):
         return Response(serializer.data)
 
 class ShiftDetail (APIView):
-    def get(self, request, pk, format=None):
-        shift = models.SCHEDULE_SHIFTS.objects.get(ScheduleID=pk)
+    def get(self, request, scheduleId, date, format=None):
+        shift = models.SCHEDULE_SHIFTS.objects.filter(ScheduleID=scheduleId).get(Date=date)
         serializer = serializers.ShiftSerializer(shift)
         return Response(serializer.data)
 
