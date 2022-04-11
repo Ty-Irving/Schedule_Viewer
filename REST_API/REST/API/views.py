@@ -164,3 +164,32 @@ class Logins(APIView):
         login = models.LOGIN.objects.get(pk=pk)
         serializer = serializers.LoginSerializer(login)
         return Response(serializer.data)
+
+class Projects (APIView):
+    def post(self, request, format=None):
+        serializer = serializers.ProjectSerializer(data=request.data)
+        if serializer.is_valid():
+            print(request.data)
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+    def get(self, request, format=None):
+        projects = models.PROJECT.objects.all()
+        serializer = serializers.ProjectSerializer(projects, many=True)
+        return Response(serializer.data)
+
+class ProjectDetails (APIView):
+    def delete(self, request, pk, format=None):
+        project = models.PROJECT.objects.filter(ProjectId=pk)
+        project.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+class TimeLogs (APIView):
+    def post(self, request, format=None):
+        serializer = serializers.TimeLogSerializer(data=request.data)
+        if serializer.is_valid():
+            print(request.data)
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
