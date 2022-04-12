@@ -14,7 +14,7 @@
 
 <body class = "background">
     
-    <div class = "info-panel">
+    <div class = "info-panel" id = "main-box">
         <a href = "index.html"><button class = "cancel">X</button></a>
         <h1 class = "hdr">REGISTER</h1>
         <h3 class = "hdr-2">Personal Information</h3>
@@ -32,6 +32,7 @@
         <input id = "pwd" type = 'password'></input>
         <p>Confirm Password</p>
         <input id = "pwd-confirm" type = 'password'></input>
+        <p id = "err_msg"></p>
         <button class = "create" id = "createacc" onclick = "create_account()">Create Account</button>
     </div>
 
@@ -48,6 +49,16 @@
         window.location.reload();
     }
     }
+    
+    // var password_confirm = document.getElementById('pwd-confirm');
+    // var submit = document.getElementById('createacc');
+        
+    // password_confirm.addEventListener('keydown', function(event) {
+    //     if (event.keycode == 13) {
+    //         submit.click();
+    //     }
+    // });
+    
     function create_account()
     {
         var first = document.getElementById('firstname').value;
@@ -55,31 +66,78 @@
         var location = document.getElementById('location').value;
         var username = document.getElementById('username').value;
         var password = document.getElementById('pwd').value;
+        var password_confirm = document.getElementById('pwd-confirm').value;
+        var error_msg = document.getElementById('err_msg');
+        var submit = document.getElementById('createacc');
+        var infopanel = document.getElementById('main-box');
 
-        var settings = 
-        {
-            "url": "http://127.0.0.1:8000/API/v1/users/",
-            "method": "POST",
-            "timeout": 0,
-            "headers": {
-            "Content-Type": "application/json"
-        },
-        "data": JSON.stringify(
-        {
-            "FName": first,
-            "LName": last,
-            "Location": location,
-            "UserUsername": username,
-            "Password": password
-        }),
+        
+        // Get all existing usernames
+        var grabUsers = JSON.parse(localStorage.getItem("users"));
+        var allUsernames = [];
+        for (x in grabUsers) {
+            allUsernames[x] = grabUsers[x].UserUsername;
         }
-        $.ajax(settings).done(function (response) {
-        console.log(response);
-        });
+        console.log(allUsernames);
+
+
+        if (location == '' || username == '' || first == '' || last == '') {                                                            
+            error_msg.innerText = "Ensure All Information Is Entered";
+            submit.style.marginTop = "30px";
+            infopanel.style.animation = "alert-box 1s 2";
+        } else if (password.length <= 3) {                                      // Password must be 4+ characters
+            error_msg.innerText = "Password Too Short";
+            submit.style.marginTop = "30px";
+            infopanel.style.animation = "alert-box 1s 2";
+        } else if (password != password_confirm) {                              // Passwords must match
+            error_msg.innerText = "Passwords Do Not Match";
+            submit.style.marginTop = "30px";
+            infopanel.style.animation = "alert-box 1s 2";  
+        } else if(allUsernames.includes(username)) {                                   // Ensure usernames are unique - ONLY to let..
+            error_msg.innerText = "Username Already In Use";                     // ...user know, the server already handles this itself
+            submit.style.marginTop = "30px";
+            infopanel.style.animation = "alert-box 1s 2";
+        } else {                                                                // All checks have been passed
+            first = first[0].toUpperCase() + first.slice(1).toLowerCase();      // Format
+            last = last[0].toUpperCase() + last.slice(1).toLowerCase();         // Format
+            console.log(first, last);                                           // For testing, remove later
+            var settings = {
+                "url": "http://127.0.0.1:8000/API/v1/users/",
+                "method": "POST",
+                "timeout": 0,
+                "headers": {
+                "Content-Type": "application/json"
+            },
+            "data": JSON.stringify(
+            {
+                "FName": first,
+                "LName": last,
+                "Location": location,
+                "UserUsername": username,
+                "Password": password
+            }),
+            }
+            $.ajax(settings).done(function (response) {
+            console.log(response);
+            });
+            alert("Account Creation Successful");                   // Let user know account was made
+            window.location.href = "index.html";                    // Change back to login window
+        }
     }
 </script>
 
+
 <style type="text/css">
+
+    @keyframes alert-box { 
+		50% {border: 2px solid red} 
+	}
+
+    #err_msg {
+        font-weight: bolder;
+        margin-bottom: 0px;
+        color: red;
+    }
 
     .background {
         position: fixed;
@@ -99,6 +157,7 @@
         text-align: center;
         font-family: Verdana;
         font-size: small;
+        border: 2px solid #04AA6D;
     }
 
     input {
@@ -110,8 +169,8 @@
 
     .cancel {
         font-size: 130%;
-        width: 5%;
-        margin-left: 95%;
+        width: 4.5%;
+        margin-left: 95.5%;
         border-width: 0px;
         background-color: whitesmoke;
     }
@@ -126,7 +185,7 @@
 
     .name {
         width: 20%;
-        text-align: center;
+        /* text-align: center; */
         height: 100%
     }
 
@@ -140,7 +199,7 @@
         border-radius: 8px;
         border-style: double;
         background-color: #04AA6D;
-        color: white; 
+        color: white;
     }
 
 
@@ -160,38 +219,4 @@
         margin-top: 10%;
     }
 
-    
-
-    /* .deco {
-        opacity: 40%;
-        margin-left: 25%;
-        margin-right: auto;
-        margin-top: 5%;
-        position: absolute;
-    }
-
-    .c-deco {
-        width: 5%;
-        height: 5%;
-        background-color: red;
-        position: fixed;
-    } */
-
 </style>
-
-
-
-
-
-<script type="text/javascript">
-
-    // if pwd-check == pwd:
-    //     send it to API to be hashed and stored
-    // else:
-    //     do not send, set red outline on pwd-check box
-    // function check_pass() {
-
-    // }
-
-
-</script>
