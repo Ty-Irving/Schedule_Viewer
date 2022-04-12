@@ -9,7 +9,20 @@
     <title>Create Project</title>
 </head>
 <body>
-    <div>
+    
+    <div class = "header">
+        <a href = "../HTML/builder.html"><img class = "header-img" src = "https://cdn.iconscout.com/icon/free/png-256/timer-83-470366.png"></a>
+        <div class = "header-info">
+            <a class = "header-link" href = "../HTML/projects.html" style = "background-color: rgba(0, 136, 107, 0.768)">MANAGE PROJECTS</a>
+            <a class = "header-link" id = "header-link-1" href = "../HTML/departments.html">MANAGE DEPT</a>
+            <a class = "header-link" id = "header-link-2" href = "../HTML/requests.html">REQUESTS</a>
+            <a class = "header-link" id = "header-link-3" href = "../HTML/builder.html">BUILDER</a>
+            <a class = "header-link" id = "header-link-4" href = "../HTML/index.html">LOGOUT</a>
+        </div>
+    </div>
+    
+    <div class = "main">
+        <h2>Create</h2>
         <input list="departments" placeholder="Controlling Department" id="department-list">
         <datalist id="departments">
         </datalist>
@@ -17,11 +30,10 @@
         <input type="text" placeholder="Project Name" id="project-name"/>
         <br/>
         <button onclick="createProject()">Create</button>
-    </div>
-    <br/>
-    <div>
+        <br/>
+        <h2>________________</h2>
+        <h2>Delete</h2>
         <input list="del-projects" placeholder="Project to Delete" id="del-project-list">
-
         <datalist id="del-projects">
             <option>Hello</option>
         </datalist>
@@ -211,3 +223,46 @@
     }
     */
 </script>
+
+
+
+<style type="text/css">
+
+
+    p {
+        font-size: medium;
+    }
+
+
+    .main {
+        background-color: #3c454f;
+        width: 400px;
+        height: 600px;
+        text-align: center;
+        margin-top: 10%;
+        margin-left: 35%;
+        padding-top: 15px;
+        font-size: medium;
+    }
+
+    h2 {
+        padding-top: 0px;
+        color: white;
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
+        font-weight: bold;
+    }
+
+    input {
+        width: 180px;
+        height: 20px;
+        margin-top: 30px;
+        font-size: medium;
+    }
+
+    button {
+        width: 150px;
+        height: 30px;
+        margin: 30px 0px 10px 10px;
+    }
+
+</style>
