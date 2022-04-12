@@ -55,7 +55,7 @@ function checkLogin()
         $.ajax(settings).done(function (response){
             localStorage.setItem('user', JSON.stringify(response));
         });
-        var userinfo = JSON.parse(localStorage.getItem('user'))
+        let userinfo = JSON.parse(localStorage.getItem('user'))
 
         if(userinfo.Password == PASS.value)
         {
@@ -69,7 +69,7 @@ function checkLogin()
             $.ajax(settings).done(function (response){
                 localStorage.setItem('users', JSON.stringify(response));
             });
-            var users = JSON.parse(localStorage.getItem('users'))
+            let users = JSON.parse(localStorage.getItem('users'))
             console.log(users);
             for(var i = 0; i < users.length; i++)
             {
@@ -77,32 +77,20 @@ function checkLogin()
                 {
                     userID = users[i].UserId;
                     localStorage.setItem("userID", userID);
-                    localStorage.setItem("UserID", userID);
                 }
             }
-
-            settings = 
-            {
-                "async": true,
-                "crossDomain": true,
-                "url":"http://127.0.0.1:8000/API/v1/managers/",
-                "method": "GET",
-            };
-            $.ajax(settings).done(function (response){
-                localStorage.setItem('managers', JSON.stringify(response));
-            });
-            var managerList = JSON.parse(localStorage.getItem('managers'))
-
+            getManagers();
+            let managerList = JSON.parse(localStorage.getItem('managerList'));
+            console.log(managerList + "   " + userID);
             for(var i = 0; i < managerList.length; i++)
             {
-                if(userID == managerList.ManagerID)
+                if(parseInt(userID) == parseInt(managerList[i].ManagerID))
                 {
-                    console.log("here");
                     window.location.href = "builder.html";
                 }
             }
             
-            if(userID != undefined)
+            if(userID != undefined && Number.IsInteger(managerList.ManagerID))
             {
                 window.location.href = "schedule_view.html";
             }
@@ -111,6 +99,21 @@ function checkLogin()
         }
         
     } 
+
+    function getManagers()
+    {
+        
+        settings = 
+            {
+                "async": true,
+                "crossDomain": true,
+                "url": "http://127.0.0.1:8000/API/v1/managers/",
+                "method": "GET",
+            };
+            $.ajax(settings).done(function (response){
+                localStorage.setItem('managerList', JSON.stringify(response));
+            });
+    }
 </script>
 
 
