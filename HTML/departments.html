@@ -21,7 +21,6 @@
 
     <div class="content" style="padding: 1.5rem;" id = "department">
         
-        <button onclick="departments()">add department</button>
         <button onclick="hideDepartmentPrompt()">Add New Department</button>
         <br/>
         <div style="margin:1.5rem" id = "department-content">
@@ -37,6 +36,18 @@
         </div>
         <button class = "create-dep" onclick="showDepartmentPrompt()">NEW DEPARTMENT</button>
     </div>
+
+    <div class = "edit-content" id = "edit-content">
+        <img src = "../HTML/user-img.png">
+        <p>Add User:</p>
+        <input list = "user" class = "user-list" id = "username" placeholder="Type Username..."> 
+        <datalist id = "user"></datalist>
+        <button onclick = "addUserToDepartment()">Add to Department</button>
+    </div>
+
+    <div class = "view-content">
+
+    </div>
     
 </body>
 </html>
@@ -45,10 +56,12 @@
 
     const REQUEST_PROMPT = document.getElementById("department");
     const REQUEST_IMG = document.getElementById("newDepartment");
+    const DEP_EDIT = document.getElementById("edit-content");
 
     $(document).ready(function()
     {
         getDataList();
+        getUserDataList();
         departments();
     });
 
@@ -63,7 +76,16 @@
         REQUEST_PROMPT.style.display="block";
         hideNewDepartmentPrompt();
         createDepartment();
-        departments();
+        DEP_EDIT.style.display = "none";
+        window.location.reload();
+        
+    }
+
+    function showDepartmentEdit(id)
+    {
+        DEP_EDIT.style.display = "block";
+        REQUEST_PROMPT.style.display = "none";
+        localStorage.setItem('DepartmentAdd', id);
     }
 
     function hideNewDepartmentPrompt()
@@ -74,6 +96,53 @@
     function showNewDepartmentPrompt()
     {
         REQUEST_IMG.style.display="block";
+    }
+
+    function addUserToDepartment()
+    {
+        const USER = document.getElementById("username");
+        var Department = localStorage.getItem('DepartmentAdd');
+        var Manager = 3;
+        var ID = USER.value.split(" ", 1);
+
+        var settings = 
+        {
+            "url": "http://127.0.0.1:8000/API/v1/scheduleinfo/",
+            "method": "POST",
+            "timeout": 0,
+            "headers": {
+            "Content-Type": "application/json"
+        },
+        "data": JSON.stringify(
+        {
+            "CreatorID": Manager
+        }),
+        }
+        $.ajax(settings).done(function (response) {
+            localStorage.setItem('schedID', JSON.stringify(response));
+        console.log(response);
+        });
+        var SchedID = JSON.parse(localStorage.getItem('schedID'));
+        console.log(ID + "   " + SchedID.ScheduleID);
+
+        settings = 
+        {
+            "url": "http://127.0.0.1:8000/API/v1/employee/",
+            "method": "POST",
+            "timeout": 0,
+            "headers": {
+            "Content-Type": "application/json"
+        },
+        "data": JSON.stringify(
+        {
+            "EmpID": ID,
+            "EmpScheduleID": SchedID.ScheduleID
+        }),
+        }
+        $.ajax(settings).done(function (response) {
+            console.log(response);
+        });
+
     }
 
     function getDataList()
@@ -103,6 +172,38 @@
 
     }
 
+    
+    function getUserDataList()
+    {
+        $("#user").empty();
+        var obj;
+        const DATALIST = document.getElementById("user");
+        var settings = 
+        {
+            "async": true,
+            "crossDomain": true,
+            "url": "http://127.0.0.1:8000/API/v1/users/",
+            "method": "GET",
+        };
+         $.ajax(settings).done(function (response){
+            localStorage.setItem('users-department', JSON.stringify(response));
+        });
+
+        
+        obj = JSON.parse(localStorage.getItem('users-department'));
+        var options =[], opt;
+        for(var i = 0; i < obj.length; i++)
+        {
+            if(obj[i].DNo == undefined)
+            {
+                opt = document.createElement('option');
+                opt.text = opt.text = +  obj[i].UserId + " - " + obj[i].FName + " " + obj[i].LName;
+                DATALIST.appendChild(opt);
+            }
+        }
+    }
+
+
     function getrequest()
     {
         var settings = 
@@ -117,14 +218,11 @@
         });
 
         return JSON.parse(localStorage.getItem('Departments'));
-       
-       
 
     }
     function departments()
     {
         var data = getrequest();
-        // var test = [{DepartmentName: "Shoo",ManagerID: 2}, {DepartmentName: "shame", ManagerID: 5}];
         let content = document.getElementById("department-content");
         content.innerHTML = "";
  
@@ -133,7 +231,7 @@
             let div = document.createElement("div");
             div.id = data[i].DepartmentNo;
             div.className = "department-element";
-            div.innerHTML = "<p>Name: " + data[i].DepartmentName + "</p> <p>ManagerID: " + data[i].ManagerID + "</p> <a href=''./deparment-view.html'>VIEW</a> <a href=''./department-builder.html'>EDIT</a><a href = '#' onclick='deleteDepartment("+data[i].DepartmentNo +")'>DELETE</a>";
+            div.innerHTML = "<p>Name: " + data[i].DepartmentName + "</p> <p>ManagerID: " + data[i].ManagerID + "</p> <a href=''./deparment-view.html'>VIEW</a> <a href='#' onclick = 'showDepartmentEdit("+div.id +")'>EDIT</a><a href = '#' onclick='deleteDepartment("+data[i].DepartmentNo +")'>DELETE</a>";
             content.appendChild(div);
         }
     }
@@ -194,6 +292,69 @@
         margin-right: auto;
         overflow: scroll;
         overflow-x: hidden;
+        border: black 1px solid;
+    }
+
+    .content button
+    {
+        margin-left: 25px;
+        height: 40px;
+        
+    }
+
+    .edit-content img
+    {
+        width: 100px;
+        margin-top: 20px;
+        margin-left: 37%;
+    }
+
+    .edit-content
+    {
+        background-color: #3c454f;
+        width: 400px;
+        height: 500px;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 15%;
+        border: black 1px solid;
+        color: white;
+        display: none;
+    }
+
+    .edit-content p
+    {
+        font-size: 24px;
+        font-weight: bold;
+        width: 100%;
+        text-align: center;
+        margin-top: 10%;
+    }
+
+    .edit-content input
+    {
+        width: 80%;
+        height: 30px;
+        margin-left: 10%;
+        margin-top: 10%;
+    }
+
+    .edit-content button
+    {
+        cursor: pointer;
+        width: 80%;
+        margin-left: 10%;
+        height: 50px;
+        background-color: rgba(0, 136, 107, 0.768);
+        border: black 1px solid;
+        font-size: large;
+        font-weight: bold;
+        margin-top: 15%;
+    }
+
+    .view-content
+    {
+
     }
 
     .department-element {
