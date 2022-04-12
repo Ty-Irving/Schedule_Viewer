@@ -125,7 +125,7 @@
 
     function calculateExpectedPay()
     {
-        return JSON.parse(localStorage.getItem("usersched")).Salary * calculateHours()
+        return (JSON.parse(localStorage.getItem("usersched")).Salary * calculateHours()).toFixed(2);
     }
 
     function calculateHours()
