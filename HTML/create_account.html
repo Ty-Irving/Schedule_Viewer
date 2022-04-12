@@ -78,29 +78,28 @@
         for (x in grabUsers) {
             allUsernames[x] = grabUsers[x].UserUsername;
         }
-        console.log(allUsernames);
 
 
         if (location == '' || username == '' || first == '' || last == '') {                                                            
             error_msg.innerText = "Ensure All Information Is Entered";
             submit.style.marginTop = "30px";
-            infopanel.style.animation = "alert-box 1s 2";
+            infopanel.style.animation = "alert-box 2s 2";
         } else if (password.length <= 3) {                                      // Password must be 4+ characters
             error_msg.innerText = "Password Too Short";
             submit.style.marginTop = "30px";
-            infopanel.style.animation = "alert-box 1s 2";
+            infopanel.style.animation = "alert-box 2s 2";
         } else if (password != password_confirm) {                              // Passwords must match
             error_msg.innerText = "Passwords Do Not Match";
             submit.style.marginTop = "30px";
-            infopanel.style.animation = "alert-box 1s 2";  
+            infopanel.style.animation = "alert-box 2s 2";  
         } else if(allUsernames.includes(username)) {                                   // Ensure usernames are unique - ONLY to let..
             error_msg.innerText = "Username Already In Use";                     // ...user know, the server already handles this itself
             submit.style.marginTop = "30px";
-            infopanel.style.animation = "alert-box 1s 2";
+            infopanel.style.animation = "alert-box 2s 2";
         } else {                                                                // All checks have been passed
             first = first[0].toUpperCase() + first.slice(1).toLowerCase();      // Format
             last = last[0].toUpperCase() + last.slice(1).toLowerCase();         // Format
-            console.log(first, last);                                           // For testing, remove later
+            console.log("Created user:", first, last);                          // For testing, remove later
             var settings = {
                 "url": "http://127.0.0.1:8000/API/v1/users/",
                 "method": "POST",
@@ -120,6 +119,11 @@
             $.ajax(settings).done(function (response) {
             console.log(response);
             });
+            
+
+            // grabUsers = JSON.parse(localStorage.getItem("users"));   // Testing
+            // console.log(grabUsers);                                  // Testing
+
             alert("Account Creation Successful");                   // Let user know account was made
             window.location.href = "index.html";                    // Change back to login window
         }
@@ -165,6 +169,7 @@
         height: 3%;
         /* margin-left: 100px;
         margin-right: auto; */
+        text-align: center;
     }
 
     .cancel {
