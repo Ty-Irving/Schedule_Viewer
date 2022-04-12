@@ -21,16 +21,21 @@
     </div>
     
     <div class = "main">
-        <input list="project" placeholder="Select Project">
+        <h1>Time Tracker</h1>
+        <input list="project" placeholder="Select Project" id = "proj">
         <datalist id="project">
             <option>Research</option>
         </datalist>
         <br/>
-        <p>Start Time</p>
-        <p>End Time</p>
+        <!-- <p>Start Time</p>
+        <p>End Time</p> -->
         <br/>
-        <input type="time" id="start-time"/>
-        <input type="time"/>
+        <div id = "format">    
+            <p>Start Time</p>
+            <input type="time" id="start-time"/>
+            <p>End Time</p>
+            <input type="time"/>
+        </div>
         <br/>
         <button onclick="createTimeLog()" id="start-shift">Start</button>
         <button onclick="closeOpenedTimeLog()" id="end-shift">Stop</button>
@@ -191,14 +196,47 @@
 <style type="text/css">
 
 
+    p {
+        font-size: medium;
+    }
+
+    /* #format {
+        text-align: left;
+    } */
+
 
     .main {
-        background-color: whitesmoke;
-        opacity: 90%;
-        width: 100%;
+        background-color: #3c454f;
+        width: 400px;
+        height: 400px;
         text-align: center;
-        margin-top: 30%;
-        padding: 5px;
+        margin-top: 10%;
+        margin-left: 35%;
+        padding-top: 5px;
+    }
+
+    #proj {
+        width: 200px;
+        font-size: medium;
+        text-align: center;
+    }
+
+    body {
+        color: white;
+        font-family: Verdana;
+        font-size: large;
+    }
+
+    input {
+        width: 140px;
+        height: 20px;
+        font-size: x-large;
+    }
+
+    button {
+        width: 150px;
+        height: 30px;
+        margin: 30px 0px 10px 10px;
     }
 
 
