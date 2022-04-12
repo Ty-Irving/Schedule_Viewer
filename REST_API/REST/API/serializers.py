@@ -39,6 +39,8 @@ class EmployeeSerializer (serializers.ModelSerializer):
 class ScheduleSerializer (serializers.ModelSerializer):
     class Meta:
         model = models.SCHEDULE
+        fields = '__all__'
+        
 class ProjectSerializer (serializers.ModelSerializer):
     class Meta:
         model = models.PROJECT
