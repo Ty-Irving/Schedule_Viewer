@@ -52,7 +52,7 @@ class MANAGER (models.Model):
         app_label='API'
 
     def __str__(self):
-        return self.ManagerID.FName + ". ManagerID: " + str(self.pk)
+        return self.ManagerID.FName + ". ManagerID: " + str(self.ManagerID)
 
 class EMPLOYEE (models.Model):
     EmpID = models.OneToOneField('API.USER', on_delete=models.CASCADE, primary_key=True)
@@ -150,7 +150,7 @@ class PROJECT (models.Model):
         app_label = 'API'
 
     def __str__(self):
-        return self.ProjectName
+        return self.ProjectName + ", ProjectID: " + str(self.ProjectId)
 
 class WORKS_ON (models.Model):
     EmpID = models.ForeignKey('API.EMPLOYEE', on_delete=models.CASCADE, null=False)
