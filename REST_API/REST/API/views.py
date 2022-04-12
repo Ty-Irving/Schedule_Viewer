@@ -187,4 +187,46 @@ class Schedules (APIView):
             serializer.save()
             print(serializer.data)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
+class Projects (APIView):
+    def post(self, request, format=None):
+        serializer = serializers.ProjectSerializer(data=request.data)
+        if serializer.is_valid():
+            print(request.data)
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+    def get(self, request, format=None):
+        projects = models.PROJECT.objects.all()
+        serializer = serializers.ProjectSerializer(projects, many=True)
+        return Response(serializer.data)
+
+class ProjectDetails (APIView):
+    def delete(self, request, pk, format=None):
+        project = models.PROJECT.objects.filter(ProjectId=pk)
+        project.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+class TimeLogs (APIView):
+    def post(self, request, format=None):
+        serializer = serializers.TimeLogSerializer(data=request.data)
+        if serializer.is_valid():
+            print(request.data)
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+class TimeLogDetails (APIView):
+    def get(self, request, pk, format=None):
+        timeLogs = models.TIME_LOG.objects.filter(EndTime__isnull=True).filter(EmpID=pk).all()
+        serializer = serializers.TimeLogSerializer(timeLogs, many=True)
+        return Response(serializer.data)
+
+    def put(self, request, pk, format=None):
+        timeLog = models.TIME_LOG.objects.filter(EndTime__isnull=True).get(EmpID=pk)
+        serializer = serializers.TimeLogSerializer(timeLog, data=request.data)
+        if serializer.is_valid():
+            print(request.data)
+            serializer.save()
+            return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

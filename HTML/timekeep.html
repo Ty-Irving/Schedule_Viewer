@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../CSS/styles.css">
+    <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <title>Time Keeping</title>
+</head>
+<body>
+    <div>
+        <input list="project" placeholder="Select Project">
+        <datalist id="project">
+            <option>Research</option>
+        </datalist>
+        <br/>
+        <p>Start Time</p>
+        <p>End Time</p>
+        <br/>
+        <input type="time" id="start-time"/>
+        <input type="time"/>
+        <br/>
+        <button onclick="createTimeLog()" id="start-shift">Start</button>
+        <button onclick="closeOpenedTimeLog()" id="end-shift">Stop</button>
+    </div>
+</body>
+</html>
+
+<script type="text/javascript">
+        $(document).ready(function()
+        {
+            getProjects();
+            getOngoingTimeLog();
+            UpdateButtonVisibility();
+            console.log(localStorage.getItem("UserID"));
+        });
+    
+    function UpdateButtonVisibility()
+    {
+        var ongoingTimLogs = JSON.parse(localStorage.getItem("OpenedTimeLog"));
+            if (ongoingTimLogs.length > 0)
+            {
+                document.getElementById("start-shift").disabled = true;
+                document.getElementById("end-shift").disabled = false;
+            }
+            else if (ongoingTimLogs.length === 0)
+            {
+                document.getElementById("start-shift").disabled = false;
+                document.getElementById("end-shift").disabled = true;
+            }
+    }
+
+    function sessionVar()
+    {
+        console.log(localStorage.getItem("UserID"));
+        console.log(document.getElementById("start-time").value)
+        getOngoingTimeLog();
+        console.log(JSON.parse(localStorage.getItem("OpenedTimeLog")).length);
+    }
+
+    function getProjects()
+    {
+        $("#project").empty();
+        var obj;
+        const DATALIST = document.getElementById("project");
+        var settings = 
+        {
+            "async": true,
+            "crossDomain": true,
+            "url": "http://127.0.0.1:8000/API/v1/projects/",
+            "method": "GET",
+        };
+         $.ajax(settings).done(function (response){
+            localStorage.setItem('Projects', JSON.stringify(response));
+        });
+
+        obj = JSON.parse(localStorage.getItem('Projects'));
+        var options =[], opt;
+        for(var i = 0; i < obj.length; i++)
+        {
+            opt = document.createElement('option');
+            opt.text = opt.text + obj[i].ProjectId + " - " + obj[i].ProjectName;
+            DATALIST.appendChild(opt);
+        }
+    }
+
+    function createTimeLog()
+    {
+        var uid = localStorage.getItem("UserID");
+        var dateObj = new Date();
+        var date = "" + dateObj.getFullYear() + "-" + dateObj.getMonth() + "-" + dateObj.getDate();
+        var startTime = "" + dateObj.getHours() + ":" + dateObj.getMinutes() + ":" + dateObj.getSeconds();
+        console.log(date + ", " + startTime);
+
+        if (JSON.parse(localStorage.getItem("OpenedTimeLog")).length == 0)
+        {
+                var settings = 
+            {
+                "url": "http://127.0.0.1:8000/API/v1/time/",
+                "method": "POST",
+                "timeout": 0,
+                "headers": {
+                "Content-Type": "application/json"
+            },
+            "data": JSON.stringify(
+            {
+                "StartTime": startTime,
+                "Date": date,
+                "EmpID": uid,
+            }),
+            }
+            $.ajax(settings).done(function (response) {
+            console.log(response);
+            location.reload(); // I keep having to reload twice for things to update, I don't know why. Fix that (from me. to me.)
+            });
+        }
+        else
+        {
+            alert("You can only have 1 ongoing time log at once");
+        }
+ 
+    }
+
+    function getOngoingTimeLog()
+    {
+        var userID = localStorage.getItem("UserID");
+        var settings = 
+        {
+            "async": true,
+            "crossDomain": true,
+            "url": "http://127.0.0.1:8000/API/v1/time/" + userID,
+            "method": "GET",
+        };
+        $.ajax(settings).done(function (response){
+            localStorage.setItem('OpenedTimeLog',JSON.stringify(response));
+        });
+    }
+
+    function closeOpenedTimeLog()
+    {
+
+        if (JSON.parse(localStorage.getItem("OpenedTimeLog")).length > 0)
+        {
+            var openedSession = JSON.parse(localStorage.getItem("OpenedTimeLog"));
+            var dateObj = new Date();
+            var endTime = "" + dateObj.getHours() + ":" + dateObj.getMinutes() + ":" + dateObj.getSeconds();
+            var userID = localStorage.getItem("UserID");
+            var startTime = openedSession[0].StartTime;
+                settings = 
+            {
+                "url": "http://127.0.0.1:8000/API/v1/time/" + userID,
+                "method": "PUT",
+                "timeout": 0,
+                "headers": {
+                "Content-Type": "application/json"
+            },
+            "data": JSON.stringify(
+            {
+                "StartTime": startTime,
+                "EndTime": endTime,
+                "Date": openedSession[0].Date,
+                "EmpID": openedSession[0].EmpID,
+            }),
+            }
+            $.ajax(settings).done(function (response) {
+            console.log(response);
+            location.reload();
+            });
+        }
+        else
+        {
+            alert("There are no sessions to close!");
+        }
+    }
+</script>

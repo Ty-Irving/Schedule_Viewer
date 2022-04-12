@@ -67,7 +67,7 @@ class EMPLOYEE (models.Model):
         app_label='API'
 
     def __str__(self):
-        return self.EmpID.FName + ". EmpID: " + str(self.EmpID)
+        return self.EmpID.FName + ". EmpID: " + str(self.EmpID) + ". Pk: " + str(self.pk)
 
 class SCHEDULE (models.Model):
     ScheduleID = models.AutoField(primary_key=True)
@@ -116,7 +116,7 @@ class REQUEST (models.Model):
 class TIME_LOG (models.Model):
     EmpID = models.ForeignKey('API.EMPLOYEE', on_delete=models.CASCADE)
     StartTime = models.TimeField(null=False)
-    EndTime = models.TimeField(null=False)
+    EndTime = models.TimeField(null=True, default=None, blank=True)
     Date = models.DateField(null=False)
 
     class Meta:
@@ -150,7 +150,7 @@ class PROJECT (models.Model):
         app_label = 'API'
 
     def __str__(self):
-        return self.ProjectName
+        return self.ProjectName + ", ProjectID: " + str(self.ProjectId)
 
 class WORKS_ON (models.Model):
     EmpID = models.ForeignKey('API.EMPLOYEE', on_delete=models.CASCADE, null=False)
