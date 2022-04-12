@@ -117,7 +117,7 @@
         setUpUserInfoSessionVars();
         console.log(localStorage.getItem("user"));
         document.getElementById("invoice-un").append(JSON.parse(localStorage.getItem("userinfo")).FName + " " + JSON.parse(localStorage.getItem("userinfo")).LName);
-        document.getElementById("invoice-uid").append(JSON.parse(localStorage.getItem("UserID")));
+        document.getElementById("invoice-uid").append(JSON.parse(localStorage.getItem("userID")));
         document.getElementById("invoice-sal").append(JSON.parse(localStorage.getItem("usersched")).Salary);
         document.getElementById("invoice-hours").append(calculateHours());
         document.getElementById("invoice-expected").append(calculateExpectedPay());

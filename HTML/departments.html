@@ -202,10 +202,12 @@
         const DATALIST = document.getElementById("manager-id");
         obj = JSON.parse(localStorage.getItem('Managers'));
         var options =[], opt;
+        
         for(var i = 0; i < obj.length; i++)
         {
             opt = document.createElement('option');
-            opt.text = opt.text = obj[i].ManagerID;
+            opt.text = opt.text = obj[i].id;
+
             DATALIST.appendChild(opt);
         }
 
