@@ -102,14 +102,18 @@
             };
             $.ajax(settings).done(function (response){
                 localStorage.setItem('users', JSON.stringify(response));
+                console.log(localStorage.getItem("users"));
             });
             var users = JSON.parse(localStorage.getItem('users'))
 
             for(var i = 0; i < users.length; i++)
             {
+                
                 if(USER.value == users[i].UserUsername)
                 {
                     userID = users[i].UserId;
+                    localStorage.setItem("UserID", userID);
+                    console.log(userID);
                 }
             }
 
@@ -132,6 +136,8 @@
         var first = document.getElementById('newfirst').value;
         var last = document.getElementById('newlast').value;
         var location = document.getElementById('newlocation').value;
+
+        var userID = localStorage.getItem("UserID");
         
 
         settings = 
