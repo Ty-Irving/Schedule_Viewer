@@ -139,31 +139,38 @@
 
     function closeOpenedTimeLog()
     {
-        var openedSession = JSON.parse(localStorage.getItem("OpenedTimeLog"));
-        var dateObj = new Date();
-        var endTime = "" + dateObj.getHours() + ":" + dateObj.getMinutes() + ":" + dateObj.getSeconds();
-        var userID = localStorage.getItem("UserID");
-        var startTime = openedSession[0].StartTime;
 
-        settings = 
+        if (JSON.parse(localStorage.getItem("OpenedTimeLog")).length > 0)
         {
-            "url": "http://127.0.0.1:8000/API/v1/time/" + userID,
-            "method": "PUT",
-            "timeout": 0,
-            "headers": {
-            "Content-Type": "application/json"
-        },
-        "data": JSON.stringify(
-        {
-            "StartTime": startTime,
-            "EndTime": endTime,
-            "Date": openedSession[0].Date,
-            "EmpID": openedSession[0].EmpID,
-        }),
+            var openedSession = JSON.parse(localStorage.getItem("OpenedTimeLog"));
+            var dateObj = new Date();
+            var endTime = "" + dateObj.getHours() + ":" + dateObj.getMinutes() + ":" + dateObj.getSeconds();
+            var userID = localStorage.getItem("UserID");
+            var startTime = openedSession[0].StartTime;
+                settings = 
+            {
+                "url": "http://127.0.0.1:8000/API/v1/time/" + userID,
+                "method": "PUT",
+                "timeout": 0,
+                "headers": {
+                "Content-Type": "application/json"
+            },
+            "data": JSON.stringify(
+            {
+                "StartTime": startTime,
+                "EndTime": endTime,
+                "Date": openedSession[0].Date,
+                "EmpID": openedSession[0].EmpID,
+            }),
+            }
+            $.ajax(settings).done(function (response) {
+            console.log(response);
+            location.reload();
+            });
         }
-        $.ajax(settings).done(function (response) {
-        console.log(response);
-        location.reload();
-        });
+        else
+        {
+            alert("There are no sessions to close!");
+        }
     }
 </script>
