@@ -168,6 +168,12 @@ class Managers (APIView):
         serializer = serializers.ManagerSerializer(manager, many=True)
         return Response(serializer.data)
 
+class ManagerDetails (APIView):
+    def get(self, request, pk, format=None):
+        manager = models.MANAGER.objects.get(ManagerID=pk)
+        serializer = serializers.ManagerSerializer(manager)
+        return Response(serializer.data)
+
 class Logins(APIView):
     def get(self, request, pk, format=None):
         login = models.LOGIN.objects.get(pk=pk)

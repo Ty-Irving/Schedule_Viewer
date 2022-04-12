@@ -52,7 +52,7 @@ class MANAGER (models.Model):
         app_label='API'
 
     def __str__(self):
-        return self.ManagerID.FName + ". ManagerID: " + str(self.pk)
+        return self.ManagerID.FName + ". ManagerID: " + str(self.ManagerID)
 
 class EMPLOYEE (models.Model):
     EmpID = models.OneToOneField('API.USER', on_delete=models.CASCADE, primary_key=True)

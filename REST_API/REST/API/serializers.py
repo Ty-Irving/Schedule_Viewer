@@ -29,7 +29,7 @@ class LoginSerializer (serializers.ModelSerializer):
 class ManagerSerializer (serializers.ModelSerializer):
     class Meta:
         model = models.MANAGER
-        fields=['pk']
+        fields=['ManagerID']
 
 class EmployeeSerializer (serializers.ModelSerializer):
     class Meta:
