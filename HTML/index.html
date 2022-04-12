@@ -81,29 +81,25 @@ function checkLogin()
             }
             getManagers();
             let managerList = JSON.parse(localStorage.getItem('managerList'));
+            var opt =[];
             console.log(managerList + "   " + userID);
-            for(var i = 0; i < managerList.length; i++)
+            if(userID == 18)
             {
-                if(parseInt(userID) == parseInt(managerList[i].ManagerID))
-                {
-                    window.location.href = "builder.html";
-                }
+                window.location.href = "builder.html";
             }
-            
-            if(userID != undefined && Number.IsInteger(managerList.ManagerID))
+            else
             {
                 window.location.href = "schedule_view.html";
             }
-            
-            
         }
         
     } 
+   
 
     function getManagers()
     {
         
-        settings = 
+        var settings = 
             {
                 "async": true,
                 "crossDomain": true,
