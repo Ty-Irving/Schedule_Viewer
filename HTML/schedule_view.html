@@ -245,7 +245,9 @@
             var day;
             var result = new Date(shifts[i].Date).getDay(); 
             startTime = parseInt(shifts[i].StartTime.split(":", 1));
+            console.log(startTime);
             endTime = parseInt(shifts[i].EndTime.split(":", 1));
+            console.log(endTime);
             if(result != 6)
             {
                 day = result + 2;
@@ -261,6 +263,7 @@
                 {
                     id = "c" + day + "r" + count;
                 }
+                console.log(id);
                 var CELL = document.getElementById(id);
                 CELL.style.backgroundColor = "#006400";
                 startTime +=1;
