@@ -72,7 +72,7 @@ function checkLogin()
                 localStorage.setItem('users', JSON.stringify(response));
             });
             var users = JSON.parse(localStorage.getItem('users'))
-
+            console.log(users);
             for(var i = 0; i < users.length; i++)
             {
                 if(USER.value == users[i].UserUsername)
@@ -86,38 +86,34 @@ function checkLogin()
             {
                 "async": true,
                 "crossDomain": true,
-                "url": "http://127.0.0.1:8000/API/v1/managers/",
+                "url":"http://127.0.0.1:8000/API/v1/managers/",
                 "method": "GET",
             };
             $.ajax(settings).done(function (response){
                 localStorage.setItem('managers', JSON.stringify(response));
             });
-            var managers = JSON.parse(localStorage.getItem('managers'))
+            var managerList = JSON.parse(localStorage.getItem('managers'))
 
-            for(var i = 0; i < users.managers; i++)
+            for(var i = 0; i < managerList.length; i++)
             {
-                if(userID == managers[i].pk)
+                if(userID == managerList.ManagerID)
                 {
-                    userID = users[i].UserId;
+                    console.log("here");
+                    window.location.href = "builder.html";
                 }
             }
-            console.log(userID);
+            
             if(userID != undefined)
             {
-                $(location).prop('href', 'builder.html')
+                window.location.href = "schedule_view.html";
             }
-            else
-            {
-                $(location).prop('href', 'schedule_view.html')
-            }
-
+            
+            
+          
 
 
         }
-        else
-        {
-            console.log(PASS.value);
-        }
+        
     } 
 </script>
 

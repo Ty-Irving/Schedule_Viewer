@@ -24,7 +24,7 @@
             <div class = "request-content">
                 <div class="table-header"><p>Message #</p></div>
                 <div class="table-header grid-row-3"><p>User</p></div>
-                <div class="table-header" style="grid-column: span 2"><p">Content</p></div>
+                <div class="table-header" style="grid-column: span 2"><p>Content</p></div>
             
         
                 <div class="table-cell"><p id = "request-no">1</p></div>
@@ -45,17 +45,9 @@
     var count = 0;
     var requests;
 
-    window.onload = function() {
-    if(!window.location.hash) {
-        window.location = window.location + '#loaded';
-        window.location.reload();
-    }
-    }
-
     $(document).ready(function()
     {
         getRequest();
-
     });
 
 
@@ -112,7 +104,7 @@
             $.ajax(settings).done(function (response){
                 localStorage.setItem('request-user', JSON.stringify(response));
             });
-            var userinfo = JSON.parse(localStorage.getItem('request-user'))
+            var userinfo = JSON.parse(localStorage.getItem('user'))
             REQUESTUSER.innerHTML = userinfo.FName + " " + userinfo.LName;
             REQUESTCONTENT.innerHTML = requests[count].RequestedChange;
             count++;
