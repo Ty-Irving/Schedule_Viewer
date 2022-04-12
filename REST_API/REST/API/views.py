@@ -45,8 +45,8 @@ class Employees (APIView):
             employeeSerializer = serializers.EmployeeSerializer(data=request.data)
             if employeeSerializer.is_valid():
                 employeeSerializer.save()
-                return Response(serializers.data, status=status.HTTP_201_CREATED)
-            return Response(employeeSerializer.errors, status=status.HTTP_400_BAD_REQUEST)
+                return Response(data=serializers.data, status=status.HTTP_201_CREATED)
+            return Response(data=employeeSerializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class UserDetails (APIView):
     def get(self, request, pk, format=None):
