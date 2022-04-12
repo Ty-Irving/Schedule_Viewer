@@ -23,7 +23,7 @@ class DEPARTMENT (models.Model):
 
 class LOGIN (models.Model):
     UserUsername = models.CharField(primary_key=True, max_length=255)
-    Password = models.CharField(unique=True, max_length=255)
+    Password = models.CharField(unique=False, max_length=255)
 
     class Meta:
         app_label='API'
