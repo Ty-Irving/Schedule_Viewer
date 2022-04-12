@@ -84,14 +84,14 @@
                 </div>
                 <div class = user-invoice>
                     <ul>
-                        <li class = "invoice-list">User Name: Jerry</li>
-                        <li class = "invoice-list">User ID: 12332</li>
-                        <li class = "invoice-list">Hours worked: 50</li>
-                        <li class = "invoice-list">Hourly Salary: $5.00</li>
+                        <li class = "invoice-list" id="invoice-un">User Name: </li>
+                        <li class = "invoice-list" id="invoice-uid">User ID: </li>
+                        <li class = "invoice-list" id="invoice-hours">Hours worked: </li>
+                        <li class = "invoice-list" id="invoice-sal">Hourly Salary: $</li>
                     </ul>
                 </div>
-                <div class = "expected-pay">
-                    Total Pay: $24000.00
+                <div class = "expected-pay" id="invoice-expected">
+                    Total Pay: $
                 </div>
             </div>
         </div>
@@ -114,9 +114,39 @@
     {
         
         getTable();
-        
+        setUpUserInfoSessionVars();
+        console.log(localStorage.getItem("user"));
+        document.getElementById("invoice-un").append(JSON.parse(localStorage.getItem("userinfo")).FName + " " + JSON.parse(localStorage.getItem("userinfo")).LName);
+        document.getElementById("invoice-uid").append(JSON.parse(localStorage.getItem("UserID")));
+        document.getElementById("invoice-sal").append(JSON.parse(localStorage.getItem("usersched")).Salary);
+        document.getElementById("invoice-hours").append(calculateHours());
+        document.getElementById("invoice-expected").append(calculateExpectedPay());
     });
 
+    function calculateExpectedPay()
+    {
+        return JSON.parse(localStorage.getItem("usersched")).Salary * calculateHours()
+    }
+
+    function calculateHours()
+    {
+        var hours = 0;
+        var weekShifts = JSON.parse(localStorage.getItem("shifts"));
+        for (var i = 0; i < weekShifts.length; i++)
+        {
+            // the date in the Date constructor is an arbitrary date
+            var timeStart = new Date("12/04/2022 " + weekShifts[i].StartTime);
+            var timeEnd = new Date("12/04/2022 " + weekShifts[i].EndTime);
+
+            var difference = timeEnd - timeStart;             
+
+            difference = difference / 60 / 60 / 1000;
+
+            hours += difference;
+        }
+        console.log(weekShifts);
+        return hours;
+    }
     
 
     function hideRequestPrompt()
@@ -139,6 +169,20 @@
     function showRequestImg()
     {
         REQUEST_IMG.style.display="inline";
+    }
+
+    function setUpUserInfoSessionVars()
+    {
+        var settings = 
+        {
+            "async": true,
+            "crossDomain": true,
+            "url": "http://127.0.0.1:8000/API/v1/users/"+ localStorage.getItem("userID"),
+            "method": "GET",
+        };
+         $.ajax(settings).done(function (response){
+            localStorage.setItem('userinfo', JSON.stringify(response));
+        });
     }
 
     function makeRequest()
