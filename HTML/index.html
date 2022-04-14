@@ -70,6 +70,7 @@ function checkLogin()
         // for each of the manager object, we compare the current user id to the manager id, and if we get a match, we redirect user to manager view.
         managerList.forEach(element => {
             if (userID == element.ManagerID){
+                initManagerInfo();
                 isManager = true;
                 window.location.href = "./builder.html";
                 localStorage.setItem("isManager", true);

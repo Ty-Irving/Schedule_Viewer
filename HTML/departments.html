@@ -68,6 +68,7 @@
 
     $(document).ready(function()
     {
+        initDepartmentList();
         getDataList();
         getUserDataList();
         departments();
@@ -110,7 +111,7 @@
     {
         const USER = document.getElementById("username");
         var Department = localStorage.getItem('DepartmentAdd');
-        var Manager = 9;
+        var Manager = getManagerID();
         var ID = USER.value.split(" ", 1);
         ID = parseInt(ID);
         var settings = 
@@ -201,7 +202,7 @@
         });
 
         const DATALIST = document.getElementById("manager-id");
-        obj = JSON.parse(localStorage.getItem('Managers'));
+        obj = getManagerList();
         var options =[], opt;
         
         for(var i = 0; i < obj.length; i++)
@@ -220,9 +221,10 @@
         $("#user").empty();
         var obj;
         const DATALIST = document.getElementById("user");
+        /*
         var settings = 
         {
-            "async": true,
+            "async": false,
             "crossDomain": true,
             "url": "http://127.0.0.1:8000/API/v1/users/",
             "method": "GET",
@@ -230,9 +232,11 @@
          $.ajax(settings).done(function (response){
             localStorage.setItem('users-department', JSON.stringify(response));
         });
+        */
+       initUserList();
 
         
-        obj = JSON.parse(localStorage.getItem('users-department'));
+        obj = getUserList();
         var options =[], opt;
         for(var i = 0; i < obj.length; i++)
         {
@@ -246,11 +250,11 @@
     }
 
 
-    function getrequest()
+   /* function getrequest()
     {
         var settings = 
         {
-            "async": true,
+            "async": false,
             "crossDomain": true,
             "url": "http://127.0.0.1:8000/API/v1/departments/",
             "method": "GET",
@@ -262,9 +266,10 @@
         return JSON.parse(localStorage.getItem('Departments'));
 
     }
+    */
     function departments()
     {
-        var data = getrequest();
+        var data = getDepartmentList();
         let content = document.getElementById("department-content");
         content.innerHTML = "";
  
@@ -299,6 +304,7 @@
         }
         $.ajax(settings).done(function (response) {
         console.log(response);
+        alert("DepartmentCreated");
         });
     }
     
