@@ -14,11 +14,12 @@ The following instructions are created for Windows devices. Follow the same step
 5. Change directories back to REST_API (`cd ../..`), and `pip install -r requirements.txt` to install dependencies 
 6. Change to the REST directory via `cd REST`, then `pip install windows-curses` and `python manage.py migrate`
 7. Finally, run the server with `python manage.py runserver`
+8. Use the Live Server extension within VS Code, or similar software, to 'Go Live'.
 
 ## Usage
 \[All\] </br>
-Use the Live Server extension within VS Code, or similar software, to 'Go Live'. </br>
-It is now possible to use the application on localhost (127.0.0.1). The following steps can be used to experience the full functionality of the application.
+It is now possible to use the application on localhost (127.0.0.1). </br>
+The following steps can be used to experience the full functionality of the application.
 
 
 1.  dssds
