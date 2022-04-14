@@ -118,7 +118,7 @@
         setUpUserInfoSessionVars();
         console.log(localStorage.getItem("user"));
         document.getElementById("invoice-un").append(JSON.parse(localStorage.getItem("userinfo")).FName + " " + JSON.parse(localStorage.getItem("userinfo")).LName);
-        document.getElementById("invoice-uid").append(JSON.parse(localStorage.getItem("userID")));
+        document.getElementById("invoice-uid").append(getUserID());
         document.getElementById("invoice-sal").append(JSON.parse(localStorage.getItem("usersched")).Salary);
         document.getElementById("invoice-hours").append(calculateHours());
         document.getElementById("invoice-expected").append(calculateExpectedPay());
@@ -178,7 +178,7 @@
         {
             "async": true,
             "crossDomain": true,
-            "url": "http://127.0.0.1:8000/API/v1/users/"+ localStorage.getItem("userID"),
+            "url": "http://127.0.0.1:8000/API/v1/users/"+ getUserID(),
             "method": "GET",
         };
          $.ajax(settings).done(function (response){
@@ -202,7 +202,7 @@
         {
             "async": true,
             "crossDomain": true,
-            "url": "http://127.0.0.1:8000/API/v1/users/"+ userID,
+            "url": "http://127.0.0.1:8000/API/v1/users/"+ getUserID(),
             "method": "GET",
         };
          $.ajax(settings).done(function (response){
@@ -263,7 +263,7 @@
         {
             "async": true,
             "crossDomain": true,
-            "url": "http://127.0.0.1:8000/API/v1/employee/"+ userID,
+            "url": "http://127.0.0.1:8000/API/v1/employee/"+ getUserID(),
             "method": "GET",
         };
          $.ajax(settings).done(function (response){

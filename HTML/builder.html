@@ -7,6 +7,7 @@
     <link rel = "stylesheet" href = "../CSS/styles.css"/>
     <title>Schedule Builder</title>
     <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script type="text/javascript" src="../JavaScript/queries.js"></script>
 </head>
 <body>
 
@@ -73,6 +74,9 @@
     $(document).ready(function()
     {
         getDataList();
+
+        alert(isManager());
+
     });
 
     function hideStartup()
@@ -132,12 +136,12 @@
         const START = document.getElementById("start");
         const END = document.getElementById("end");
 
-        var ID = USER.value.split(" ", 1);
+        // var ID = USER.value.split(" ", 1);
         var settings = 
         {
-            "async": true,
+            "async": false,
             "crossDomain": true,
-            "url": "http://127.0.0.1:8000/API/v1/employee/"+ID,
+            "url": "http://127.0.0.1:8000/API/v1/employee/"+getUserID(),
             "method": "GET",
         };
          $.ajax(settings).done(function (response){

@@ -36,3 +36,27 @@ function initManagerList()
 
         return "managerList";
 }
+
+function getUserID()
+{
+  if (localStorage.getItem('userid') != undefined && localStorage.getItem("userid") != null)
+  {
+      return localStorage.getItem("userid");
+  }
+  
+  alert("Please ensure that a user is signed into the website before requesting a user id");
+}
+
+function isManager()
+{
+    if (localStorage.getItem("isManager") == null)
+    {
+        alert("We cannot determine if this user is a manager, please make sure that you are signed in");
+    }
+    else if(localStorage.getItem("isManager"))
+    {
+        return true;
+    }
+    
+    return false;
+}

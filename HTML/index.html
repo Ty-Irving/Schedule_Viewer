@@ -45,21 +45,42 @@ function checkLogin()
     {
         const USER = document.getElementById("user");
         const PASS = document.getElementById("pass");
+        var isManager = false;
 
+        // initializing the session variable containing the current user information
         var userkey = initUser(USER.value, PASS.value);
+
+        //initializing the serrion variable containing the list of all the managers
         var managerListKey = initManagerList();
 
         console.log("The current user is: " + localStorage.getItem(userkey));
+        
+        // storing the user id of the user currently signed in, into a local varible (this will be set into a session variable after)
         var userID = JSON.parse(localStorage.getItem(userkey)).UserId;
+
+        // stroing the userid into a session variable (*** there will be a helper function "getUserID()" that will retrieve the user id whenever we need it ***)
+        // this is just so that we don't have to remember "userid" thtoughout the program
+        localStorage.setItem("userid", userID);
+
         console.log("The user id is: " + userID);
 
+        // we're parsing the managerList initialized at the beginning of the program to create an array of manager objects
         var managerList = JSON.parse(localStorage.getItem(managerListKey));
+
+        // for each of the manager object, we compare the current user id to the manager id, and if we get a match, we redirect user to manager view.
         managerList.forEach(element => {
-            if (userID == element.ManagerID)
-                window.location.href = "builder.html";
-            else
-                window.location.href = "schedule_view.html";
+            if (userID == element.ManagerID){
+                isManager = true;
+                window.location.href = "./builder.html";
+                localStorage.setItem("isManager", true);
+            }
         });
+        
+        // if the user id didn't match any of the manager IDs, we redirect user to the employee view
+        if (!isManager)
+        {
+            window.location.href = "schedule_view.html";
+        }
     } 
 
 </script>
