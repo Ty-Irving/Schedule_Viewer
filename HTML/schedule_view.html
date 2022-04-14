@@ -113,20 +113,20 @@
 
     $(document).ready(function()
     {
-        
+        initEmployeeInfo();
         getTable();
         setUpUserInfoSessionVars();
         console.log(localStorage.getItem("user"));
-        document.getElementById("invoice-un").append(JSON.parse(localStorage.getItem("userinfo")).FName + " " + JSON.parse(localStorage.getItem("userinfo")).LName);
+        document.getElementById("invoice-un").append(getCurrentUser().FName + " " + getCurrentUser().LName);
         document.getElementById("invoice-uid").append(getUserID());
-        document.getElementById("invoice-sal").append(JSON.parse(localStorage.getItem("usersched")).Salary);
+        document.getElementById("invoice-sal").append(getEmployeeInfo().Salary);
         document.getElementById("invoice-hours").append(calculateHours());
         document.getElementById("invoice-expected").append(calculateExpectedPay());
     });
 
     function calculateExpectedPay()
     {
-        return (JSON.parse(localStorage.getItem("usersched")).Salary * calculateHours()).toFixed(2);
+        return (getEmployeeInfo().Salary * calculateHours()).toFixed(2);
     }
 
     function calculateHours()
@@ -197,7 +197,7 @@
         var userID = localStorage.getItem('userID');
         
 
-
+/*
         var settings = 
         {
             "async": true,
@@ -208,12 +208,13 @@
          $.ajax(settings).done(function (response){
             localStorage.setItem('userinfo', JSON.stringify(response));
         });
-        var userInfo = JSON.parse(localStorage.getItem('userinfo'));
-
+*/
+        var userInfo = getCurrentUser();
+        console.log(userInfo.DNo);
 
         var settings = 
         {
-            "async": true,
+            "async": false,
             "crossDomain": true,
             "url": "http://127.0.0.1:8000/API/v1/departments/"+ userInfo.DNo,
             "method": "GET",
@@ -223,6 +224,7 @@
         });
         var department = JSON.parse(localStorage.getItem('department'));
 
+        console.log(JSON.parse(localStorage.getItem("department")));
         
 
         settings = 
@@ -238,7 +240,7 @@
             "Date": date,
             "Time": time,
             "RequestedChange": CONTENT.value,
-            "EmpID": userID,
+            "EmpID": getEmployeeInfo().EmpID,
             "ScheduleID": sched.EmpScheduleID,
             "ResolvingMgrID": department.ManagerID
         }),
@@ -261,12 +263,12 @@
         var userID = localStorage.getItem('userID');
         console.log(getUserID().toString());
 
-        var employeeKey = initEmployeeInfo();
-        var sched = JSON.parse(localStorage.getItem(employeeKey));
+        // var employeeKey = initEmployeeInfo();
+        var sched = getEmployeeInfo();
 
         var settings = 
         {
-            "async": true,
+            "async": false,
             "crossDomain": true,
             "url": "http://127.0.0.1:8000/API/v1/schedules/" + sched.EmpScheduleID + "/" + lastSunday + "/" + nextSaturday,
             "method": "GET",

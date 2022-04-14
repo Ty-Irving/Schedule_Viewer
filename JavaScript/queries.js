@@ -3,6 +3,7 @@ jquery.src = "http://code.jquery.com/jquery-latest.min.js";
 document.getElementsByTagName("head")[0].appendChild(jquery);
 
 const USER_KEY = "useridentity";
+const EMPLOYEE_KEY = "employeeinfo";
 
 function initUser(username, password)
 {
@@ -49,11 +50,11 @@ function initEmployeeInfo()
         "method": "GET",
     };
      $.ajax(settings).done(function (response){
-        localStorage.setItem('usersched', JSON.stringify(response));
-        console.log(JSON.parse(localStorage.getItem("usersched")));
+        localStorage.setItem(EMPLOYEE_KEY, JSON.stringify(response));
+        console.log(JSON.parse(localStorage.getItem(EMPLOYEE_KEY)));
     });
 
-    return "usersched";
+    return EMPLOYEE_KEY;
 }
 
 function getUserID()
@@ -79,9 +80,22 @@ function isManager()
     
     return false;
 }
+
 function getCurrentUser()
 {
     console.log(localStorage.getItem(USER_KEY));
-    return localStorage.getItem(USER_KEY);
+    return JSON.parse(localStorage.getItem(USER_KEY));
 
+}
+
+function getEmployeeInfo()
+{
+    if (JSON.parse(localStorage.getItem(EMPLOYEE_KEY)) == undefined)
+    {
+        alert("Please sign in as an employee before requesting the employee info");
+    }
+    else
+    {
+        return JSON.parse(localStorage.getItem(EMPLOYEE_KEY));
+    }
 }
