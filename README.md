@@ -1,8 +1,7 @@
 # CPSC 471
 
 ## System Requirements
-> 1 </br>
-> 2
+> 1 Python 3</br>
 
 ## Installation
 The following instructions are created for Windows devices. Follow the same steps with the respective MacOS commands.
