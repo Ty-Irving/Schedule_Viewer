@@ -1,15 +1,27 @@
 # CPSC 471
 
 ## System Requirements
-> 1 </br>
-> 2
+> Python 3 </br>
+> Pip, which is included by default in Python 3.4 and later </br>
+> Visual Studio Code with the Live Server extension or similar server setup </br>
 
 ## Installation
+The following instructions are created for Windows devices. Follow the same steps with the respective MacOS commands.
 1. Clone or download the code found within the GitHub repository </br>
-1b. 
+2. Using the command prompt, change directories to .//Schedule_Viewer/REST_API
+3. Once here, use `python -m venv environment` to create an environment
+4. Next, `cd environment/Scripts` and activate by running `activate.bat`
+5. Change directories back to REST_API (`cd ../..`), and `pip install -r requirements.txt` to install dependencies 
+6. Change to the REST directory via `cd REST`, then `pip install windows-curses` and `python manage.py migrate`
+7. Finally, run the server with `python manage.py runserver`
+8. Use the Live Server extension within VS Code, or similar software, to 'Go Live'
+9. It is now possible to use the application on localhost (127.0.0.1), using index.html
 
 ## Usage
 \[All\] </br>
+The following steps can be used to experience the full functionality of the application. </br>
+These can also be found within the final report, with accompanying pictures.
+
 
 1.  dssds
   1b.  sds
