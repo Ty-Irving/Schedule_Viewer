@@ -45,72 +45,23 @@ function checkLogin()
     {
         const USER = document.getElementById("user");
         const PASS = document.getElementById("pass");
-        var userID;
-        var settings = 
-        {
-            "async": true,
-            "crossDomain": true,
-            "url": "http://127.0.0.1:8000/API/v1/login/" + USER.value,
-            "method": "GET",
-        };
-        $.ajax(settings).done(function (response){
-            localStorage.setItem('user', JSON.stringify(response));
-        });
-        let userinfo = JSON.parse(localStorage.getItem('user'))
 
-        if(userinfo.Password == PASS.value)
-        {
-            settings = 
-            {
-                "async": true,
-                "crossDomain": true,
-                "url": "http://127.0.0.1:8000/API/v1/users/",
-                "method": "GET",
-            };
-            $.ajax(settings).done(function (response){
-                localStorage.setItem('users', JSON.stringify(response));
-            });
-            let users = JSON.parse(localStorage.getItem('users'))
-            console.log(users);
-            for(var i = 0; i < users.length; i++)
-            {
-                if(USER.value == users[i].UserUsername)
-                {
-                    userID = users[i].UserId;
-                    localStorage.setItem("userID", userID);
-                }
-            }
-            getManagers();
-            let managerList = JSON.parse(localStorage.getItem('managerList'));
-            var opt =[];
-            console.log(managerList + "   " + userID);
-            if(userID == 18)
-            {
+        var userkey = initUser(USER.value, PASS.value);
+        var managerListKey = initManagerList();
+
+        alert(localStorage.getItem(userkey));
+        var userID = JSON.parse(localStorage.getItem(userkey)).UserId;
+        console.log(userID);
+
+        var managerList = JSON.parse(localStorage.getItem(managerListKey));
+        managerList.forEach(element => {
+            if (userID == element.ManagerID)
                 window.location.href = "builder.html";
-            }
             else
-            {
                 window.location.href = "schedule_view.html";
-            }
-        }
-        
+        });
     } 
-   
 
-    function getManagers()
-    {
-        
-        var settings = 
-            {
-                "async": true,
-                "crossDomain": true,
-                "url": "http://127.0.0.1:8000/API/v1/managers/",
-                "method": "GET",
-            };
-            $.ajax(settings).done(function (response){
-                localStorage.setItem('managerList', JSON.stringify(response));
-            });
-    }
 </script>
 
 
