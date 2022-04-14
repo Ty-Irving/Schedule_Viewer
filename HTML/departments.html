@@ -133,6 +133,7 @@
         var SchedID = JSON.parse(localStorage.getItem('schedID'));
         console.log(SchedID);
 
+        
         settings = 
         {
             "url": "http://127.0.0.1:8000/API/v1/employee/",
@@ -150,10 +151,11 @@
         $.ajax(settings).done(function (response) {
             console.log(response);
         });
+        
 
         settings = 
         {
-            "async": true,
+            "async": false,
             "crossDomain": true,
             "url": "http://127.0.0.1:8000/API/v1/users/" + ID,
             "method": "GET",
@@ -161,11 +163,11 @@
          $.ajax(settings).done(function (response){
             localStorage.setItem('user-main', JSON.stringify(response));
         });
-        var UserDetails = JSON.parse(localStorage.getItem('user-main'));
-
+    
+        var UserDetails = JSON.parse(localStorage.getItem("user-main"));
         settings = 
         {
-            "url": "http://127.0.0.1:8000/API/v1/users/" + ID,
+            "url": "http://127.0.0.1:8000/API/v1/users/" + UserDetails.UserId,
             "method": "PUT",
             "timeout": 0,
             "headers": {
@@ -192,7 +194,7 @@
         var obj;
         var settings = 
         {
-            "async": true,
+            "async": false,
             "crossDomain": true,
             "url": "http://127.0.0.1:8000/API/v1/managers/",
             "method": "GET",
@@ -235,7 +237,7 @@
         */
        initUserList();
 
-        
+        console.log(getUserList());
         obj = getUserList();
         var options =[], opt;
         for(var i = 0; i < obj.length; i++)
