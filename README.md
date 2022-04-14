@@ -5,8 +5,11 @@
 > 2
 
 ## Installation
+The following instructions are created for Windows devices. Follow the same steps with the respective MacOS commands.
 1. Clone or download the code found within the GitHub repository </br>
-1b. 
+2. Using the command prompt, change directories to .//CPSC_471-main/REST_API
+3. Once here, use `python -m venv environment'
+4. Next, `cd 
 
 ## Usage
 \[All\] </br>
