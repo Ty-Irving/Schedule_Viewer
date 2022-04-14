@@ -49,9 +49,9 @@ function checkLogin()
         var userkey = initUser(USER.value, PASS.value);
         var managerListKey = initManagerList();
 
-        alert(localStorage.getItem(userkey));
+        console.log("The current user is: " + localStorage.getItem(userkey));
         var userID = JSON.parse(localStorage.getItem(userkey)).UserId;
-        console.log(userID);
+        console.log("The user id is: " + userID);
 
         var managerList = JSON.parse(localStorage.getItem(managerListKey));
         managerList.forEach(element => {
