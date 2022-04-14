@@ -7,8 +7,10 @@
 The following instructions are created for Windows devices. Follow the same steps with the respective MacOS commands.
 1. Clone or download the code found within the GitHub repository </br>
 2. Using the command prompt, change directories to .//CPSC_471-main/REST_API
-3. Once here, use `python -m venv environment`
-4. Next, `cd 
+3. Once here, use `python -m venv environment` to create an environment
+4. Next, `cd environment/Scripts' and activate by running 'activate.bat'
+5. Change directories back to REST_API, 
+6. 
 
 ## Usage
 \[All\] </br>
