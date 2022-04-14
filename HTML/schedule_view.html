@@ -259,18 +259,10 @@
         var lastSunday = new Date(today.setDate(today.getDate()-today.getDay())).toISOString().slice(0, 10);
         var nextSaturday = new Date(today.setDate(today.getDate() +6)).toISOString().slice(0, 10);
         var userID = localStorage.getItem('userID');
-        var settings = 
-        {
-            "async": true,
-            "crossDomain": true,
-            "url": "http://127.0.0.1:8000/API/v1/employee/"+ getUserID(),
-            "method": "GET",
-        };
-         $.ajax(settings).done(function (response){
-            localStorage.setItem('usersched', JSON.stringify(response));
-        });
+        console.log(getUserID().toString());
 
-        var sched = JSON.parse(localStorage.getItem('usersched'));
+        var employeeKey = initEmployeeInfo();
+        var sched = JSON.parse(localStorage.getItem(employeeKey));
 
         var settings = 
         {
