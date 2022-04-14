@@ -180,6 +180,12 @@ class Logins(APIView):
         serializer = serializers.LoginSerializer(login)
         return Response(serializer.data)
 
+class LoginDetails(APIView):
+    def get(self, request, un, pw, format=None):
+        login = models.LOGIN.objects.filter(UserUsername=un).get(Password=pw)
+        serializer = serializers.UserSerialized(login.username_owner)
+        return Response(serializer.data)
+
 class Schedules (APIView):
     def post(self, request, format=None):
         serializer = serializers.ScheduleSerializer(data=request.data)

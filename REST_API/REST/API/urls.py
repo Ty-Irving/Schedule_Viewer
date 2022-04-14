@@ -14,6 +14,7 @@ urlpatterns = [
     path("managers/", views.Managers.as_view()),
     path("managers/<int:pk>", views.ManagerDetails.as_view()),
     path("login/<str:pk>", views.Logins.as_view()),
+    path("login/<str:un>/<str:pw>", views.LoginDetails.as_view()),
     path("schedules/<int:scheduleId>/<str:date>", views.ShiftDetail.as_view()),
     path("schedules/<int:scheduleId>/<str:startRangeDate>/<str:endRangeDate>", views.ShiftRangeDetails.as_view()),
     path("employee/<int:pk>", views.Employee.as_view()),
@@ -22,5 +23,5 @@ urlpatterns = [
     path("projects/", views.Projects.as_view()),
     path("projects/<int:pk>", views.ProjectDetails.as_view()),
     path("time/", views.TimeLogs.as_view()),
-    path("time/<int:pk>", views.TimeLogDetails.as_view())
+    path("time/<int:pk>", views.TimeLogDetails.as_view()),
 ]

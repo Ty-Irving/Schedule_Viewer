@@ -37,7 +37,7 @@ class USER (models.Model):
     LName = models.CharField(max_length=35)
     Location = models.CharField(max_length=255)
     DNo = models.ForeignKey(DEPARTMENT, on_delete=models.CASCADE, default=None, null=True, blank=True)
-    UserUsername = models.ForeignKey(LOGIN, on_delete=models.CASCADE)
+    UserUsername = models.OneToOneField(LOGIN, on_delete=models.CASCADE, unique=True, related_name="username_owner")
 
     class Meta:
         app_label='API'
