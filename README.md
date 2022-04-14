@@ -3,7 +3,7 @@
 ## System Requirements
 > Python 3 </br>
 > Pip, which is included by default in Python 3.4 and later </br>
-> Visual Studio Code with the Live Server extension or similar server software </br>
+> Visual Studio Code with the Live Server extension or similar server setup </br>
 
 ## Installation
 The following instructions are created for Windows devices. Follow the same steps with the respective MacOS commands.
