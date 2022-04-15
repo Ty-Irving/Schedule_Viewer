@@ -13,7 +13,7 @@ The following instructions are created for Windows devices. Follow the same step
 4. Next, `cd environment/Scripts` and activate by running `activate.bat`
 5. Change directories back to REST_API (`cd ../..`), and `pip install -r requirements.txt` to install dependencies 
 6. Change to the REST directory via `cd REST`, then `pip install windows-curses` and `python manage.py migrate`
-7. Finally, run the server with `python manage.py runserver`
+7. Finally, run the server with `python manage.py runserver` (Port should automatically be 8000 if not it should be changed to port 8000)
 8. Use the Live Server extension within VS Code, or similar software, to 'Go Live'
 9. It is now possible to use the application on localhost (127.0.0.1), using index.html
 
