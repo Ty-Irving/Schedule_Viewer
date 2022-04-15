@@ -131,7 +131,7 @@
             localStorage.setItem('schedID', JSON.stringify(response));
             createEmployee(ID, response.ScheduleID);
             setDNo(ID, Department);
-            location.reload();
+
         });
         var SchedID = JSON.parse(localStorage.getItem('schedID'));
         console.log(SchedID);
