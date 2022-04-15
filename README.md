@@ -22,7 +22,7 @@ The following steps can be used to experience the full functionality of the appl
 These can also be found within the final report (with accompanying pictures). </br>
 
 \[All\] </br>
-1.  Logging In: enter the credentials to a valid account stored within the database
+1.  Logging In: enter the credentials to a valid account stored within the database </br>
 1b. If an account does not exist, press the “Create Account” button and enter the information required to create an account
 
 
