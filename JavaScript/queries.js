@@ -10,6 +10,7 @@ const EMPLOYEE_KEY = "employeeinfo";
 const MANAGER_KEY = "manageridentity";
 const MANAGER_LIST_KEY = "Managers";
 const DEPARTMENT_LIST_KEY = "Departments";
+const REQUEST_LIST_KEY = "requests";
 
 // INITIALIZATION  QUERIES ------------------------------------------------------------------------------------------------------------------------------------
 
@@ -132,6 +133,22 @@ function initDepartmentList()
     });
 
     return DEPARTMENT_LIST_KEY;
+}
+
+function initRequestList()
+{
+    var settings = 
+    {
+        "async": false,
+        "crossDomain": true,
+        "url": "http://127.0.0.1:8000/API/v1/requests/",
+        "method": "GET",
+    };
+    $.ajax(settings).done(function (response){
+        localStorage.setItem(REQUEST_LIST_KEY, JSON.stringify(response));
+        console.log(localStorage.getItem(REQUEST_LIST_KEY));
+    });
+    requests = JSON.parse(localStorage.getItem('requests'))
 }
 
 // GETTERS ---------------------------------------------------------------------------------------------------------------------------------------------------------
