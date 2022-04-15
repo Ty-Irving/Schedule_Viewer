@@ -50,6 +50,11 @@ function checkLogin()
         // initializing the session variable containing the current user information
         var userkey = initUser(USER.value, PASS.value);
 
+        if (localStorage.getItem(userkey) == undefined)
+        {
+            alert("This user does not exit");
+        }
+
         //initializing the serrion variable containing the list of all the managers
         var managerListKey = initManagerList();
 
