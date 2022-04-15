@@ -24,4 +24,5 @@ urlpatterns = [
     path("projects/<int:pk>", views.ProjectDetails.as_view()),
     path("time/", views.TimeLogs.as_view()),
     path("time/<int:pk>", views.TimeLogDetails.as_view()),
+    path("works/", views.WorksOn.as_view())
 ]

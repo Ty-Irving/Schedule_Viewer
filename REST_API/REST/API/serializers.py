@@ -50,3 +50,8 @@ class TimeLogSerializer (serializers.ModelSerializer):
     class Meta:
         model = models.TIME_LOG
         fields = '__all__'
+
+class WorksOnSerializer (serializers.ModelSerializer):
+    class Meta:
+        model = models.WORKS_ON
+        fields = '__all__'

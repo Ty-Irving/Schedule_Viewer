@@ -35,8 +35,11 @@
             <p>Start Time</p>
             <input type="time" id="start-time"/>
             <p>End Time</p>
-            <input type="time"/>
+            <input type="time" id="end-time"/>
+            <br/>
+            <button onclick="createCompleteTimeLog()">Submit</button>
         </div>
+        <h2>________________</h2>
         <br/>
         <button onclick="createTimeLog()" id="start-shift">Start</button>
         <button onclick="closeOpenedTimeLog()" id="end-shift">Stop</button>
@@ -164,6 +167,9 @@
             var endTime = "" + dateObj.getHours() + ":" + dateObj.getMinutes() + ":" + dateObj.getSeconds();
             var userID = getUserID();
             var startTime = openedSession[0].StartTime;
+
+            // populateWorksOn();
+
                 settings = 
             {
                 "url": "http://127.0.0.1:8000/API/v1/time/" + userID,
@@ -190,6 +196,106 @@
             alert("There are no sessions to close!");
         }
     }
+
+    function createCompleteTimeLog()
+    {
+        var starttime = document.getElementById("start-time").value;
+        var endtime = document.getElementById("end-time").value;
+        var dateObj = new Date();
+        var date = "" + dateObj.getFullYear() + "-" + dateObj.getMonth() + "-" + dateObj.getDate();
+
+        if (starttime == "" || endtime == "")
+        {
+            alert("Please ensure that all fields are filled before submitting a time log");
+        }
+        else
+        {
+            //populateWorksOn();
+
+            var settings = 
+            {
+                "url": "http://127.0.0.1:8000/API/v1/time/",
+                "method": "POST",
+                "timeout": 0,
+                "headers": {
+                "Content-Type": "application/json"
+            },
+            "data": JSON.stringify(
+            {
+                "StartTime": starttime,
+                "EndTime": endtime,
+                "Date": date,
+                "EmpID": getUserID(),
+            }),
+            }
+            $.ajax(settings).done(function (response) {
+            console.log(response);
+            });
+
+
+        }
+    }
+
+    /*
+    function populateWorksOn() // this is a "if we have the time" thing
+    {
+        var projectid = document.getElementById("proj").value;
+
+        if (projectid == null)
+        {
+            alert("Please specify the project you are working on");
+        }
+        else
+        {
+            var settings = 
+            {
+                "url": "http://127.0.0.1:8000/API/v1/works/",
+                "method": "POST",
+                "timeout": 0,
+                "headers": {
+                "Content-Type": "application/json"
+            },
+            "data": JSON.stringify(
+            {
+                "EmpID": getUserID(),
+                "ProjectID": projectid
+            }),
+            }
+            $.ajax(settings).done(function (response) {
+            console.log(response);
+            });
+        }
+    }
+    */
+
+    function makeProjectList()
+    {
+
+    
+        $("#proj").empty();
+        var obj;
+        const DATALIST = document.getElementById("proj");
+        var settings = 
+        {
+            "async": false,
+            "crossDomain": true,
+            "url": "http://127.0.0.1:8000/API/v1/projects/",
+            "method": "GET",
+        };
+         $.ajax(settings).done(function (response){
+            localStorage.setItem('Projects', JSON.stringify(response));
+        });
+
+        obj = JSON.parse(localStorage.getItem('Projects'));
+        var options =[], opt;
+        for(var i = 0; i < obj.length; i++)
+        {
+            opt = document.createElement('option');
+            opt.text = opt.text + obj[i].ProjectId + " - " + obj[i].ProjectName;
+            DATALIST.appendChild(opt);
+        }
+    
+    }
 </script>
 
 
@@ -209,7 +315,7 @@
     .main {
         background-color: #3c454f;
         width: 400px;
-        height: 400px;
+        height: 580px;
         text-align: center;
         margin-top: 10%;
         margin-left: 35%;
