@@ -1,4 +1,4 @@
-# CPSC 471
+# Schedule Viewer
 
 ## System Requirements
 > Python 3 </br>
