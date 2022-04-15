@@ -52,6 +52,7 @@
     {
         //var requests = initRequestList();
         getRequest();
+        requests = JSON.parse(localStorage.getItem("requests"));
     });
 
 
@@ -85,24 +86,26 @@
         $.ajax(settings).done(function (response){
             localStorage.setItem('requests', JSON.stringify(response));
         });
-        requests = JSON.parse(localStorage.getItem('requests'))
-        changeRequest(requests);
+        console.log(localStorage.getItem("requests"));
+        // requests = JSON.parse(localStorage.getItem('requests'))
+        changeRequest();
     }
 
-    function changeRequest(requests)
+    function changeRequest()
     {
+        requests = JSON.parse(localStorage.getItem("requests"));
         const REQUESTMESSAGE = document.getElementById("request-no");
         const REQUESTUSER = document.getElementById("request-user");
         const REQUESTCONTENT = document.getElementById("request-content");
         const REQUESTNEXT = document.getElementById("button-request");
+
+        console.log(requests);
 
         if (requests != undefined)
         {
             if(count < requests.length)
             {
                 console.log(requests.length);
-
-                
                 REQUESTMESSAGE.innerHTML = requests[count].id;
                 var settings = 
                 {
@@ -114,14 +117,15 @@
                 $.ajax(settings).done(function (response){
                     localStorage.setItem('request-user', JSON.stringify(response));
                 });
-                var userinfo = JSON.parse(localStorage.getItem('user'))
-                REQUESTUSER.innerHTML = getCurrentUser().FName + " " + getCurrentUser().LName;
+                var userinfo = JSON.parse(localStorage.getItem('request-user'));
+                REQUESTUSER.innerHTML = userinfo.FName + " " + userinfo.LName;
                 REQUESTCONTENT.innerHTML = requests[count].RequestedChange;
                 count++;
             }
             else
             {
-                count = 0;
+                if (requests.length > 0)
+                    window.location.reload();
                 REQUESTNEXT.style.cursor = "default";
                 REQUESTNEXT.style.opacity = 0;
                 document.getElementById('delete-request').disabled = true;
