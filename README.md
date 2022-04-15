@@ -18,22 +18,27 @@ The following instructions are created for Windows devices. Follow the same step
 9. It is now possible to use the application on localhost (127.0.0.1), using index.html
 
 ## Usage
-\[All\] </br>
 The following steps can be used to experience the full functionality of the application. </br>
-These can also be found within the final report, with accompanying pictures.
+These can also be found within the final report (with accompanying pictures). </br>
 
+\[All\] </br>
+1.  Logging In: enter the credentials to a valid account stored within the database
+1b. If an account does not exist, press the “Create Account” button and enter the information required to create an account
 
-1.  dssds
-  1b.  sds
-2. fd
-3.  fdfd
-4.  fill this in
 
 \[Employee\] </br>
-1.
+1. View Schedule: Once logged in as an employee, the “Schedule View” page will greet the worker. This page displays all of the hours of this employee for the week. Their estimated earnings are also displayed.
+2. Making a Request: By selecting the chat bubble icon in the bottom-right corner, an employee is able to make a request. Use the “Submit” button to finalise this request. “Close” will minimise the popup without sending a request.
+3. Updating Personal Information: In order to update personal information, the employee must enter their username and password. This page is accessed by selecting the “Update Info” section of the header. Once the employee has validated their identity, it is possible to change all information (barring user ID and username, as these are unique and essential to the system).
+4. Time Log: A key part of the system, any employee is able to use this functionality to track the hours that they have worked. A project must be selected, followed by the start and end time of the employee’s work day. 
 
 \[Manager\] </br>
-1.
+1. Building a Schedule: Once logged into a manager account, the user is welcomed by the “Builder” page. Here, a manager is able to select an employee, select a day, and choose the employee’s hours for that day. 
+2. Managing Requests: Requests can be viewed by managers on the “Requests” page. Requests can be denied with the “Request Denied” button, or accepted with the “Schedule Changed” button.
+3. Adding Departments: It is possible to create new departments by selecting the “Add New Department” button. It is possible to choose a name and select a manager for the newly created department.
+4. Editing and Deleting Departments: Editing a department will allow a manager to add employees. To do this, simply select employees from the dropdown.
+Deleting a department is as simple as selecting the “Delete” button displayed next to any department. All users within that department will have it removed from their profile.
+
 
 ## Version History
 *v1.0* <br/>
