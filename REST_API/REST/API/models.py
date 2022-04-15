@@ -55,7 +55,7 @@ class MANAGER (models.Model):
         return self.ManagerID.FName + ". ManagerID: " + str(self.ManagerID)
 
 class EMPLOYEE (models.Model):
-    EmpID = models.OneToOneField('API.USER', on_delete=models.CASCADE, primary_key=True)
+    EmpID = models.OneToOneField('API.USER', on_delete=models.CASCADE, primary_key=True, related_name="eid")
     EmpScheduleID = models.ForeignKey('API.SCHEDULE', on_delete=models.CASCADE)
     Salary = models.FloatField(null=False, default=15.0)
 
