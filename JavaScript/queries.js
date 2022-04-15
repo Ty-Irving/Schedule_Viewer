@@ -7,6 +7,7 @@ document.getElementsByTagName("head")[0].appendChild(jquery);
 const USER_KEY = "useridentity";
 const USER_LIST_KEY = "users-department";
 const EMPLOYEE_KEY = "employeeinfo";
+const EMPLOYEE_LIST_KEY = "employee_list";
 const MANAGER_KEY = "manageridentity";
 const MANAGER_LIST_KEY = "Managers";
 const DEPARTMENT_LIST_KEY = "Departments";
@@ -100,9 +101,26 @@ function initManagerInfo()
     return MANAGER_KEY;
 }
 
+function initEmployeeList()
+{
+    var settings = 
+    {
+        "async": false,
+        "crossDomain": true,
+        "url": "http://127.0.0.1:8000/API/v1/employee/",
+        "method": "GET",
+    };
+     $.ajax(settings).done(function (response){
+        localStorage.setItem(EMPLOYEE_LIST_KEY, JSON.stringify(response));
+        console.log(localStorage.getItem(EMPLOYEE_LIST_KEY));
+    });
+
+    return MANAGER_LIST_KEY;
+}
+
 function initiManagerList()
 {
-    $("#manager-id").empty();
+    // $("#manager-id").empty();
     var settings = 
     {
         "async": false,
@@ -115,7 +133,7 @@ function initiManagerList()
         console.log(localStorage.getItem(MANAGER_LIST_KEY));
     });
 
-    return MANAGER_LIST_KEY;
+    return EMPLOYEE_LIST_KEY;
 }
 
 function initDepartmentList()
@@ -244,6 +262,23 @@ function isManager()
     }
     
     return false;
+}
+
+function isEmployee()
+{
+    var isemp = false;
+    initEmployeeList();
+    var empList = JSON.parse(localStorage.getItem(EMPLOYEE_LIST_KEY));
+
+    empList.array.forEach(element => {
+        if (getUserID() == element.EmpID)
+        {
+            return true;
+        }
+    });
+
+    return isemp;
+
 }
 
 

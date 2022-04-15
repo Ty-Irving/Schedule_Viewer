@@ -47,6 +47,11 @@ class Employees (APIView):
                 employeeSerializer.save()
                 return Response(data=serializers.data, status=status.HTTP_201_CREATED)
             return Response(data=employeeSerializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        
+        def get(self, request, format=None):
+            employees = models.EMPLOYEE.objects.all()
+            serializer = serializers.EmployeeSerializer(employees, many=True)
+            return Response(serializer.data)
 
 class UserDetails (APIView):
     def get(self, request, pk, format=None):

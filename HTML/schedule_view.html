@@ -104,16 +104,24 @@
     const REQUEST_PROMPT = document.getElementById("request_box");
     const REQUEST_IMG = document.getElementById("request_img");
 
+    /*
     window.onload = function() {
     if(!window.location.hash) {
         window.location = window.location + '#loaded';
         window.location.reload();
     }
     }
+    */
 
     $(document).ready(function()
     {
         initEmployeeInfo();
+
+        if (!isEmployee())
+        {
+            alert("This user is not an employee, please contact your manager so that you may be assigned to a department");
+        }
+
         getTable();
         setUpUserInfoSessionVars();
         console.log(localStorage.getItem("user"));
@@ -185,6 +193,41 @@
             localStorage.setItem('userinfo', JSON.stringify(response));
         });
     }
+
+    function initEmployeeList()
+    {
+        var settings = 
+        {
+            "async": false,
+            "crossDomain": true,
+            "url": "http://127.0.0.1:8000/API/v1/employee/",
+            "method": "GET",
+        };
+        $.ajax(settings).done(function (response){
+            localStorage.setItem("EMPLOYEE_LIST_KEY", JSON.stringify(response));
+            console.log(localStorage.getItem("EMPLOYEE_LIST_KEY"));
+        });
+
+        return "MANAGER_LIST_KEY";
+    }
+
+    function isEmployee()
+    {
+        var isEmp = false;
+        initEmployeeList();
+        var empList = JSON.parse(localStorage.getItem("EMPLOYEE_LIST_KEY"));
+
+        empList.forEach(element => {
+            if (getUserID() == element.EmpID)
+            {
+                isEmp = true;
+            }
+        });
+
+        return isEmp;
+
+    }
+    
 
     function makeRequest()
     {
