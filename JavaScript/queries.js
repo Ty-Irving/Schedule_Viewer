@@ -273,13 +273,12 @@ function isEmployee()
     empList.forEach(element => {
         if (getUserID() == element.EmpID)
         {
-            return true;
+            isemp = true;
         }
     });
 
     return isemp;
 
 }
-
 
 
