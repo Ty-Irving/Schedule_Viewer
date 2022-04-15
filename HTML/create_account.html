@@ -126,9 +126,19 @@
             }
             $.ajax(settings).done(function (response) {
                 localStorage.setItem("new_user", response.UserId);
+                createManager();
             console.log(response);
             });
 
+            // grabUsers = JSON.parse(localStorage.getItem("users"));   // Testing
+            // console.log(grabUsers);                                  // Testing
+
+            alert("Account Creation Successful");                   // Let user know account was made
+            window.location.href = "index.html";                    // Change back to login window
+        }
+
+        function createManager()
+        {
             // makes the new user into a manager
             if (is_manager)
             {
@@ -149,13 +159,6 @@
                 console.log(response);
                 });
             }
-            
-
-            // grabUsers = JSON.parse(localStorage.getItem("users"));   // Testing
-            // console.log(grabUsers);                                  // Testing
-
-            alert("Account Creation Successful");                   // Let user know account was made
-            window.location.href = "index.html";                    // Change back to login window
         }
     }
 </script>
