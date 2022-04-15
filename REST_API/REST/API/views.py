@@ -61,10 +61,17 @@ class UserDetails (APIView):
     
     def put(self, request, pk, format=None):
         user = models.USER.objects.get(pk=pk)
+        login = user.UserUsername
+        login.Password = request.data.get("Password")
         print(user) # These are here for error checking
         serializer = serializers.UserSerialized(user, data=request.data)
+        login_serializer = serializers.LoginSerializer(login, data=request.data)
         if serializer.is_valid():
             print(request.data) # These are here for error checking
+            if login_serializer.is_valid():
+                login_serializer.save()
+            else:
+                return Response(login_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
             serializer.save()
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
