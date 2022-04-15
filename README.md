@@ -8,7 +8,7 @@
 ## Installation
 The following instructions are created for Windows devices. Follow the same steps with the respective MacOS commands.
 1. Clone or download the code found within the GitHub repository </br>
-2. Using the command prompt, change directories to .//Schedule_Viewer/REST_API
+2. Using the command prompt, change directories to .//Schedule_Viewer-main/REST_API
 3. Once here, use `python -m venv environment` to create an environment
 4. Next, `cd environment/Scripts` and activate by running `activate.bat`
 5. Change directories back to REST_API (`cd ../..`), and `pip install -r requirements.txt` to install dependencies 
