@@ -186,7 +186,7 @@ function getEmployeeInfo()
 {
     if (JSON.parse(localStorage.getItem(EMPLOYEE_KEY)) == undefined)
     {
-        alert("Please sign in as an employee before requesting the employee info");
+        alert("This user is not an employee, please sign in as an employee before requesting the employee info");
     }
     else
     {

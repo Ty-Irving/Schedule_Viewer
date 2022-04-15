@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../CSS/styles.css">
-    <!--<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>-->
+    <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
     <script type="text/javascript" src="../JavaScript/queries.js"></script>
     <title>Time Keeping</title>
 </head>
@@ -50,7 +50,6 @@
             getProjects();
             getOngoingTimeLog();
             UpdateButtonVisibility();
-            console.log(localStorage.getItem("UserID"));
         });
     
     function UpdateButtonVisibility()
@@ -72,6 +71,7 @@
     {
         console.log(localStorage.getItem("UserID"));
         console.log(document.getElementById("start-time").value)
+
         getOngoingTimeLog();
         console.log(JSON.parse(localStorage.getItem("OpenedTimeLog")).length);
     }
@@ -124,7 +124,7 @@
             {
                 "StartTime": startTime,
                 "Date": date,
-                "EmpID": uid,
+                "EmpID": getUserID(),
             }),
             }
             $.ajax(settings).done(function (response) {
@@ -141,12 +141,12 @@
 
     function getOngoingTimeLog()
     {
-        var userID = localStorage.getItem("UserID");
+        var userID = getUserID();
         var settings = 
         {
-            "async": true,
+            "async": false,
             "crossDomain": true,
-            "url": "http://127.0.0.1:8000/API/v1/time/" + userID,
+            "url": "http://127.0.0.1:8000/API/v1/time/" + getUserID(),
             "method": "GET",
         };
         $.ajax(settings).done(function (response){
@@ -162,7 +162,7 @@
             var openedSession = JSON.parse(localStorage.getItem("OpenedTimeLog"));
             var dateObj = new Date();
             var endTime = "" + dateObj.getHours() + ":" + dateObj.getMinutes() + ":" + dateObj.getSeconds();
-            var userID = localStorage.getItem("UserID");
+            var userID = getUserID();
             var startTime = openedSession[0].StartTime;
                 settings = 
             {
