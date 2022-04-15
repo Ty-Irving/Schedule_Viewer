@@ -34,6 +34,22 @@ function initUser(username, password)
     return USER_KEY;
 }
 
+function refreshUser(id)
+{
+    var settings = 
+    {
+        "async": false,
+        "crossDomain": true,
+        "url": "http://127.0.0.1:8000/API/v1/users/" + id,
+        "method": "GET",
+    };
+    $.ajax(settings).done(function (response){
+        localStorage.setItem(USER_KEY, JSON.stringify(response));
+
+    });
+    console.log(localStorage.getItem(USER_KEY));
+}
+
 function initUserList()
 {
     var settings = 
