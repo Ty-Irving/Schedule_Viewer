@@ -83,7 +83,7 @@
 
         var settings = 
         {
-            "async": true,
+            "async": false,
             "crossDomain": true,
             "url": "http://127.0.0.1:8000/API/v1/login/" + USER.value,
             "method": "GET",
@@ -97,7 +97,7 @@
         {
             settings = 
             {
-                "async": true,
+                "async": false,
                 "crossDomain": true,
                 "url": "http://127.0.0.1:8000/API/v1/users/",
                 "method": "GET",
@@ -163,6 +163,7 @@
         console.log(response);
         });
         showStartup();
+        window.location.href =  "./index.html"; // this is so that all the information can be updated when the user has to sign in again
     }
 
 
