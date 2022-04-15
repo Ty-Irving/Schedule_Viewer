@@ -270,7 +270,7 @@ function isEmployee()
     initEmployeeList();
     var empList = JSON.parse(localStorage.getItem(EMPLOYEE_LIST_KEY));
 
-    empList.array.forEach(element => {
+    empList.forEach(element => {
         if (getUserID() == element.EmpID)
         {
             return true;

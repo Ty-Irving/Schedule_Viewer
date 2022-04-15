@@ -50,6 +50,13 @@
 <script type="text/javascript">
         $(document).ready(function()
         {
+
+            if (!isEmployee())
+            {
+                alert("Unable to use this feature since this user is not an Employee. Please contact manager to assign you a department");
+                window.location.href = "./schedule_view.html";
+            }
+
             getProjects();
             getOngoingTimeLog();
             UpdateButtonVisibility();
