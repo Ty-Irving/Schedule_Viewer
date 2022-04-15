@@ -77,7 +77,8 @@
         var error_msg = document.getElementById('err_msg');
         var submit = document.getElementById('createacc');
         var infopanel = document.getElementById('main-box');
-        var is_manager = document.getElementById('manager-select').checked;
+
+        var UserID;
 
         
         // Get all existing usernames
@@ -125,14 +126,30 @@
             }),
             }
             $.ajax(settings).done(function (response) {
-                localStorage.setItem("new_user", response.UserId);
+                localStorage.setItem("new_user", JSON.stringify(response));
+                UserID = response.UserID;
+                createManager();
+                alert(UserID);
             console.log(response);
             });
 
             // makes the new user into a manager
+
+            // grabUsers = JSON.parse(localStorage.getItem("users"));   // Testing
+            // console.log(grabUsers);                                  // Testing
+
+            alert("Account Creation Successful");                   // Let user know account was made
+            window.location.href = "index.html";                    // Change back to login window
+        }
+
+        function createManager()
+        {
+            var is_manager = document.getElementById('manager-select').checked;
+
             if (is_manager)
             {
                 alert("This user has been created as a manager");
+                alert(localStorage.getItem("new_user"));
                 var settings = {
                 "url": "http://127.0.0.1:8000/API/v1/managers/",
                 "method": "POST",
@@ -142,20 +159,14 @@
                 },
                 "data": JSON.stringify(
                 {
-                    "ManagerID":localStorage.getItem("new_user")
+                    "ManagerID":JSON.parse(localStorage.getItem("new_user")).UserId
                 }),
                 }
                 $.ajax(settings).done(function (response) {
+                alert("ok");
                 console.log(response);
                 });
             }
-            
-
-            // grabUsers = JSON.parse(localStorage.getItem("users"));   // Testing
-            // console.log(grabUsers);                                  // Testing
-
-            alert("Account Creation Successful");                   // Let user know account was made
-            window.location.href = "index.html";                    // Change back to login window
         }
     }
 </script>
