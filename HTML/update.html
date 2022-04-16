@@ -3,18 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--meta name="viewport" content="width=device-width, initial-scale=1.0"-->
     <link rel = "stylesheet" href = "../CSS/styles.css"/>
     <title>Update Info</title>
     <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script type="text/javascript" src="../JavaScript/queries.js"></script>
 </head>
 <body>
     <div class = "header">
         <a href = "../HTML/timekeep.html"><img class = "header-img" src = "https://cdn.iconscout.com/icon/free/png-256/timer-83-470366.png"></a>
         <div class = "header-info">
-            <a class = "header-link" href="../HTML/update.html" style = "background-color: rgba(0, 136, 107, 0.768)"> UPDATE INFO</a>
-            <a class = "header-link" href = "../HTML/schedule_view.html">SCHEDULE VIEW</a>
-            <a class = "header-link" href = "../HTML/index.html">LOGOUT</a>
+            <a class = "header-link" href="../HTML/update.html" style = "background-color: rgba(0, 136, 107, 0.768)"> UPDATE INFO
+            </a><a class = "header-link" href = "../HTML/schedule_view.html">SCHEDULE VIEW
+            </a><a class = "header-link" href = "../HTML/index.html">LOGOUT</a>
         </div>
     </div>
 
@@ -47,6 +48,7 @@
 
 
 <script type="text/javascript">
+    //
     const STARTUP = document.getElementById("startup");
     const UPDATE = document.getElementById("update");
     var userID;
@@ -81,7 +83,7 @@
 
         var settings = 
         {
-            "async": true,
+            "async": false,
             "crossDomain": true,
             "url": "http://127.0.0.1:8000/API/v1/login/" + USER.value,
             "method": "GET",
@@ -95,7 +97,7 @@
         {
             settings = 
             {
-                "async": true,
+                "async": false,
                 "crossDomain": true,
                 "url": "http://127.0.0.1:8000/API/v1/users/",
                 "method": "GET",
@@ -142,7 +144,7 @@
 
         settings = 
         {
-            "url": "http://127.0.0.1:8000/API/v1/users/" + userID,
+            "url": "http://127.0.0.1:8000/API/v1/users-login/" + userID,
             "method": "PUT",
             "timeout": 0,
             "headers": {
@@ -161,6 +163,7 @@
         console.log(response);
         });
         showStartup();
+        window.location.href =  "./index.html"; // this is so that all the information can be updated when the user has to sign in again
     }
 
 

@@ -6,6 +6,7 @@ from . import views
 urlpatterns = [
     path("users/", views.Users.as_view()),
     path("users/<int:pk>", views.UserDetails.as_view()),
+    path("users-login/<int:pk>", views.UserAndLoginDetails.as_view()),
     path("requests/", views.Requests.as_view()),
     path("requests/<int:pk>", views.RequestDetails.as_view()),
     path("schedules/", views.Shifts.as_view()),
@@ -14,6 +15,7 @@ urlpatterns = [
     path("managers/", views.Managers.as_view()),
     path("managers/<int:pk>", views.ManagerDetails.as_view()),
     path("login/<str:pk>", views.Logins.as_view()),
+    path("login/<str:un>/<str:pw>", views.LoginDetails.as_view()),
     path("schedules/<int:scheduleId>/<str:date>", views.ShiftDetail.as_view()),
     path("schedules/<int:scheduleId>/<str:startRangeDate>/<str:endRangeDate>", views.ShiftRangeDetails.as_view()),
     path("employee/<int:pk>", views.Employee.as_view()),
@@ -23,4 +25,5 @@ urlpatterns = [
     path("projects/<int:pk>", views.ProjectDetails.as_view()),
     path("time/", views.TimeLogs.as_view()),
     path("time/<int:pk>", views.TimeLogDetails.as_view())
+    # path("works/", views.WorksOn.as_view())
 ]

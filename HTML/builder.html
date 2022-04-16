@@ -3,21 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--meta name="viewport" content="width=device-width, initial-scale=1.0"-->
     <link rel = "stylesheet" href = "../CSS/styles.css"/>
     <title>Schedule Builder</title>
     <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script type="text/javascript" src="../JavaScript/queries.js"></script>
 </head>
 <body>
 
     <div class = "header">
-        <a href = "../HTML/builder.html"><img class = "header-img" src = "https://cdn.iconscout.com/icon/free/png-256/timer-83-470366.png"></a>
+        <a href = "../HTML/builder.html"><img class = "header-img" src = "https://cdn.iconscout.com/icon/free/png-256/timer-83-470366.png">
+        </a>
         <div class = "header-info">
-            <a class = "header-link" href = "../HTML/projects.html">MANAGE PROJECTS</a>
-            <a class = "header-link" id = "header-link-1" href = "../HTML/departments.html">MANAGE DEPT</a>
-            <a class = "header-link" id = "header-link-2" href = "../HTML/requests.html">REQUESTS</a>
-            <a class = "header-link" id = "header-link-3" href = "../HTML/builder.html" style = "background-color: rgba(0, 136, 107, 0.768)">BUILDER</a>
-            <a class = "header-link" id = "header-link-4" href = "../HTML/index.html">LOGOUT</a>
+            <a class = "header-link" href = "../HTML/projects.html">MANAGE PROJECTS
+            </a><a class = "header-link" id = "header-link-1" href = "../HTML/departments.html">MANAGE DEPT
+            </a><a class = "header-link" id = "header-link-2" href = "../HTML/requests.html">REQUESTS
+            </a><a class = "header-link" id = "header-link-3" href = "../HTML/builder.html" style = "background-color: rgba(0, 136, 107, 0.768)">BUILDER
+            </a><a class = "header-link" id = "header-link-4" href = "../HTML/index.html">LOGOUT</a>
         </div>
     </div>
 
@@ -49,6 +51,7 @@
             <option>16:00:00</option>
             <option>17:00:00</option>
             <option>18:00:00</option>
+            <option>19:00:00</option>
         </datalist>
 
         <button onclick="postSchedule()">SCHEDULE</button>
@@ -73,10 +76,17 @@
     $(document).ready(function()
     {
         getDataList();
+
+        alert(isManager());
+        initManagerInfo();
+        console.log("Current Manager PK is: " + getManagerID());
+
     });
 
     function hideStartup()
     {
+        var selected = document.getElementById("username").value;
+        localStorage.setItem("userkey", parseInt(selected));
         STARTUP.style.display='none';
         showBuilder();
     }
@@ -104,7 +114,7 @@
         const DATALIST = document.getElementById("user");
         var settings = 
         {
-            "async": true,
+            "async": false,
             "crossDomain": true,
             "url": "http://127.0.0.1:8000/API/v1/users/",
             "method": "GET",
@@ -132,12 +142,12 @@
         const START = document.getElementById("start");
         const END = document.getElementById("end");
 
-        var ID = USER.value.split(" ", 1);
+        // var ID = USER.value.split(" ", 1);
         var settings = 
         {
-            "async": true,
+            "async": false,
             "crossDomain": true,
-            "url": "http://127.0.0.1:8000/API/v1/employee/"+ID,
+            "url": "http://127.0.0.1:8000/API/v1/employee/"+localStorage.getItem("userkey"),
             "method": "GET",
         };
          $.ajax(settings).done(function (response){

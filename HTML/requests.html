@@ -3,20 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--meta name="viewport" content="width=device-width, initial-scale=1.0"-->
     <link rel = "stylesheet" href = "../CSS/styles.css"/>
+    <script type="text/javascript" src="../JavaScript/queries.js"></script>
     <title>Requests</title>
     <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+
 </head>
 <body>
     <div class = "header">
         <a href = "../HTML/builder.html"><img class = "header-img" src = "https://cdn.iconscout.com/icon/free/png-256/timer-83-470366.png"></a>
         <div class = "header-info">
-            <a class = "header-link" href = "../HTML/projects.html">MANAGE PROJECTS</a>
-            <a class = "header-link" id = "header-link-1" href = "../HTML/departments.html">MANAGE DEPT</a>
-            <a class = "header-link" id = "header-link-2" style = "background-color: rgba(0, 136, 107, 0.768)" href = "../HTML/requests.html">REQUESTS</a>
-            <a class = "header-link" id = "header-link-3" href = "../HTML/builder.html">BUILDER</a>
-            <a class = "header-link" id = "header-link-4" href = "../HTML/index.html">LOGOUT</a>
+            <a class = "header-link" href = "../HTML/projects.html">MANAGE PROJECTS
+            </a><a class = "header-link" id = "header-link-1" href = "../HTML/departments.html">MANAGE DEPT
+            </a><a class = "header-link" id = "header-link-2" style = "background-color: rgba(0, 136, 107, 0.768)" href = "../HTML/requests.html">REQUESTS
+            </a><a class = "header-link" id = "header-link-3" href = "../HTML/builder.html">BUILDER
+            </a><a class = "header-link" id = "header-link-4" href = "../HTML/index.html">LOGOUT</a>
         </div>
     </div>
 
@@ -28,14 +30,14 @@
                 <div class="table-header" style="grid-column: span 2"><p>Content</p></div>
             
         
-                <div class="table-cell"><p id = "request-no">1</p></div>
-                <div class="table-cell" style="grid-row: 4;"><p id = "request-user">Bobby bob</p></div>
-                <div class="table-cell" style="grid-row: span 3; grid-column: span 2;"><p id = "request-content">I cant work on Sundays</p></div>
+                <div class="table-cell"><p id = "request-no">N/A</p></div>
+                <div class="table-cell" style="grid-row: 4;"><p id = "request-user">N/A</p></div>
+                <div class="table-cell" style="grid-row: span 3; grid-column: span 2;"><p id = "request-content">There are no outstanding requests</p></div>
             
             </div>
 
-            <button class="request-button" onclick = "deleteRequest()">Request Denied</button>
-            <button class="request-button" onclick = "deleteRequest()">Schedule Changed</button>
+            <button class="request-button" onclick = "deleteRequest()" id="delete-request">Delete Request</button>
+            <button class="request-button" onclick = "changeSchedule()" id="change-schedule">Schedule Changed</button>
             <button class="request-button" onclick = "changeRequest()" id = button-request>Next Request</button>
         </div> 
     </div>
@@ -48,7 +50,9 @@
 
     $(document).ready(function()
     {
+        //var requests = initRequestList();
         getRequest();
+        requests = JSON.parse(localStorage.getItem("requests"));
     });
 
 
@@ -71,9 +75,10 @@
 
     function getRequest()
     {
+     
         var settings = 
         {
-            "async": true,
+            "async": false,
             "crossDomain": true,
             "url": "http://127.0.0.1:8000/API/v1/requests/",
             "method": "GET",
@@ -81,42 +86,73 @@
         $.ajax(settings).done(function (response){
             localStorage.setItem('requests', JSON.stringify(response));
         });
-        requests = JSON.parse(localStorage.getItem('requests'))
+        console.log(localStorage.getItem("requests"));
+        // requests = JSON.parse(localStorage.getItem('requests'))
         changeRequest();
     }
 
     function changeRequest()
     {
-        if(count < requests.length)
+        requests = JSON.parse(localStorage.getItem("requests"));
+        const REQUESTMESSAGE = document.getElementById("request-no");
+        const REQUESTUSER = document.getElementById("request-user");
+        const REQUESTCONTENT = document.getElementById("request-content");
+        const REQUESTNEXT = document.getElementById("button-request");
+
+        console.log(requests);
+
+        if (requests != undefined)
         {
-            
-            const REQUESTMESSAGE = document.getElementById("request-no");
-            const REQUESTUSER = document.getElementById("request-user");
-            const REQUESTCONTENT = document.getElementById("request-content");
-            
-            REQUESTMESSAGE.innerHTML = requests[count].id;
-            var settings = 
+            if(count < requests.length)
             {
-                "async": true,
-                "crossDomain": true,
-                "url": "http://127.0.0.1:8000/API/v1/users/" + requests[count].EmpID,
-                "method": "GET",
-            };
-            $.ajax(settings).done(function (response){
-                localStorage.setItem('request-user', JSON.stringify(response));
-            });
-            var userinfo = JSON.parse(localStorage.getItem('user'))
-            REQUESTUSER.innerHTML = userinfo.FName + " " + userinfo.LName;
-            REQUESTCONTENT.innerHTML = requests[count].RequestedChange;
-            count++;
+                console.log(requests.length);
+                REQUESTMESSAGE.innerHTML = requests[count].id;
+                var settings = 
+                {
+                    "async": false,
+                    "crossDomain": true,
+                    "url": "http://127.0.0.1:8000/API/v1/users/" + requests[count].EmpID,
+                    "method": "GET",
+                };
+                $.ajax(settings).done(function (response){
+                    localStorage.setItem('request-user', JSON.stringify(response));
+                });
+                var userinfo = JSON.parse(localStorage.getItem('request-user'));
+                REQUESTUSER.innerHTML = userinfo.FName + " " + userinfo.LName;
+                REQUESTCONTENT.innerHTML = requests[count].RequestedChange;
+                count++;
+            }
+            else
+            {
+                if (requests.length > 0)
+                    window.location.reload();
+                REQUESTNEXT.style.cursor = "default";
+                REQUESTNEXT.style.opacity = 0;
+                document.getElementById('delete-request').disabled = true;
+                document.getElementById('delete-request').style.opacity = '0.5';
+                document.getElementById('change-schedule').disabled = true;
+                document.getElementById('change-schedule').style.opacity = '0.5';
+            }
         }
         else
         {
-            const REQUESTMESSAGE = document.getElementById("button-request");
-            REQUESTMESSAGE.style.cursor = "default";
-            REQUESTMESSAGE.style.opacity = 0;
-            
+            REQUESTUSER.innerHTML = "N/A";
+            REQUESTCONTENT.innerHTML = "End of requests";
+            REQUESTMESSAGE.innerHTML = "N/A";
+
+            REQUESTNEXT.style.cursor = "default";
+            REQUESTNEXT.style.opacity = 0;
+            document.getElementById('delete-request').disabled = true;
+            document.getElementById('delete-request').style.opacity = '0.5';
+            document.getElementById('change-schedule').disabled = true;
+            document.getElementById('change-schedule').style.opacity = '0.5';
         }
+    }
+
+    function changeSchedule()
+    {
+        deleteRequest()
+        window.location.href = "./builder.html";
     }
 
 </script>

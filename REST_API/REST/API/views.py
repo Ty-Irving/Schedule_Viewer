@@ -47,23 +47,45 @@ class Employees (APIView):
                 employeeSerializer.save()
                 return Response(data=serializers.data, status=status.HTTP_201_CREATED)
             return Response(data=employeeSerializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        
+        def get(self, request, format=None):
+            employees = models.EMPLOYEE.objects.all()
+            serializer = serializers.EmployeeSerializer(employees, many=True)
+            return Response(serializer.data)
 
 class UserDetails (APIView):
     def get(self, request, pk, format=None):
         user = models.USER.objects.get(pk=pk)
         serializer = serializers.UserSerialized(user)
         return Response(serializer.data)
-    
+
     def put(self, request, pk, format=None):
         user = models.USER.objects.get(pk=pk)
-        print(user) # These are here for error checking
         serializer = serializers.UserSerialized(user, data=request.data)
         if serializer.is_valid():
+            serializer.save()
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+
+
+class UserAndLoginDetails (APIView):
+    def put(self, request, pk, format=None):
+        user = models.USER.objects.get(pk=pk)
+        login = user.UserUsername
+        login.Password = request.data.get("Password")
+        print(user) # These are here for error checking
+        serializer = serializers.UserSerialized(user, data=request.data)
+        login_serializer = serializers.LoginSerializer(login, data=request.data)
+        if serializer.is_valid():
             print(request.data) # These are here for error checking
+            if login_serializer.is_valid():
+                login_serializer.save()
+            else:
+                return Response(login_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
             serializer.save()
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-    
+
 class Requests (APIView):
     def get(self, request, format=None):
         request = models.REQUEST.objects.all()
@@ -167,6 +189,13 @@ class Managers (APIView):
         manager = models.MANAGER.objects.all()
         serializer = serializers.ManagerSerializer(manager, many=True)
         return Response(serializer.data)
+    
+    def post(self, request, format=None):
+        serializer = serializers.ManagerSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(request.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class ManagerDetails (APIView):
     def get(self, request, pk, format=None):
@@ -178,6 +207,12 @@ class Logins(APIView):
     def get(self, request, pk, format=None):
         login = models.LOGIN.objects.get(pk=pk)
         serializer = serializers.LoginSerializer(login)
+        return Response(serializer.data)
+
+class LoginDetails(APIView):
+    def get(self, request, un, pw, format=None):
+        login = models.LOGIN.objects.filter(UserUsername=un).get(Password=pw)
+        serializer = serializers.UserSerialized(login.username_owner)
         return Response(serializer.data)
 
 class Schedules (APIView):
@@ -230,3 +265,11 @@ class TimeLogDetails (APIView):
             serializer.save()
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+# class WorksOn (APIView):
+#     def post(self, request, format=None):
+#         serializer = serializers.WorksOnSerializer(data=request.data)
+#         if serializer.is_valid():
+#             serializer.save()
+#             return Response(request.data, status=status.HTTP_201_CREATED)
+#         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

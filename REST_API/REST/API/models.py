@@ -37,7 +37,7 @@ class USER (models.Model):
     LName = models.CharField(max_length=35)
     Location = models.CharField(max_length=255)
     DNo = models.ForeignKey(DEPARTMENT, on_delete=models.CASCADE, default=None, null=True, blank=True)
-    UserUsername = models.ForeignKey(LOGIN, on_delete=models.CASCADE)
+    UserUsername = models.OneToOneField(LOGIN, on_delete=models.CASCADE, unique=True, related_name="username_owner")
 
     class Meta:
         app_label='API'
@@ -55,7 +55,7 @@ class MANAGER (models.Model):
         return self.ManagerID.FName + ". ManagerID: " + str(self.ManagerID)
 
 class EMPLOYEE (models.Model):
-    EmpID = models.OneToOneField('API.USER', on_delete=models.CASCADE, primary_key=True)
+    EmpID = models.OneToOneField('API.USER', on_delete=models.CASCADE, primary_key=True, related_name="eid")
     EmpScheduleID = models.ForeignKey('API.SCHEDULE', on_delete=models.CASCADE)
     Salary = models.FloatField(null=False, default=15.0)
 

@@ -5,10 +5,11 @@
 <head>	
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--meta name="viewport" content="width=device-width, initial-scale=1.0"-->
     <link rel = "stylesheet" href = "../CSS/styles.css"/>
     <title>Create Account</title>
     <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script type="text/javascript" src="../JavaScript/queries.js"></script>
 </head>
 
 
@@ -34,6 +35,12 @@
         <input id = "pwd-confirm" type = 'password'></input>
         <p id = "err_msg"></p>
         <button class = "create" id = "createacc" onclick = "create_account()">Create Account</button>
+        <div class="check-label">
+        <label>
+            Manager: <input type="checkbox" id="manager-select"/>
+        </label>
+  
+        </div>
     </div>
 
 </body>
@@ -70,6 +77,8 @@
         var error_msg = document.getElementById('err_msg');
         var submit = document.getElementById('createacc');
         var infopanel = document.getElementById('main-box');
+
+        var UserID;
 
         
         // Get all existing usernames
@@ -117,15 +126,56 @@
             }),
             }
             $.ajax(settings).done(function (response) {
+                localStorage.setItem("new_user", JSON.stringify(response));
+                UserID = response.UserID;
+                createManager();
+                alert(UserID);
             console.log(response);
             });
-            
 
             // grabUsers = JSON.parse(localStorage.getItem("users"));   // Testing
             // console.log(grabUsers);                                  // Testing
 
             alert("Account Creation Successful");                   // Let user know account was made
             window.location.href = "index.html";                    // Change back to login window
+        }
+
+        function createManager()
+        {
+            // makes the new user into a manager
+
+            // grabUsers = JSON.parse(localStorage.getItem("users"));   // Testing
+            // console.log(grabUsers);                                  // Testing
+
+            alert("Account Creation Successful");                   // Let user know account was made
+            window.location.href = "index.html";                    // Change back to login window
+        }
+
+        function createManager()
+        {
+            var is_manager = document.getElementById('manager-select').checked;
+
+            if (is_manager)
+            {
+                alert("This user has been created as a manager");
+                alert(localStorage.getItem("new_user"));
+                var settings = {
+                "url": "http://127.0.0.1:8000/API/v1/managers/",
+                "method": "POST",
+                "timeout": 0,
+                "headers": {
+                "Content-Type": "application/json"
+                },
+                "data": JSON.stringify(
+                {
+                    "ManagerID":JSON.parse(localStorage.getItem("new_user")).UserId
+                }),
+                }
+                $.ajax(settings).done(function (response) {
+                alert("ok");
+                console.log(response);
+                });
+            }
         }
     }
 </script>
@@ -153,7 +203,7 @@
     .info-panel {
         opacity: 90%;
         width: 600px;
-        height: 100ex;
+        height: 110ex;
         background-color: whitesmoke;
         margin-left: auto;
         margin-right: auto;
@@ -223,5 +273,23 @@
         color: black;
         margin-top: 10%;
     }
+
+    input[type=checkbox] {
+            vertical-align: middle;
+            position: relative;
+            bottom: 5px;
+        }
+          
+    label {
+        margin-top: 1rem;
+        display: block;
+    }
+
+    input[type=checkbox]
+    {
+        width: 20px;
+        height: 20px;
+    }
+    
 
 </style>

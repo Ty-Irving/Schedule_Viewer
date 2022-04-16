@@ -3,10 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--meta name="viewport" content="width=device-width, initial-scale=1.0"-->
     <link rel = "stylesheet" href = "../CSS/styles.css"/>
     <title>Log In</title>
     <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script type="text/javascript" src="../JavaScript/queries.js"></script>
 </head>
 
 <body class="bg">
@@ -44,72 +45,50 @@ function checkLogin()
     {
         const USER = document.getElementById("user");
         const PASS = document.getElementById("pass");
-        var userID;
-        var settings = 
-        {
-            "async": true,
-            "crossDomain": true,
-            "url": "http://127.0.0.1:8000/API/v1/login/" + USER.value,
-            "method": "GET",
-        };
-        $.ajax(settings).done(function (response){
-            localStorage.setItem('user', JSON.stringify(response));
-        });
-        let userinfo = JSON.parse(localStorage.getItem('user'))
+        var isManager = false;
 
-        if(userinfo.Password == PASS.value)
+        // initializing the session variable containing the current user information
+        var userkey = initUser(USER.value, PASS.value);
+
+        if (localStorage.getItem(userkey) == undefined)
         {
-            settings = 
-            {
-                "async": true,
-                "crossDomain": true,
-                "url": "http://127.0.0.1:8000/API/v1/users/",
-                "method": "GET",
-            };
-            $.ajax(settings).done(function (response){
-                localStorage.setItem('users', JSON.stringify(response));
-            });
-            let users = JSON.parse(localStorage.getItem('users'))
-            console.log(users);
-            for(var i = 0; i < users.length; i++)
-            {
-                if(USER.value == users[i].UserUsername)
-                {
-                    userID = users[i].UserId;
-                    localStorage.setItem("userID", userID);
-                }
-            }
-            getManagers();
-            let managerList = JSON.parse(localStorage.getItem('managerList'));
-            var opt =[];
-            console.log(managerList + "   " + userID);
-            if(userID == 18)
-            {
-                window.location.href = "builder.html";
-            }
-            else
-            {
-                window.location.href = "schedule_view.html";
-            }
+            alert("This user does not exit");
         }
-        
-    } 
-   
 
-    function getManagers()
-    {
+        //initializing the serrion variable containing the list of all the managers
+        var managerListKey = initManagerList();
+
+        console.log("The current user is: " + localStorage.getItem(userkey));
         
-        var settings = 
-            {
-                "async": true,
-                "crossDomain": true,
-                "url": "http://127.0.0.1:8000/API/v1/managers/",
-                "method": "GET",
-            };
-            $.ajax(settings).done(function (response){
-                localStorage.setItem('managerList', JSON.stringify(response));
-            });
-    }
+        // storing the user id of the user currently signed in, into a local varible (this will be set into a session variable after)
+        var userID = JSON.parse(localStorage.getItem(userkey)).UserId;
+
+        // stroing the userid into a session variable (*** there will be a helper function "getUserID()" that will retrieve the user id whenever we need it ***)
+        // this is just so that we don't have to remember "userid" thtoughout the program
+        localStorage.setItem("userid", userID);
+
+        console.log("The user id is: " + userID);
+
+        // we're parsing the managerList initialized at the beginning of the program to create an array of manager objects
+        var managerList = JSON.parse(localStorage.getItem(managerListKey));
+
+        // for each of the manager object, we compare the current user id to the manager id, and if we get a match, we redirect user to manager view.
+        managerList.forEach(element => {
+            if (userID == element.ManagerID){
+                initManagerInfo();
+                isManager = true;
+                window.location.href = "./builder.html";
+                localStorage.setItem("isManager", true);
+            }
+        });
+        
+        // if the user id didn't match any of the manager IDs, we redirect user to the employee view
+        if (!isManager)
+        {
+            window.location.href = "schedule_view.html";
+        }
+    } 
+
 </script>
 
 
