@@ -104,14 +104,6 @@
     const REQUEST_PROMPT = document.getElementById("request_box");
     const REQUEST_IMG = document.getElementById("request_img");
 
-    /*
-    window.onload = function() {
-    if(!window.location.hash) {
-        window.location = window.location + '#loaded';
-        window.location.reload();
-    }
-    }
-    */
 
     $(document).ready(function()
     {
@@ -193,42 +185,7 @@
             localStorage.setItem('userinfo', JSON.stringify(response));
         });
     }
-/*
-    function initEmployeeList()
-    {
-        var settings = 
-        {
-            "async": false,
-            "crossDomain": true,
-            "url": "http://127.0.0.1:8000/API/v1/employee/",
-            "method": "GET",
-        };
-        $.ajax(settings).done(function (response){
-            localStorage.setItem("EMPLOYEE_LIST_KEY", JSON.stringify(response));
-            console.log(localStorage.getItem("EMPLOYEE_LIST_KEY"));
-        });
 
-        return "MANAGER_LIST_KEY";
-    }
-
-    function isEmployee()
-    {
-        var isEmp = false;
-        initEmployeeList();
-        var empList = JSON.parse(localStorage.getItem("EMPLOYEE_LIST_KEY"));
-
-        empList.forEach(element => {
-            if (getUserID() == element.EmpID)
-            {
-                isEmp = true;
-            }
-        });
-
-        return isEmp;
-
-    }
-    
-*/
     function makeRequest()
     {
         var date = new Date().toISOString().slice(0, 10);
@@ -240,18 +197,6 @@
         var userID = localStorage.getItem('userID');
         
 
-/*
-        var settings = 
-        {
-            "async": true,
-            "crossDomain": true,
-            "url": "http://127.0.0.1:8000/API/v1/users/"+ getUserID(),
-            "method": "GET",
-        };
-         $.ajax(settings).done(function (response){
-            localStorage.setItem('userinfo', JSON.stringify(response));
-        });
-*/
         var userInfo = getCurrentUser();
         console.log(userInfo.DNo);
 
