@@ -57,14 +57,6 @@
     }
     }
     
-    // var password_confirm = document.getElementById('pwd-confirm');
-    // var submit = document.getElementById('createacc');
-        
-    // password_confirm.addEventListener('keydown', function(event) {
-    //     if (event.keycode == 13) {
-    //         submit.click();
-    //     }
-    // });
     
     function create_account()
     {
@@ -101,7 +93,7 @@
             error_msg.innerText = "Passwords Do Not Match";
             submit.style.marginTop = "30px";
             infopanel.style.animation = "alert-box 2s 2";  
-        } else if(allUsernames.includes(username)) {                                   // Ensure usernames are unique - ONLY to let..
+        } else if(allUsernames.includes(username)) {                             // Ensure usernames are unique - ONLY to let..
             error_msg.innerText = "Username Already In Use";                     // ...user know, the server already handles this itself
             submit.style.marginTop = "30px";
             infopanel.style.animation = "alert-box 2s 2";
