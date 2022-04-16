@@ -206,29 +206,6 @@
             localStorage.setItem('user-main', JSON.stringify(response));
             updateDNo(response, department);
         });
-    
-        /*
-        settings = 
-        {
-            "url": "http://127.0.0.1:8000/API/v1/users/" + UserDetails.UserId,
-            "method": "PUT",
-            "timeout": 0,
-            "headers": {
-            "Content-Type": "application/json"
-        },
-        "data": JSON.stringify(
-        {
-            "FName": UserDetails.FName,
-            "LName": UserDetails.LName,
-            "Location": UserDetails.Location,
-            "UserUsername": UserDetails.UserUsername,
-            "DNo": Department
-        }),
-        }
-        $.ajax(settings).done(function (response) {
-            console.log(response);
-        });
-        */
     }
 
     function updateDNo(user, deparmtent)
@@ -340,24 +317,7 @@
         }
     }
 
-
-   /* function getrequest()
-    {
-        var settings = 
-        {
-            "async": false,
-            "crossDomain": true,
-            "url": "http://127.0.0.1:8000/API/v1/departments/",
-            "method": "GET",
-        };
-         $.ajax(settings).done(function (response){
-            localStorage.setItem('Departments', JSON.stringify(response));
-        });
-
-        return JSON.parse(localStorage.getItem('Departments'));
-
-    }
-    */
+    
     function departments()
     {
         var data = getDepartmentList();
