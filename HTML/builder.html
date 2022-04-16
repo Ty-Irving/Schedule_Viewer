@@ -51,6 +51,7 @@
             <option>16:00:00</option>
             <option>17:00:00</option>
             <option>18:00:00</option>
+            <option>19:00:00</option>
         </datalist>
 
         <button onclick="postSchedule()">SCHEDULE</button>
@@ -84,6 +85,8 @@
 
     function hideStartup()
     {
+        var selected = document.getElementById("username").value;
+        localStorage.setItem("userkey", parseInt(selected));
         STARTUP.style.display='none';
         showBuilder();
     }
@@ -111,7 +114,7 @@
         const DATALIST = document.getElementById("user");
         var settings = 
         {
-            "async": true,
+            "async": false,
             "crossDomain": true,
             "url": "http://127.0.0.1:8000/API/v1/users/",
             "method": "GET",
@@ -144,7 +147,7 @@
         {
             "async": false,
             "crossDomain": true,
-            "url": "http://127.0.0.1:8000/API/v1/employee/"+getUserID(),
+            "url": "http://127.0.0.1:8000/API/v1/employee/"+localStorage.getItem("userkey"),
             "method": "GET",
         };
          $.ajax(settings).done(function (response){

@@ -129,11 +129,15 @@
         }
         $.ajax(settings).done(function (response) {
             localStorage.setItem('schedID', JSON.stringify(response));
+            createEmployee(ID, response.ScheduleID);
+            setDNo(ID, Department);
+
         });
         var SchedID = JSON.parse(localStorage.getItem('schedID'));
         console.log(SchedID);
 
-        
+
+        /*
         settings = 
         {
             "url": "http://127.0.0.1:8000/API/v1/employee/",
@@ -151,8 +155,9 @@
         $.ajax(settings).done(function (response) {
             console.log(response);
         });
-        
+        */
 
+        /*
         settings = 
         {
             "async": false,
@@ -185,7 +190,91 @@
         $.ajax(settings).done(function (response) {
             console.log(response);
         });
+        */
+    }
 
+    function setDNo(id, department)
+    {
+        settings = 
+        {
+            "async": false,
+            "crossDomain": true,
+            "url": "http://127.0.0.1:8000/API/v1/users/" + id,
+            "method": "GET",
+        };
+         $.ajax(settings).done(function (response){
+            localStorage.setItem('user-main', JSON.stringify(response));
+            updateDNo(response, department);
+        });
+    
+        /*
+        settings = 
+        {
+            "url": "http://127.0.0.1:8000/API/v1/users/" + UserDetails.UserId,
+            "method": "PUT",
+            "timeout": 0,
+            "headers": {
+            "Content-Type": "application/json"
+        },
+        "data": JSON.stringify(
+        {
+            "FName": UserDetails.FName,
+            "LName": UserDetails.LName,
+            "Location": UserDetails.Location,
+            "UserUsername": UserDetails.UserUsername,
+            "DNo": Department
+        }),
+        }
+        $.ajax(settings).done(function (response) {
+            console.log(response);
+        });
+        */
+    }
+
+    function updateDNo(user, deparmtent)
+    {
+        settings = 
+        {
+            "url": "http://127.0.0.1:8000/API/v1/users/" + user.UserId,
+            "method": "PUT",
+            "timeout": 0,
+            "headers": {
+            "Content-Type": "application/json"
+        },
+        "data": JSON.stringify(
+        {
+            "FName": user.FName,
+            "LName": user.LName,
+            "Location": user.Location,
+            "UserUsername": user.UserUsername,
+            "DNo": deparmtent
+        }),
+        }
+        $.ajax(settings).done(function (response) {
+            console.log(response);
+            refreshUser(user.UserId);
+        });
+    }
+
+    function createEmployee(id, scheduleID)
+    {
+        settings = 
+        {
+            "url": "http://127.0.0.1:8000/API/v1/employee/",
+            "method": "POST",
+            "timeout": 0,
+            "headers": {
+            "Content-Type": "application/json"
+        },
+        "data": JSON.stringify(
+        {
+            "EmpID": id,
+            "EmpScheduleID": scheduleID
+        }),
+        }
+        $.ajax(settings).done(function (response) {
+            console.log(response);
+        });
     }
 
     function getDataList()

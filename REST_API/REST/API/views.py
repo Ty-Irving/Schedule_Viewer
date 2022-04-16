@@ -58,7 +58,17 @@ class UserDetails (APIView):
         user = models.USER.objects.get(pk=pk)
         serializer = serializers.UserSerialized(user)
         return Response(serializer.data)
+
+    def put(self, request, pk, format=None):
+        user = models.USER.objects.get(pk=pk)
+        serializer = serializers.UserSerialized(user, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
+
+
+class UserAndLoginDetails (APIView):
     def put(self, request, pk, format=None):
         user = models.USER.objects.get(pk=pk)
         login = user.UserUsername
@@ -75,7 +85,7 @@ class UserDetails (APIView):
             serializer.save()
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-    
+
 class Requests (APIView):
     def get(self, request, format=None):
         request = models.REQUEST.objects.all()
