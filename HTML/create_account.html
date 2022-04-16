@@ -129,7 +129,6 @@
                 localStorage.setItem("new_user", JSON.stringify(response));
                 UserID = response.UserID;
                 createManager();
-                alert(UserID);
             console.log(response);
             });
 
@@ -158,7 +157,6 @@
             if (is_manager)
             {
                 alert("This user has been created as a manager");
-                alert(localStorage.getItem("new_user"));
                 var settings = {
                 "url": "http://127.0.0.1:8000/API/v1/managers/",
                 "method": "POST",
@@ -172,7 +170,6 @@
                 }),
                 }
                 $.ajax(settings).done(function (response) {
-                alert("ok");
                 console.log(response);
                 });
             }
